@@ -206,6 +206,13 @@
       border-radius: 100px; transition: all 0.3s; margin-left: 12px; position: relative; z-index: 2;
     }
     .btn-sec:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
+    .project-switcher { display: flex; gap: 16px; justify-content: center; margin-bottom: 48px; position: relative; z-index: 2; }
+    .ps-card { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 12px; text-decoration: none; border: 1px solid rgba(255,255,255,0.08); transition: all 0.25s; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.45); }
+    .ps-card:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .ps-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .ps-dot.blue { background: #0057FF; box-shadow: 0 0 8px #0057FF; }
+    .ps-dot.violet { background: #6D28D9; box-shadow: 0 0 8px #6D28D9; }
+    .ps-card.active { background: rgba(0,87,255,0.12); border-color: rgba(0,87,255,0.3); color: #60A5FA; }
 
     .bottom { background: var(--dark-2); padding: 26px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
     .bottom a { color: rgba(255,255,255,0.3); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
@@ -227,6 +234,7 @@
       .pr-desc { display: none; }
       .g2-mob { grid-template-columns: 1fr 1fr; }
       .closing { padding: 80px 24px; }
+      .project-switcher { flex-direction: column; align-items: center; }
       .bottom { padding: 20px 24px; }
     }
   </style>
@@ -234,12 +242,12 @@
 <body>
 
   <nav>
-    <a href="#" class="nav-logo">Lajavi Mohite</a>
+    <a href="index.html" class="nav-logo">Lajavi Mohite</a>
     <div class="nav-links">
-      <a href="#">Work</a>
-      <a href="#">About</a>
-      <a href="#">Resume</a>
-      <a href="#" class="nav-cta">Let's Talk</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="contact.html">Let's Talk</a>
+      <a href="#" class="nav-cta">Resume</a>
     </div>
   </nav>
 
@@ -415,14 +423,18 @@
     <div class="c-glow"></div>
     <h2 class="c-title fade-up">Let's build something<br><span>intelligent</span> together.</h2>
     <p class="c-sub fade-up">Currently open to senior product design roles focused on AI, personalisation, and complex system design.</p>
+    <div class="project-switcher fade-up">
+      <a href="#" class="ps-card active"><span class="ps-dot blue"></span> Business Workspace</a>
+      <a href="smart-forms.html" class="ps-card"><span class="ps-dot violet"></span> Smart Forms &times; CRM</a>
+      <a href="#" class="ps-card"><span class="ps-dot" style="background:#10B981;box-shadow:0 0 8px #10B981;"></span> Product Inventory</a>
+    </div>
     <div class="fade-up">
-      <a href="#" class="btn-prim">Get in touch &#8594;</a>
-      <a href="#" class="btn-sec">View all work</a>
+      <a href="contact.html" class="btn-prim">Get in touch &#8594;</a>
     </div>
   </div>
 
   <div class="bottom">
-    <a href="#">&#8592; Back to Work</a>
+    <a href="index.html#work">&#8592; Back to Work</a>
     <a href="smart-forms.html">Smart Forms &#8594;</a>
   </div>
 
