@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Business Workspace — Lajavi Mohite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F8FC;
+      --bg-2: #FFFFFF;
+      --dark: #080D1A;
+      --dark-2: #0E1528;
+      --blue: #0057FF;
+      --blue-light: #EEF3FF;
+      --blue-mid: #C2D4FF;
+      --text: #080D1A;
+      --text-muted: #6B7280;
+      --border: #E5E8F0;
+      --poppins: 'Poppins', sans-serif;
+      --syne: 'Syne', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--poppins);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 64px;
+      background: rgba(247,248,252,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--syne); font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 13px; font-weight: 400; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta { background: var(--blue); color: #fff !important; padding: 8px 20px; border-radius: 100px; font-size: 12px !important; font-weight: 500 !important; transition: opacity 0.2s; }
+    .nav-cta:hover { opacity: 0.85; }
+
+    .hero {
+      min-height: 100vh; display: grid; grid-template-rows: 1fr auto;
+      padding: 140px 64px 80px; position: relative; overflow: hidden; background: var(--dark);
+    }
+    .hero-glow { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0,87,255,0.22) 0%, transparent 70%); top: -150px; right: -100px; pointer-events: none; }
+    .hero-glow-2 { position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,87,255,0.1) 0%, transparent 70%); bottom: 0; left: 200px; pointer-events: none; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,87,255,0.15); border: 1px solid rgba(0,87,255,0.3); color: #7AABFF;
+      padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; width: fit-content; margin-bottom: 32px;
+    }
+    .hero-tag::before { content:''; width:6px; height:6px; background:#0057FF; border-radius:50%; box-shadow: 0 0 8px #0057FF; }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-title {
+      font-family: var(--syne); font-size: clamp(52px, 8vw, 100px);
+      font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; color: #fff; margin-bottom: 28px;
+    }
+    .hero-title .blue { color: var(--blue); }
+    .hero-title .outline { -webkit-text-stroke: 1px rgba(255,255,255,0.2); color: transparent; }
+    .hero-desc { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.45); max-width: 480px; line-height: 1.85; }
+    .hero-meta-row {
+      display: flex; gap: 48px; position: relative; z-index: 2;
+      padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .hero-meta-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 6px; }
+    .hero-meta-value { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.8); }
+    .scroll-hint {
+      position: absolute; bottom: 36px; right: 64px; z-index: 2;
+      display: flex; align-items: center; gap: 12px;
+      color: rgba(255,255,255,0.22); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .scroll-hint::after { content:''; width:40px; height:1px; background:rgba(255,255,255,0.15); }
+
+    .video-section { padding: 80px 64px; background: var(--dark-2); }
+    .video-inner {
+      position: relative; border-radius: 20px; overflow: hidden;
+      max-width: 760px; margin: 0 auto;
+      box-shadow: 0 0 0 1px rgba(0,87,255,0.18), 0 60px 120px rgba(0,0,0,0.5);
+    }
+    .video-inner video { width: 100%; display: block; }
+    .video-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 36px;
+      background: rgba(10,15,30,0.85); backdrop-filter: blur(8px);
+      display: flex; align-items: center; padding: 0 16px; gap: 6px;
+    }
+    .dot { width:10px; height:10px; border-radius:50%; }
+    .dot:nth-child(1){background:#FF5F57;} .dot:nth-child(2){background:#FEBC2E;} .dot:nth-child(3){background:#28C840;}
+    .video-caption { margin-top:18px; text-align:center; font-size:12px; color:rgba(255,255,255,0.22); letter-spacing:0.08em; text-transform:uppercase; }
+
+    section { padding: 120px 64px; }
+    section.light { background: var(--bg-2); }
+    section.dark { background: var(--dark); color: #fff; }
+    section.dark-2 { background: var(--dark-2); color: #fff; }
+
+    .label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 20px;
+    }
+    .label::before { content:''; width:20px; height:2px; background:var(--blue); border-radius:2px; }
+
+    .h2 {
+      font-family: var(--syne); font-size: clamp(30px, 4vw, 54px);
+      font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 20px;
+    }
+    .h2 span { color: var(--blue); }
+    section.dark .h2, section.dark-2 .h2 { color: #fff; }
+    section.dark .h2 span, section.dark-2 .h2 span { color: #7AABFF; }
+
+    .body-text { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--text-muted); max-width: 560px; }
+    section.dark .body-text, section.dark-2 .body-text { color: rgba(255,255,255,0.4); }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .big-q {
+      font-family: var(--syne); font-size: clamp(18px, 2vw, 26px); font-weight: 600; line-height: 1.5;
+      padding: 40px 36px; background: var(--blue-light); border-left: 3px solid var(--blue);
+      border-radius: 0 16px 16px 0; color: var(--text);
+    }
+    .big-q em { color: var(--blue); font-style: normal; }
+
+    .personas { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 52px; }
+    .persona {
+      background: var(--bg-2); border-radius: 20px; padding: 40px;
+      border: 1px solid var(--border); position: relative; overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .persona:hover { transform: translateY(-5px); box-shadow: 0 24px 60px rgba(0,87,255,0.09); }
+    .persona::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--blue); }
+    .p-num { font-family: var(--syne); font-size: 60px; font-weight: 800; color: var(--blue-mid); line-height: 1; margin-bottom: 20px; }
+    .p-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); background: var(--blue-light); padding: 4px 10px; border-radius: 100px; width: fit-content; margin-bottom: 10px; }
+    .p-name { font-family: var(--syne); font-size: 20px; font-weight: 700; margin-bottom: 14px; }
+    .p-quote { font-size: 15px; font-style: italic; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; padding-left: 14px; border-left: 2px solid var(--blue-mid); }
+    .p-need { font-size: 13px; color: var(--text-muted); background: var(--bg); padding: 12px 14px; border-radius: 8px; }
+
+    .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 52px; border-radius: 16px; overflow: hidden; }
+    .value { padding: 44px 32px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.05); transition: background 0.3s; }
+    .value:hover { background: rgba(0,87,255,0.08); }
+    .v-n { font-family: var(--syne); font-size: 12px; font-weight: 700; color: var(--blue); letter-spacing: 0.1em; margin-bottom: 18px; }
+    .v-title { font-family: var(--syne); font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.3; }
+    .v-desc { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.38); line-height: 1.8; }
+
+    .principles { margin-top: 52px; }
+    .principle { display: grid; grid-template-columns: 60px 220px 1fr; gap: 32px; align-items: start; padding: 32px 0; border-bottom: 1px solid var(--border); }
+    .principle:first-child { padding-top: 0; }
+    .pr-n { font-family: var(--syne); font-size: 12px; font-weight: 700; color: var(--blue); padding-top: 3px; letter-spacing: 0.08em; }
+    .pr-title { font-family: var(--syne); font-size: 16px; font-weight: 600; line-height: 1.4; }
+    .pr-desc { font-size: 14px; font-weight: 300; color: var(--text-muted); line-height: 1.8; }
+
+    .mock {
+      background: linear-gradient(135deg, #EEF3FF 0%, #E0E8FF 100%);
+      border-radius: 16px; border: 2px dashed var(--blue-mid);
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      gap: 10px; color: #7AABFF; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .mock::before { content: '+'; font-size: 28px; opacity: 0.4; font-weight: 300; }
+    .mock.dm { background: rgba(0,87,255,0.05); border-color: rgba(0,87,255,0.15); color: rgba(255,255,255,0.25); }
+    .mock-half { width: 100%; aspect-ratio: 4/3; }
+    .mock-mobile { width: 100%; aspect-ratio: 9/19; }
+
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 52px; }
+    .g2-mob { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .mockup-img { width: 100%; border-radius: 16px; display: block; box-shadow: 0 24px 60px rgba(0,87,255,0.08); }
+    .mockup-img-full { width: 100%; border-radius: 16px; display: block; margin-top: 52px; box-shadow: 0 24px 60px rgba(0,87,255,0.08); }
+
+    .learnings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 52px; }
+    .learning {
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 20px; padding: 36px 30px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .learning:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,87,255,0.07); }
+    .l-icon { width: 44px; height: 44px; background: var(--blue-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 20px; }
+    .l-text { font-size: 15px; font-weight: 300; color: var(--text-muted); line-height: 1.8; }
+
+    .closing { background: var(--dark); padding: 160px 64px; text-align: center; position: relative; overflow: hidden; }
+    .c-glow { position: absolute; width: 800px; height: 800px; background: radial-gradient(circle, rgba(0,87,255,0.14) 0%, transparent 65%); left: 50%; top: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+    .c-title { font-family: var(--syne); font-size: clamp(36px, 5vw, 68px); font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.1; margin-bottom: 18px; position: relative; z-index: 2; }
+    .c-title span { color: var(--blue); }
+    .c-sub { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.38); max-width: 440px; margin: 0 auto 48px; position: relative; z-index: 2; }
+    .btn-prim {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 36px; background: var(--blue); color: #fff;
+      font-family: var(--poppins); font-size: 14px; font-weight: 500;
+      text-decoration: none; border-radius: 100px; transition: all 0.3s; position: relative; z-index: 2;
+    }
+    .btn-prim:hover { background: #0048DB; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,87,255,0.4); }
+    .btn-sec {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 36px; color: rgba(255,255,255,0.45);
+      font-family: var(--poppins); font-size: 14px; font-weight: 400;
+      text-decoration: none; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px; transition: all 0.3s; margin-left: 12px; position: relative; z-index: 2;
+    }
+    .btn-sec:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
+
+    .bottom { background: var(--dark-2); padding: 26px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .bottom a { color: rgba(255,255,255,0.3); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .bottom a:hover { color: #fff; }
+
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); }
+    .fade-up.in { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-cta { display: none; }
+      .hero { padding: 120px 24px 60px; }
+      .hero-meta-row { flex-wrap: wrap; gap: 24px; }
+      .scroll-hint { display: none; }
+      .video-section { padding: 40px 24px; }
+      section { padding: 80px 24px; }
+      .two-col, .personas, .values, .g2, .learnings { grid-template-columns: 1fr; }
+      .principle { grid-template-columns: 40px 1fr; }
+      .pr-desc { display: none; }
+      .g2-mob { grid-template-columns: 1fr 1fr; }
+      .closing { padding: 80px 24px; }
+      .bottom { padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">Lajavi Mohite</a>
+    <div class="nav-links">
+      <a href="#">Work</a>
+      <a href="#">About</a>
+      <a href="#">Resume</a>
+      <a href="#" class="nav-cta">Let's Talk</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow-2"></div>
+    <div class="hero-content fade-up">
+      <div class="hero-tag">Case Study — AI Product Design</div>
+      <h1 class="hero-title">
+        Business<br>
+        <span class="blue">Workspace</span><br>
+        <span class="outline">Platform</span>
+      </h1>
+      <p class="hero-desc">An intelligent all-in-one platform that uses AI to personalise each founder's journey — from building their first website to scaling their customer base.</p>
+    </div>
+    <div class="hero-meta-row fade-up">
+      <div><div class="hero-meta-label">Role</div><div class="hero-meta-value">Senior Product Designer</div></div>
+      <div><div class="hero-meta-label">Focus</div><div class="hero-meta-value">AI-Driven Personalisation</div></div>
+      <div><div class="hero-meta-label">Company</div><div class="hero-meta-value">Jimdo</div></div>
+      <div><div class="hero-meta-label">Year</div><div class="hero-meta-value">2024</div></div>
+    </div>
+    <div class="scroll-hint">Scroll to explore</div>
+  </div>
+
+  <div class="video-section">
+    <div class="video-inner fade-up">
+      <div class="video-bar">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+      <video autoplay loop muted playsinline style="padding-top:36px;">
+        <source src="workspace_video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="video-caption fade-up">Product prototype — Business Workspace</p>
+  </div>
+
+  <section class="light">
+    <div class="label">The Problem</div>
+    <div class="two-col">
+      <div>
+        <h2 class="h2 fade-up">New founders are <span>overwhelmed</span> before they even begin</h2>
+        <p class="body-text fade-up">They don't know where to start, which tools matter, or how to reach customers. Generic platforms give everyone the same experience — regardless of where they are in their journey.</p>
+      </div>
+      <div class="big-q fade-up">
+        How might AI reduce that overwhelm and create a path that feels <em>personal, not generic?</em>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">User Research</div>
+    <h2 class="h2 fade-up">Two founders.<br><span>Different needs.</span></h2>
+    <div class="personas">
+      <div class="persona fade-up">
+        <div class="p-num">01</div>
+        <div class="p-tag">The Side Hustler</div>
+        <div class="p-name">She's just getting started</div>
+        <p class="p-quote">"I sell jewellery to friends already. I just need someone — or something — to tell me what to do next."</p>
+        <div class="p-need">Needs AI guidance to replace the mentor she can't afford.</div>
+      </div>
+      <div class="persona fade-up">
+        <div class="p-num">02</div>
+        <div class="p-tag">The Solopreneur</div>
+        <div class="p-name">She's gone all in</div>
+        <p class="p-quote">"I've quit my job to chase this. I know what I want to build, but I'm paralysed by the sheer number of decisions."</p>
+        <div class="p-need">Needs an AI co-pilot that cuts through noise and adapts as her business evolves.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="label">Value Framework</div>
+    <h2 class="h2 fade-up">Designing the <span>AI-Powered</span> framework</h2>
+    <div class="values">
+      <div class="value fade-up">
+        <div class="v-n">01 ——</div>
+        <div class="v-title">AI-Tailored Business Path</div>
+        <p class="v-desc">Uses onboarding signals and behavioural data to build a personalised roadmap — no two founders see the same journey.</p>
+      </div>
+      <div class="value fade-up">
+        <div class="v-n">02 ——</div>
+        <div class="v-title">Contextual Tool Surfacing</div>
+        <p class="v-desc">Instead of overwhelming with every feature, AI surfaces the right tools at the right moment based on stage, goals, and industry.</p>
+      </div>
+      <div class="value fade-up">
+        <div class="v-n">03 ——</div>
+        <div class="v-title">Adaptive Growth Engine</div>
+        <p class="v-desc">As the business matures, the AI detects new needs and introduces relevant opportunities — before the founder even asks.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="light">
+    <div class="label">Design Decisions</div>
+    <h2 class="h2 fade-up">Translating AI logic into <span>interface decisions</span></h2>
+    <p class="body-text fade-up">Three principles shaped every wireframe, layout, and interaction in the product.</p>
+    <div class="principles">
+      <div class="principle fade-up">
+        <div class="pr-n">01</div>
+        <div class="pr-title">Onboarding as Signal Collection</div>
+        <div class="pr-desc">Business type and maturity stage captured during setup seeds the AI model that drives personalisation throughout the entire workspace experience.</div>
+      </div>
+      <div class="principle fade-up">
+        <div class="pr-n">02</div>
+        <div class="pr-title">Widget Intelligence</div>
+        <div class="pr-desc">Modules toggle dynamically based on where the founder is in their journey. Early stage = creative tasks. Growth stage = analytics and orders.</div>
+      </div>
+      <div class="principle fade-up">
+        <div class="pr-n">03</div>
+        <div class="pr-title">Behavioural Feedback Loops</div>
+        <div class="pr-desc">The dashboard learns. Industry trends, task completion, and browsing behaviour continuously refine what gets surfaced and when.</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #DDE3F0;">
+    <div class="label">High Fidelity</div>
+    <h2 class="h2 fade-up">The AI-Personalised <span>Dashboard</span></h2>
+    <p class="body-text fade-up">Every element — widgets, task order, resource recommendations — is dynamically driven by AI. No two users land on the same screen.</p>
+    <img src="dashboard.png" alt="AI-Personalised Dashboard" class="mockup-img-full fade-up" />
+    <div class="g2">
+      <img src="dashboard_1.png" alt="Dashboard detail" class="mockup-img fade-up" />
+      <img src="dashboard_2.png" alt="Dashboard detail" class="mockup-img fade-up" />
+    </div>
+  </section>
+
+  <section class="dark-2">
+    <div class="label">Mobile Experience</div>
+    <div class="two-col">
+      <div>
+        <h2 class="h2 fade-up">AI Guidance <span>On the Go</span></h2>
+        <p class="body-text fade-up">Founders don't sit at desks. The mobile experience brings the same personalisation to wherever they are — focused, distraction-free, built for quick decisions.</p>
+      </div>
+      <div class="g2-mob fade-up">
+        <img src="iphone_onboarding.png" alt="Mobile Onboarding" style="width:100%; border-radius:16px; display:block;" />
+        <img src="iphone_dashboard.png" alt="Mobile Dashboard" style="width:100%; border-radius:16px; display:block;" />
+      </div>
+    </div>
+  </section>
+
+  <section style="background: linear-gradient(160deg, #0a0f1e 0%, #0d1535 50%, #0a0f1e 100%);">
+    <div class="label" style="color: #6B8AFF;">AI Onboarding Engine</div>
+    <h2 class="h2 fade-up" style="color: #ffffff;">Where <span>personalisation</span> begins</h2>
+    <p class="body-text fade-up" style="color: rgba(255,255,255,0.6);">Before a founder sees their dashboard, they meet an AI-driven conversational onboarding flow. This isn't a form — it's the model's first look at who this person is.</p>
+    <div class="fade-up" style="display:flex; justify-content:center; margin-top:56px;">
+      <div style="position:relative; width:100%; max-width:400px;">
+        <div style="position:absolute; inset:-40px; background:radial-gradient(ellipse at center, rgba(0,87,255,0.25) 0%, transparent 70%); border-radius:50%; z-index:0;"></div>
+        <video src="onboarding_video.mp4" autoplay loop muted playsinline style="position:relative; z-index:1; width:100%; border-radius:24px; display:block; box-shadow:0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);"></video>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">Reflection</div>
+    <h2 class="h2 fade-up">What this project <span>taught me</span></h2>
+    <div class="learnings">
+      <div class="learning fade-up">
+        <div class="l-icon">&#x1F4A1;</div>
+        <p class="l-text">Great AI UX isn't about showcasing technology — it's about making intelligence feel invisible, intuitive, and deeply human.</p>
+      </div>
+      <div class="learning fade-up">
+        <div class="l-icon">&#x1F3AF;</div>
+        <p class="l-text">Personalisation only works when the signals are right. Onboarding isn't a formality — it's the foundation the entire product stands on.</p>
+      </div>
+      <div class="learning fade-up">
+        <div class="l-icon">&#x1F91D;</div>
+        <p class="l-text">When AI and people need to work in harmony, the designer's job is to make that handoff feel effortless — not impressive.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <div class="c-glow"></div>
+    <h2 class="c-title fade-up">Let's build something<br><span>intelligent</span> together.</h2>
+    <p class="c-sub fade-up">Currently open to senior product design roles focused on AI, personalisation, and complex system design.</p>
+    <div class="fade-up">
+      <a href="#" class="btn-prim">Get in touch &#8594;</a>
+      <a href="#" class="btn-sec">View all work</a>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <a href="#">&#8592; Back to Work</a>
+    <a href="smart-forms.html">Smart Forms &#8594;</a>
+  </div>
+
+  <script>
+    (function() {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      document.querySelectorAll('.fade-up').forEach(function(el) {
+        var parent = el.closest('.personas, .values, .g2, .g2-mob, .learnings, .principles');
+        if (parent) {
+          var siblings = Array.prototype.slice.call(parent.querySelectorAll('.fade-up'));
+          var idx = siblings.indexOf(el);
+          el.style.transitionDelay = (idx * 90) + 'ms';
+        }
+        io.observe(el);
+      });
+    })();
+  </script>
+
+</body>
+</html>
