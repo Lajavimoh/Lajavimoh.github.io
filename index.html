@@ -62,22 +62,6 @@
     }
     .hero-title .dim { color: rgba(0,0,0,0.18); }
 
-    /* Skills strip */
-    .hero-skills {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      margin-bottom: 52px;
-    }
-    .skill-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 12px; font-weight: 400; color: var(--text-muted);
-      padding: 6px 14px; border-radius: 100px;
-      border: 1px solid var(--border); background: var(--bg);
-      transition: all 0.2s;
-    }
-    .skill-tag:hover { border-color: #aaa; color: var(--text); }
-    .skill-tag.highlight {
-      background: var(--dark); color: #fff; border-color: var(--dark);
-    }
 
     .hero-footer {
       display: grid;
@@ -155,7 +139,7 @@
     .about-h span { color: var(--violet); }
     .about-p { font-size: 15px; font-weight: 300; color: var(--text-muted); line-height: 1.85; margin-bottom: 12px; }
     .about-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
-    .about-tag  { font-size: 12px; padding: 6px 14px; border-radius: 100px; background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); }
+    .about-tag  { font-size: 12px; padding: 4px 10px; border-radius: 4px; background: rgba(0,0,0,0.05); color: var(--text-muted); cursor: default; }
 
     /* TIMELINE */
     .journey { display: flex; flex-direction: column; gap: 0; padding-top: 8px; }
@@ -201,8 +185,7 @@
     .tools { padding: 64px; background: var(--bg); border-top: 1px solid var(--border); }
     .tools-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); text-align: center; margin-bottom: 28px; }
     .tools-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-    .tool-pill { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 100px; border: 1px solid var(--border); font-size: 12px; font-weight: 400; color: var(--text-muted); transition: all 0.2s; background: var(--bg-2); }
-    .tool-pill:hover { border-color: #aaa; color: var(--text); }
+    .tool-pill { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 100px; border: 1px solid var(--border); font-size: 12px; font-weight: 400; color: var(--text-muted); background: var(--bg-2); cursor: default; }
     .t-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 
     /* TESTIMONIALS */
@@ -303,23 +286,12 @@
   <section class="hero">
     <div class="hero-status fade-up">
       <span class="status-dot"></span>
-      <span class="status-text">Open to senior roles &mdash; Hamburg &amp; Remote</span>
+      <span class="status-text">Open to senior roles, Hamburg &amp; Remote</span>
     </div>
     <h1 class="hero-title fade-up">
       Lajavi Mohite<br>
       <span class="dim">Product Designer</span>
     </h1>
-    <div class="hero-skills fade-up">
-      <span class="skill-tag highlight">AI-Native UX</span>
-      <span class="skill-tag highlight">Agentic Product Design</span>
-      <span class="skill-tag">Design Systems</span>
-      <span class="skill-tag">Zero-to-One</span>
-      <span class="skill-tag">Mixed-Methods Research</span>
-      <span class="skill-tag">LLM UX Patterns</span>
-      <span class="skill-tag">Cross-functional Leadership</span>
-      <span class="skill-tag">Interaction Design</span>
-      <span class="skill-tag">Information Architecture</span>
-    </div>
     <div class="hero-footer fade-up">
       <div>
         <p class="hero-tagline">
@@ -344,7 +316,7 @@
           <div>
             <div class="pc-tag blue">AI &middot; Product Design</div>
             <div class="pc-title">Business Workspace</div>
-            <div class="pc-desc">An AI-powered solopreneur platform that builds a personalised workspace from a single conversation &mdash; turning a business idea into a structured roadmap in seconds.</div>
+            <div class="pc-desc">An AI-powered solopreneur platform that builds a personalised workspace from a single conversation, turning a business idea into a structured roadmap in seconds.</div>
           </div>
           <div class="pc-bottom">
             <div class="pc-meta">Jimdo &middot; 2024<br>Lead Designer</div>
@@ -383,7 +355,7 @@
         <div class="pc-content green-tint">
           <div>
             <div class="pc-tag green">Personal &middot; In Progress</div>
-            <div class="pc-title">APEX Lift &mdash; Design System</div>
+            <div class="pc-title">APEX Lift: Design System</div>
             <div class="pc-desc">A complete design system for an AI-native fitness tracker, built before a single app screen. Colour tokens, typography, spacing, components, and the decisions behind them.</div>
           </div>
           <div class="pc-bottom">
@@ -461,8 +433,8 @@
       <div class="about-left">
         <div class="about-label fade-up">About Me</div>
         <h2 class="about-h fade-up">I design systems that <span>reduce cognitive load</span>, not just screens</h2>
-        <p class="about-p fade-up">I'm Lajavi &mdash; a Senior Product Designer with 7 years of practice across enterprise consulting and high-growth product. I specialise in <strong>AI-native UX</strong>: designing for non-deterministic systems, multi-step agentic flows, and the kind of human-AI trust that doesn't happen by accident.</p>
-        <p class="about-p fade-up">At Jimdo I led design on zero-to-one AI features &mdash; from discovery through to shipping &mdash; owning the full design loop: <strong>research, systems thinking, interaction design, and cross-functional alignment</strong>. I hold myself accountable to outcomes, not just outputs.</p>
+        <p class="about-p fade-up">I'm Lajavi, a Senior Product Designer with 7 years of practice across enterprise consulting and high-growth product. I specialise in <strong>AI-native UX</strong>: designing for non-deterministic systems, multi-step agentic flows, and the kind of human-AI trust that doesn't happen by accident.</p>
+        <p class="about-p fade-up">At Jimdo I led design on zero-to-one AI features, from discovery through to shipping, owning the full design loop: <strong>research, systems thinking, interaction design, and cross-functional alignment</strong>. I hold myself accountable to outcomes, not just outputs.</p>
         <div class="about-tags fade-up">
           <span class="about-tag">AI-Native UX</span>
           <span class="about-tag">Agentic Product Design</span>
@@ -550,18 +522,18 @@
           <div class="testi-avatar" style="background:linear-gradient(135deg,#0057FF,#6D28D9)">AW</div>
           <div>
             <div class="testi-name">Andy Wan</div>
-            <div class="testi-role">Senior Manager &mdash; Manulife</div>
+            <div class="testi-role">Senior Manager, Manulife</div>
           </div>
         </div>
       </div>
       <div class="testi-card fade-up">
         <span class="testi-open">&ldquo;</span>
-        <div class="testi-quote">Working with Lajavi was a genuine pleasure. She brings both rigour and creativity to every problem &mdash; always asking the right questions before reaching for solutions.</div>
+        <div class="testi-quote">Working with Lajavi was a genuine pleasure. She brings both rigour and creativity to every problem, always asking the right questions before reaching for solutions.</div>
         <div class="testi-person">
           <div class="testi-avatar" style="background:linear-gradient(135deg,#6D28D9,#10B981)">SB</div>
           <div>
             <div class="testi-name">Sarah Benikirane</div>
-            <div class="testi-role">Product Lead &mdash; Jimdo</div>
+            <div class="testi-role">Product Lead, Jimdo</div>
           </div>
         </div>
       </div>
