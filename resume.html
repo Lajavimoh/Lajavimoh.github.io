@@ -214,25 +214,37 @@
       white-space: nowrap;
     }
 
-    /* SKILLS GRID */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px 32px;
-    }
+    /* SKILLS */
+    .skill-block { margin-bottom: 18px; }
     .skill-group-label {
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--text);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .skill-list {
       font-size: 13px;
       font-weight: 300;
       color: var(--text-muted);
       line-height: 1.85;
+    }
+    .tools-rows { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+    .tools-row { display: flex; gap: 10px; align-items: baseline; }
+    .tool-cat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--violet);
+      min-width: 160px;
+      flex-shrink: 0;
+    }
+    .tool-cat-values {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.7;
     }
 
     /* EDUCATION */
@@ -286,11 +298,11 @@
       .page-wrap { padding: 100px 24px 80px; }
       .resume-header { grid-template-columns: 1fr; gap: 20px; }
       .resume-contact { text-align: left; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
       footer { padding: 24px; flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 560px) {
-      .skills-grid { grid-template-columns: 1fr; }
+      .tools-row { flex-direction: column; gap: 3px; }
+      .tool-cat-label { min-width: unset; }
       .exp-header { grid-template-columns: 1fr; gap: 8px; }
     }
   </style>
@@ -312,15 +324,6 @@
     <!-- PRINT / BACK ROW -->
     <div class="print-row" style="gap:10px; display:flex;">
       <a href="index.html" class="btn-back">&larr; Back to Portfolio</a>
-      <button class="btn-print" onclick="window.print()">
-        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
-          <rect x="3" y="1" width="10" height="9" rx="1.5"/>
-          <rect x="1" y="6" width="14" height="7" rx="1.5"/>
-          <rect x="4" y="11" width="8" height="4" rx="1"/>
-          <circle cx="12.5" cy="9.5" r="0.8" fill="currentColor" stroke="none"/>
-        </svg>
-        Print / Save PDF
-      </button>
     </div>
 
     <!-- HEADER -->
@@ -415,41 +418,42 @@
 
     <!-- SKILLS -->
     <div class="resume-section">
-      <div class="section-heading">Skills &amp; Specialisms</div>
-      <div class="skills-grid">
-        <div>
-          <div class="skill-group-label">Design Practice</div>
-          <div class="skill-list">
-            AI-Native UX<br>
-            Agentic Product Design<br>
-            Zero-to-One Product Design<br>
-            Interaction Design<br>
-            Information Architecture<br>
-            Service Design
+      <div class="section-heading">Skills &amp; Tools</div>
+
+      <div class="skill-block">
+        <div class="skill-group-label">Design Expertise</div>
+        <div class="skill-list">AI-Native UX &middot; Agentic Product Design &middot; Zero-to-One &middot; Design Systems &middot; Cross-functional Leadership &middot; Mixed-Methods Research &middot; Interaction Design &middot; Information Architecture &middot; LLM UX Patterns</div>
+      </div>
+
+      <div class="skill-block">
+        <div class="skill-group-label">Tools &amp; Technologies</div>
+        <div class="tools-rows">
+          <div class="tools-row">
+            <span class="tool-cat-label">Design</span>
+            <span class="tool-cat-values">Figma &middot; Sketch &middot; Adobe XD &middot; InVision &middot; Framer</span>
+          </div>
+          <div class="tools-row">
+            <span class="tool-cat-label">Research &amp; Testing</span>
+            <span class="tool-cat-values">Maze &middot; FullStory &middot; Hotjar &middot; UserTesting &middot; Optimal Workshop</span>
+          </div>
+          <div class="tools-row">
+            <span class="tool-cat-label">AI &amp; LLM Tools</span>
+            <span class="tool-cat-values">ChatGPT &middot; Claude &middot; Gemini &middot; Midjourney &middot; Cursor &middot; Galileo AI</span>
+          </div>
+          <div class="tools-row">
+            <span class="tool-cat-label">Collaboration &amp; Workflow</span>
+            <span class="tool-cat-values">Miro &middot; Notion &middot; Jira &middot; Confluence &middot; Linear</span>
+          </div>
+          <div class="tools-row">
+            <span class="tool-cat-label">Methodologies</span>
+            <span class="tool-cat-values">Design Thinking &middot; Systems Thinking &middot; Jobs-to-be-Done (JTBD) &middot; Agile / Scrum &middot; OKRs &middot; Design Sprints &middot; Heuristic Evaluation &middot; WCAG Accessibility</span>
           </div>
         </div>
-        <div>
-          <div class="skill-group-label">Research &amp; Validation</div>
-          <div class="skill-list">
-            Mixed-Methods Research<br>
-            Moderated Usability Testing<br>
-            Jobs-to-be-Done Frameworks<br>
-            Heuristic Evaluation<br>
-            Quantitative Funnel Analysis<br>
-            Rapid Prototyping
-          </div>
-        </div>
-        <div>
-          <div class="skill-group-label">Tools &amp; Platforms</div>
-          <div class="skill-list">
-            Figma &amp; Design Systems<br>
-            Maze / Fullstory<br>
-            Adobe XD / Sketch<br>
-            Miro / InVision<br>
-            LLM UX Patterns<br>
-            Agile &amp; Sprint Delivery
-          </div>
-        </div>
+      </div>
+
+      <div class="skill-block" style="margin-bottom:0;">
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-list">English (Professional)</div>
       </div>
     </div>
 
