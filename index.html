@@ -234,32 +234,33 @@
     .cta-email { margin-top: 22px; font-size: 13px; color: rgba(255,255,255,0.65); }
 
     /* CONTACT FORM */
-    .contact-form { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 40px; }
+    .contact-form { background: #fff; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 40px; }
     .form-row { margin-bottom: 16px; }
-    .form-row label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+    .form-row label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
     .form-row input, .form-row textarea {
-      width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18);
+      width: 100%; background: var(--bg); border: 1px solid var(--border);
       border-radius: 10px; padding: 13px 16px; font-family: var(--poppins); font-size: 14px;
-      font-weight: 300; color: #fff; outline: none; transition: border-color 0.2s;
+      font-weight: 300; color: var(--text); outline: none; transition: border-color 0.2s, background 0.2s;
     }
-    .form-row input::placeholder, .form-row textarea::placeholder { color: rgba(255,255,255,0.4); }
-    .form-row input:focus, .form-row textarea:focus { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.09); }
+    .form-row input::placeholder, .form-row textarea::placeholder { color: #9CA3AF; }
+    .form-row input:focus, .form-row textarea:focus { border-color: var(--violet); background: #fff; }
     .form-row textarea { resize: none; height: 110px; }
     .form-submit {
-      width: 100%; padding: 14px; background: #fff; color: var(--dark);
+      width: 100%; padding: 14px; background: var(--dark); color: #fff;
       font-family: var(--poppins); font-size: 13px; font-weight: 600;
       border: none; border-radius: 100px; cursor: pointer; transition: all 0.25s; margin-top: 8px;
     }
-    .form-submit:hover { background: rgba(255,255,255,0.88); transform: translateY(-1px); }
-    .form-success { display: none; text-align: center; padding: 20px 0; font-size: 14px; color: #34D399; }
+    .form-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .form-success { display: none; text-align: center; padding: 20px 0; font-size: 14px; color: #059669; }
 
     /* FOOTER */
-    footer { background: var(--dark-2); padding: 32px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; gap: 16px; }
-    .footer-logo { font-family: var(--syne); font-weight: 700; font-size: 14px; color: rgba(255,255,255,0.7); }
+    footer { background: var(--dark-2); padding: 32px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-family: var(--syne); font-weight: 700; font-size: 14px; color: rgba(255,255,255,0.9); }
     .footer-links { display: flex; gap: 24px; }
-    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: rgba(255,255,255,0.9); }
-    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.6); }
 
     /* FADE */
     .fade-up { opacity:0; transform:translateY(20px); transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1),transform 0.6s cubic-bezier(0.22,1,0.36,1); }
@@ -573,7 +574,7 @@
           <a href="resume.html" id="cta-resume-btn" class="btn-white">View Resume &rarr;</a>
           <a href="https://www.linkedin.com/in/lajavimohite/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn &nearr;</a>
         </div>
-        <div class="cta-email">Or reach me at lajavi1993&#64;gmail.com</div>
+        <div class="cta-email">Or reach me at <a href="mailto:lajavi.work@gmail.com" style="color:rgba(255,255,255,0.9);text-decoration:underline;text-underline-offset:3px;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">lajavi.work@gmail.com</a></div>
       </div>
       <div class="contact-form fade-up">
         <div class="form-row">
@@ -612,8 +613,31 @@
       var email = document.getElementById('cf-email').value.trim();
       var msg = document.getElementById('cf-message').value.trim();
       if (!name || !email || !msg) return;
-      document.querySelector('.form-submit').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
+
+      var btn = document.querySelector('.form-submit');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, message: msg })
+      })
+      .then(function(res) {
+        if (res.ok) {
+          btn.style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Send message →';
+          alert('Something went wrong. Please try again or email me directly.');
+        }
+      })
+      .catch(function() {
+        btn.disabled = false;
+        btn.textContent = 'Send message →';
+        alert('Something went wrong. Please try again or email me directly.');
+      });
     }
 
     (function(){
