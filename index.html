@@ -577,20 +577,8 @@
         <div class="cta-email">Or reach me at <a href="mailto:lajavi.work@gmail.com" style="color:rgba(255,255,255,0.9);text-decoration:underline;text-underline-offset:3px;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">lajavi.work@gmail.com</a></div>
       </div>
       <div class="contact-form fade-up">
-        <div class="form-row">
-          <label for="cf-name">Name</label>
-          <input type="text" id="cf-name" placeholder="Your name" autocomplete="off" />
-        </div>
-        <div class="form-row">
-          <label for="cf-email">Email</label>
-          <input type="email" id="cf-email" placeholder="your@email.com" autocomplete="off" />
-        </div>
-        <div class="form-row">
-          <label for="cf-message">Message</label>
-          <textarea id="cf-message" placeholder="Tell me what you're working on..."></textarea>
-        </div>
-        <button class="form-submit" onclick="handleFormSubmit(event)">Send message &rarr;</button>
-        <div class="form-success" id="form-success">&#10003; Message sent — I'll get back to you soon.</div>
+        <iframe data-tally-src="https://tally.so/embed/BzZEER?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="300" frameborder="0" marginheight="0" marginwidth="0" title="Contact form"></iframe>
+        <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
       </div>
     </div>
   </section>
@@ -607,40 +595,7 @@
   </footer>
 
   <script>
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      var name = document.getElementById('cf-name').value.trim();
-      var email = document.getElementById('cf-email').value.trim();
-      var msg = document.getElementById('cf-message').value.trim();
-      if (!name || !email || !msg) return;
-
-      var btn = document.querySelector('.form-submit');
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
-
-      fetch('https://formspree.io/f/YOUR_FORM_ID', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ name: name, email: email, message: msg })
-      })
-      .then(function(res) {
-        if (res.ok) {
-          btn.style.display = 'none';
-          document.getElementById('form-success').style.display = 'block';
-        } else {
-          btn.disabled = false;
-          btn.textContent = 'Send message →';
-          alert('Something went wrong. Please try again or email me directly.');
-        }
-      })
-      .catch(function() {
-        btn.disabled = false;
-        btn.textContent = 'Send message →';
-        alert('Something went wrong. Please try again or email me directly.');
-      });
-    }
-
-    (function(){
+(function(){
       var els = document.querySelectorAll('.fade-up');
       var io = new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
