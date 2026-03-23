@@ -18,12 +18,13 @@
     }
     html { scroll-behavior: smooth; }
     body { background:var(--bg); color:var(--text); font-family:var(--poppins); font-weight:300; line-height:1.7; overflow-x:hidden; }
-    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:22px 64px; background:rgba(247,248,252,0.88); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(255,255,255,0.92); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); }
     .nav-logo { font-family:var(--syne); font-weight:700; font-size:16px; color:var(--text); text-decoration:none; letter-spacing:-0.02em; }
-    .nav-links { display:flex; gap:36px; align-items:center; }
+    .nav-links { display:flex; gap:32px; align-items:center; }
     .nav-links a { text-decoration:none; color:var(--text-muted); font-size:13px; font-weight:400; transition:color 0.2s; }
-    .nav-links a:hover { color:var(--accent); }
-    .nav-cta { background:var(--accent) !important; color:#fff !important; padding:8px 20px; border-radius:100px; font-size:12px !important; font-weight:500 !important; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-cta { background:#080D1A !important; color:#fff !important; padding:9px 22px; border-radius:100px; font-size:12px !important; font-weight:500 !important; }
+    .nav-cta:hover { opacity:0.8 !important; color:#fff !important; }
     .hero { min-height:100vh; display:grid; grid-template-rows:1fr auto; padding:140px 64px 80px; position:relative; overflow:hidden; background:var(--dark); }
     .hero-glow  { position:absolute; width:700px; height:700px; background:radial-gradient(circle, rgba(109,40,217,0.28) 0%, transparent 70%); top:-150px; right:-100px; pointer-events:none; }
     .hero-glow2 { position:absolute; width:400px; height:400px; background:radial-gradient(circle, rgba(109,40,217,0.12) 0%, transparent 70%); bottom:0; left:200px; pointer-events:none; }
@@ -186,7 +187,7 @@
       section { padding:80px 24px; }
       .two-col,.personas,.solutions,.beta-grid,.future-grid,.insights-grid { grid-template-columns:1fr; }
       .finding-grid { grid-template-columns:1fr; } .g2 { grid-template-columns:1fr; }
-      .screen-block { grid-template-columns:1fr; } .screen-block.reverse { direction:ltr; }
+      .screen-block { grid-template-columns:1fr; gap:24px; } .screen-block.reverse { direction:ltr; }
       .act-divider { padding:60px 24px; } .act-number { font-size:80px; }
       .profile-body { grid-template-columns:1fr; }
       .closing { padding:80px 24px; } .project-switcher { flex-direction:column; align-items:center; }
@@ -199,8 +200,10 @@
   <nav>
     <a href="index.html" class="nav-logo">Lajavi Mohite</a>
     <div class="nav-links">
-      <a href="index.html#work">Work</a><a href="index.html#about">About</a><a href="contact.html">Let's Talk</a>
-      <a href="#" class="nav-cta">Resume</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="index.html#contact" class="nav-cta">Let's Talk</a>
     </div>
   </nav>
 
@@ -208,7 +211,7 @@
     <div class="hero-glow"></div><div class="hero-glow2"></div><div class="hero-grid"></div>
     <div class="hero-content fade-up">
       <div class="hero-tag">Case Study &mdash; Lead Generation &amp; CRM</div>
-      <h1 class="hero-title">Smarter<br><span class="bright">Lead Capture,</span><br><span class="outline">AI-Driven CRM</span></h1>
+      <h1 class="hero-title">From<br><span class="bright">Visitor</span><br><span class="outline">to Customer</span></h1>
       <p class="hero-desc">A two-part AI system that helps small business owners capture better leads with intelligent forms &mdash; then manage, score, and convert those leads with a CRM co-pilot that does the thinking for them.</p>
     </div>
     <div class="hero-meta-row fade-up">
@@ -222,7 +225,7 @@
 
   <div class="stats-bar fade-up">
     <div class="stat"><div class="stat-n">15+</div><div class="stat-label">Business integrations at launch</div></div>
-    <div class="stat"><div class="stat-n">5%</div><div class="stat-label">Rollout window, immediate adoption</div></div>
+    <div class="stat"><div class="stat-n">5%</div><div class="stat-label">Staged rollout — adopted in week one</div></div>
     <div class="stat"><div class="stat-n">2</div><div class="stat-label">Product surfaces designed</div></div>
     <div class="stat"><div class="stat-n">6</div><div class="stat-label">Core features shipped in beta</div></div>
   </div>
@@ -293,22 +296,23 @@
     <div class="label">Hi-Fidelity Design</div>
     <h2 class="h2 fade-up">The form <span>creation flow</span></h2>
     <p class="body-text fade-up">Four screens showing the complete journey &mdash; from choosing a form type to a live, published registration form.</p>
+
     <div class="screen-story">
       <div class="screen-block fade-up">
         <div><div class="screen-step">Step 01</div><div class="screen-title">Choose your starting point</div><div class="screen-desc">Create New Smart Form uses AI from a brief description. Add Existing Form reuses a previously built form. The recommended badge guides users toward the AI path &mdash; the one that produces better lead quality.</div></div>
-        <div class="mock mock-half">Form Type Selection</div>
+        <video src="SmartFormshomepage.mp4" autoplay loop muted playsinline style="width:100%; border-radius:16px; display:block; box-shadow:0 16px 48px rgba(109,40,217,0.12);"></video>
       </div>
       <div class="screen-block reverse fade-up">
         <div><div class="screen-step">Step 02</div><div class="screen-title">Tell the AI what you need</div><div class="screen-desc">A conversational chat interface. The user types a brief description &mdash; "I need a registration form for my yoga classes" &mdash; and the AI generates all the questions, field types, and logic in seconds.</div></div>
-        <div class="mock mock-half">AI Chat Interface</div>
+        <video src="chatforsmartform.mp4" autoplay loop muted playsinline style="width:100%; border-radius:16px; display:block; box-shadow:0 16px 48px rgba(109,40,217,0.12);"></video>
       </div>
       <div class="screen-block fade-up">
         <div><div class="screen-step">Step 03</div><div class="screen-title">Review and customise</div><div class="screen-desc">The generated form opens in the live builder. Users can reorder questions, change field types, mark fields as required, and preview exactly how it looks to a visitor &mdash; all in one place.</div></div>
-        <div class="mock mock-half">Form Builder</div>
+        <video src="Smartformeditor.mp4" autoplay loop muted playsinline style="width:100%; border-radius:16px; display:block; box-shadow:0 16px 48px rgba(109,40,217,0.12);"></video>
       </div>
       <div class="screen-block reverse fade-up">
         <div><div class="screen-step">Step 04</div><div class="screen-title">Live on the website</div><div class="screen-desc">Published registration form for a yoga day event. The form reflects the brand voice &mdash; not a generic template dropped on a page.</div></div>
-        <div class="mock mock-half">Published Form</div>
+        <img src="Smartforms_website.png" alt="Live on the website" style="width:100%; border-radius:16px; display:block; box-shadow:0 16px 48px rgba(109,40,217,0.12);">
       </div>
     </div>
   </section>
@@ -383,7 +387,10 @@
         <div class="ai-card"><div class="ai-icon">&#128075;</div><div><div class="ai-card-title">Engage with Leads</div><div class="ai-card-desc">"Send thank you emails to customers who submit a form. Businesses that respond within 24 hours see significantly higher conversion."</div><div class="ai-action">Send thank you emails &rarr;</div></div></div>
         <div class="ai-card"><div class="ai-icon">&#128172;</div><div><div class="ai-card-title">Save Favourite Replies</div><div class="ai-card-desc">"Respond faster by saving the messages you send most often. Your top responses are ready to reuse."</div><div class="ai-action">Manage saved replies &rarr;</div></div></div>
       </div>
-      <div class="mock mock-full dm fade-up" style="margin-top:0;min-height:380px;">CRM Dashboard Mockup</div>
+      <div class="fade-up" style="margin-top:0; position:relative;">
+        <div style="position:absolute; inset:-32px; background:radial-gradient(ellipse at 60% 40%, rgba(109,40,217,0.18) 0%, transparent 70%); border-radius:32px; z-index:0; pointer-events:none;"></div>
+        <img src="Customer_Leads_desktop.png" alt="Customer Leads CRM Dashboard" style="position:relative; z-index:1; width:100%; border-radius:16px; display:block; box-shadow: 0 2px 0 1px rgba(109,40,217,0.25), 0 32px 80px rgba(0,0,0,0.55), 0 8px 24px rgba(109,40,217,0.15); border:1px solid rgba(255,255,255,0.06);" />
+      </div>
     </div>
   </section>
 
@@ -460,19 +467,19 @@
 
   <div class="closing">
     <div class="c-glow"></div>
-    <h2 class="c-title fade-up">Let's build <span>something</span><br>together.</h2>
+    <div class="c-title fade-up">From first form<br><span>to loyal customer</span></div>
     <p class="c-sub fade-up">Currently open to senior product design roles focused on AI, personalisation, and complex system design.</p>
     <div class="project-switcher fade-up">
       <a href="business-workspace.html" class="ps-card"><span class="ps-dot blue"></span> Business Workspace</a>
       <a href="#" class="ps-card active"><span class="ps-dot violet"></span> Smart Forms &times; CRM</a>
-      <a href="#" class="ps-card"><span class="ps-dot" style="background:#10B981;box-shadow:0 0 8px #10B981;"></span> Product Inventory</a>
+      <a href="apex-ds-portfolio.html" class="ps-card"><span class="ps-dot" style="background:#10B981;box-shadow:0 0 8px #10B981;"></span> Apex</a>
     </div>
-    <a href="contact.html" class="btn-prim fade-up">Get in touch &#8594;</a>
+    <a href="index.html#contact" class="btn-prim fade-up">Get in touch &rarr;</a>
   </div>
 
   <div class="bottom">
     <a href="business-workspace.html">&larr; Business Workspace</a>
-    <a href="#">Product Inventory &rarr;</a>
+    <a href="apex-ds-portfolio.html">Apex Lift &rarr;</a>
   </div>
 
   <script>

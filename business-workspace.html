@@ -38,17 +38,17 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 22px 64px;
-      background: rgba(247,248,252,0.88);
+      padding: 20px 64px;
+      background: rgba(255,255,255,0.92);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo { font-family: var(--syne); font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
-    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
     .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 13px; font-weight: 400; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--blue); }
-    .nav-cta { background: var(--blue); color: #fff !important; padding: 8px 20px; border-radius: 100px; font-size: 12px !important; font-weight: 500 !important; transition: opacity 0.2s; }
-    .nav-cta:hover { opacity: 0.85; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 9px 22px; border-radius: 100px; font-size: 12px !important; font-weight: 500 !important; }
+    .nav-cta:hover { opacity: 0.8 !important; color: #fff !important; }
 
     .hero {
       min-height: 100vh; display: grid; grid-template-rows: 1fr auto;
@@ -206,13 +206,13 @@
       border-radius: 100px; transition: all 0.3s; margin-left: 12px; position: relative; z-index: 2;
     }
     .btn-sec:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
-    .project-switcher { display: flex; gap: 16px; justify-content: center; margin-bottom: 48px; position: relative; z-index: 2; }
-    .ps-card { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 12px; text-decoration: none; border: 1px solid rgba(255,255,255,0.08); transition: all 0.25s; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.45); }
-    .ps-card:hover { background: rgba(255,255,255,0.05); color: #fff; }
-    .ps-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .ps-dot.blue { background: #0057FF; box-shadow: 0 0 8px #0057FF; }
-    .ps-dot.violet { background: #6D28D9; box-shadow: 0 0 8px #6D28D9; }
-    .ps-card.active { background: rgba(0,87,255,0.12); border-color: rgba(0,87,255,0.3); color: #60A5FA; }
+    .project-switcher { display:flex; gap:16px; justify-content:center; margin-bottom:48px; position:relative; z-index:2; }
+    .ps-card { display:flex; align-items:center; gap:10px; padding:12px 20px; border-radius:12px; text-decoration:none; border:1px solid rgba(255,255,255,0.08); transition:all 0.25s; font-size:13px; font-weight:500; color:rgba(255,255,255,0.45); }
+    .ps-card:hover { background:rgba(255,255,255,0.05); color:#fff; }
+    .ps-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .ps-dot.blue   { background:#0057FF; box-shadow:0 0 8px #0057FF; }
+    .ps-dot.violet { background:#6D28D9; box-shadow:0 0 8px #6D28D9; }
+    .ps-card.active { background:rgba(0,87,255,0.15); border-color:rgba(0,87,255,0.3); color:#6B9DFF; }
 
     .bottom { background: var(--dark-2); padding: 26px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
     .bottom a { color: rgba(255,255,255,0.3); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
@@ -233,8 +233,7 @@
       .principle { grid-template-columns: 40px 1fr; }
       .pr-desc { display: none; }
       .g2-mob { grid-template-columns: 1fr 1fr; }
-      .closing { padding: 80px 24px; }
-      .project-switcher { flex-direction: column; align-items: center; }
+      .closing { padding: 80px 24px; } .project-switcher { flex-direction:column; align-items:center; }
       .bottom { padding: 20px 24px; }
     }
   </style>
@@ -246,8 +245,8 @@
     <div class="nav-links">
       <a href="index.html#work">Work</a>
       <a href="index.html#about">About</a>
-      <a href="contact.html">Let's Talk</a>
-      <a href="#" class="nav-cta">Resume</a>
+      <a href="resume.html">Resume</a>
+      <a href="index.html#contact" class="nav-cta">Let's Talk</a>
     </div>
   </nav>
 
@@ -421,20 +420,18 @@
 
   <div class="closing">
     <div class="c-glow"></div>
-    <h2 class="c-title fade-up">Let's build something<br><span>intelligent</span> together.</h2>
+    <div class="c-title fade-up">Designing for the<br><span>future of work</span></div>
     <p class="c-sub fade-up">Currently open to senior product design roles focused on AI, personalisation, and complex system design.</p>
     <div class="project-switcher fade-up">
       <a href="#" class="ps-card active"><span class="ps-dot blue"></span> Business Workspace</a>
       <a href="smart-forms.html" class="ps-card"><span class="ps-dot violet"></span> Smart Forms &times; CRM</a>
-      <a href="#" class="ps-card"><span class="ps-dot" style="background:#10B981;box-shadow:0 0 8px #10B981;"></span> Product Inventory</a>
+      <a href="apex-ds-portfolio.html" class="ps-card"><span class="ps-dot" style="background:#10B981;box-shadow:0 0 8px #10B981;"></span> Apex</a>
     </div>
-    <div class="fade-up">
-      <a href="contact.html" class="btn-prim">Get in touch &#8594;</a>
-    </div>
+    <a href="index.html#contact" class="btn-prim fade-up">Get in touch &#8594;</a>
   </div>
 
   <div class="bottom">
-    <a href="index.html#work">&#8592; Back to Work</a>
+    <a href="index.html">&#8592; Back to Work</a>
     <a href="smart-forms.html">Smart Forms &#8594;</a>
   </div>
 

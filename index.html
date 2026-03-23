@@ -22,18 +22,18 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 22px 64px;
-      background: rgba(255,255,255,0.9); backdrop-filter: blur(16px);
+      padding: 20px 64px;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo { font-family: var(--syne); font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
-    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
     .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 13px; font-weight: 400; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
     .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 9px 22px; border-radius: 100px; font-size: 12px !important; font-weight: 500 !important; }
-    .nav-cta:hover { opacity: 0.8; }
+    .nav-cta:hover { opacity: 0.8 !important; color: #fff !important; }
 
-    /* HERO — clean and minimal */
+    /* HERO */
     .hero {
       padding: 180px 64px 120px;
       max-width: 1200px;
@@ -41,7 +41,7 @@
     }
     .hero-status {
       display: inline-flex; align-items: center; gap: 9px;
-      margin-bottom: 40px;
+      margin-bottom: 44px;
     }
     .status-dot {
       width: 7px; height: 7px; border-radius: 50%;
@@ -51,72 +51,51 @@
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
     .status-text { font-size: 13px; color: var(--text-muted); }
 
-    .hero-head {
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 48px;
-      align-items: end;
-      margin-bottom: 56px;
-    }
     .hero-title {
       font-family: var(--syne);
-      font-size: clamp(64px, 9.5vw, 128px);
+      font-size: clamp(48px, 7vw, 96px);
       font-weight: 800;
-      line-height: 0.92;
+      line-height: 0.95;
       letter-spacing: -0.04em;
       color: var(--text);
+      margin-bottom: 44px;
     }
-    .hero-title .dim {
-      font-size: clamp(22px, 3vw, 42px);
-      font-weight: 500;
-      color: rgba(0,0,0,0.22);
-      letter-spacing: -0.02em;
-      display: block;
-      margin-top: 14px;
+    .hero-title .dim { color: rgba(0,0,0,0.18); }
+
+    /* Skills strip */
+    .hero-skills {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 52px;
     }
-    .hero-side-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 28px 26px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      align-self: end;
+    .skill-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 400; color: var(--text-muted);
+      padding: 6px 14px; border-radius: 100px;
+      border: 1px solid var(--border); background: var(--bg);
+      transition: all 0.2s;
     }
-    .hsc-avail {
-      display: flex; align-items: center; gap: 9px;
-      font-size: 12px; font-weight: 500; color: var(--text);
+    .skill-tag:hover { border-color: #aaa; color: var(--text); }
+    .skill-tag.highlight {
+      background: var(--dark); color: #fff; border-color: var(--dark);
     }
-    .hsc-divider { height: 1px; background: var(--border); }
-    .hsc-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
-    .hsc-skills { display: flex; flex-wrap: wrap; gap: 6px; }
-    .hsc-skill {
-      font-size: 11px; font-weight: 400; color: var(--text-muted);
-      background: #fff; border: 1px solid var(--border);
-      padding: 4px 11px; border-radius: 100px;
-    }
-    .hsc-stats { display: flex; gap: 20px; }
-    .hsc-stat-n { font-family: var(--syne); font-size: 28px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); line-height: 1; }
-    .hsc-stat-l { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
 
     .hero-footer {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 80px;
+      gap: 64px;
       align-items: end;
       padding-top: 48px;
       border-top: 1px solid var(--border);
     }
     .hero-tagline {
-      font-size: clamp(15px, 1.4vw, 18px);
+      font-size: clamp(14px, 1.3vw, 16px);
       font-weight: 300;
       color: var(--text-muted);
       line-height: 1.9;
-      max-width: 500px;
+      max-width: 480px;
     }
     .hero-tagline em { color: var(--text); font-style: normal; font-weight: 400; }
-    .hero-ctas { display: flex; gap: 12px; }
+    .hero-ctas { display: flex; gap: 12px; flex-direction: column; align-items: flex-end; }
     .btn-dark    { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; background: var(--dark); color: #fff; font-family: var(--poppins); font-size: 13px; font-weight: 500; text-decoration: none; border-radius: 100px; transition: all 0.25s; }
     .btn-dark:hover { opacity: 0.85; transform: translateY(-1px); }
     .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; color: var(--text-muted); font-family: var(--poppins); font-size: 13px; font-weight: 400; text-decoration: none; border: 1px solid var(--border); border-radius: 100px; transition: all 0.25s; }
@@ -160,15 +139,16 @@
     .pc-visual.violet-bg { background: linear-gradient(145deg,#EAE0FF,#D6C8FF); }
     .pc-visual.green-bg  { background: linear-gradient(145deg,#D4F7E8,#B6EED4); }
     .pc-placeholder { position: absolute; inset: 28px; border-radius: 12px; border: 1.5px dashed rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(0,0,0,0.18); }
+    .pc-mock-clip { position: absolute; inset: 0; overflow: hidden; }
+    .pc-layer-desktop { position: absolute; width: 82%; border-radius: 10px; box-shadow: 0 20px 56px rgba(0,0,0,0.20); object-fit: cover; }
+    .pc-visual.blue-bg   .pc-layer-desktop { top: 20px; left: 14px; height: 75%; object-position: top; }
+    .pc-visual.violet-bg .pc-layer-desktop { top: 24px; left: 10px; height: 70%; object-position: 0 50%; }
+    .pc-layer-mobile { position: absolute; width: 26%; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.28); object-fit: cover; object-position: top; border: 2px solid rgba(255,255,255,0.5); bottom: 16px; right: 18px; height: 68%; }
+    .pc-layer-secondary { position: absolute; width: 68%; border-radius: 10px; box-shadow: 0 12px 32px rgba(0,0,0,0.15); object-fit: cover; object-position: top; bottom: 14px; right: 10px; height: 48%; border: 2px solid rgba(255,255,255,0.4); }
 
     /* ABOUT */
     .about { padding: 100px 64px; background: var(--bg-2); }
-    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .about-photo-wrap { position: relative; }
-    .about-photo { width: 100%; aspect-ratio: 4/5; background: var(--bg); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: rgba(0,0,0,0.18); letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--border); }
-    .about-badge { position: absolute; bottom: -14px; right: -14px; background: var(--dark); border-radius: 14px; padding: 16px 20px; }
-    .about-badge-n { font-family: var(--syne); font-size: 26px; font-weight: 800; color: #fff; line-height: 1; }
-    .about-badge-l { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 3px; }
+    .about-inner { max-width: 1100px; display: grid; grid-template-columns: 1fr 400px; gap: 80px; align-items: start; }
     .about-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
     .about-label::before { content:''; width:16px; height:2px; background:currentColor; border-radius:2px; }
     .about-h { font-family: var(--syne); font-size: clamp(24px, 2.8vw, 38px); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 22px; }
@@ -176,11 +156,46 @@
     .about-p { font-size: 15px; font-weight: 300; color: var(--text-muted); line-height: 1.85; margin-bottom: 12px; }
     .about-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
     .about-tag  { font-size: 12px; padding: 6px 14px; border-radius: 100px; background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); }
-    .journey { display: grid; grid-template-columns: repeat(3,1fr); margin-top: 32px; }
-    .j-item { padding: 16px 0; border-top: 2px solid var(--border); position: relative; }
-    .j-item::before { content:''; position:absolute; top:-5px; left:0; width:8px; height:8px; border-radius:50%; background:var(--violet); }
-    .j-year  { font-family: var(--syne); font-size: 13px; font-weight: 700; color: var(--violet); margin-bottom: 2px; }
-    .j-place { font-size: 12px; color: var(--text-muted); }
+
+    /* TIMELINE */
+    .journey { display: flex; flex-direction: column; gap: 0; padding-top: 8px; }
+    .journey-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 28px; display: flex; align-items: center; gap: 8px; }
+    .journey-title::before { content:''; width:16px; height:2px; background:currentColor; border-radius:2px; }
+    .j-item { display: flex; gap: 20px; position: relative; padding-bottom: 32px; }
+    .j-item:last-child { padding-bottom: 0; }
+    .j-spine { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .j-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--violet); flex-shrink: 0; position: relative; z-index: 1; margin-top: 3px; }
+    .j-line { width: 1px; flex: 1; background: var(--border); margin-top: 6px; min-height: 32px; }
+    .j-item:last-child .j-line { display: none; }
+    .j-content { flex: 1; }
+    .j-period { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--violet); margin-bottom: 4px; }
+    .j-role { font-family: var(--syne); font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .j-place { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+    /* Pulsing dot for current/last item */
+    .j-item.current .j-dot { background: var(--violet); }
+    .j-item.current .j-dot::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 2px solid var(--violet);
+      opacity: 0;
+      animation: pulse-ring 2s ease-out infinite;
+    }
+    .j-item.current .j-dot::after {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+      border: 1.5px solid var(--violet);
+      opacity: 0;
+      animation: pulse-ring 2s ease-out 0.5s infinite;
+    }
+    @keyframes pulse-ring {
+      0%   { opacity: 0.6; transform: scale(0.6); }
+      100% { opacity: 0;   transform: scale(1.8); }
+    }
 
     /* TOOLS */
     .tools { padding: 64px; background: var(--bg); border-top: 1px solid var(--border); }
@@ -204,19 +219,39 @@
 
     /* CTA */
     .cta-section { padding: 120px 64px; background: var(--dark); position: relative; overflow: hidden; }
-    .cta-glow { position: absolute; width: 500px; height: 500px; background: radial-gradient(circle,rgba(109,40,217,0.15) 0%,transparent 65%); left:50%; top:50%; transform:translate(-50%,-50%); pointer-events:none; }
-    .cta-inner { max-width: 580px; position: relative; z-index: 2; }
+    .cta-glow { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle,rgba(109,40,217,0.12) 0%,transparent 65%); left:30%; top:50%; transform:translate(-50%,-50%); pointer-events:none; }
+    .cta-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; max-width: 1072px; }
     .cta-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.22); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
     .cta-label::before { content:''; width:16px; height:2px; background:currentColor; border-radius:2px; }
-    .cta-title { font-family: var(--syne); font-size: clamp(34px, 5vw, 60px); font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.05; margin-bottom: 18px; }
+    .cta-title { font-family: var(--syne); font-size: clamp(34px, 4vw, 56px); font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.05; margin-bottom: 18px; }
     .cta-title span { color: rgba(255,255,255,0.18); }
-    .cta-sub   { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.36); line-height: 1.8; margin-bottom: 44px; }
+    .cta-sub   { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.36); line-height: 1.8; margin-bottom: 36px; }
     .cta-btns  { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn-white { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; background: #fff; color: var(--dark); font-family: var(--poppins); font-size: 13px; font-weight: 600; text-decoration: none; border-radius: 100px; transition: all 0.25s; }
     .btn-white:hover { background: rgba(255,255,255,0.88); transform: translateY(-1px); }
     .btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; color: rgba(255,255,255,0.4); font-family: var(--poppins); font-size: 13px; font-weight: 400; text-decoration: none; border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; transition: all 0.25s; }
     .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.28); }
     .cta-email { margin-top: 22px; font-size: 13px; color: rgba(255,255,255,0.18); }
+
+    /* CONTACT FORM */
+    .contact-form { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 40px; }
+    .form-row { margin-bottom: 16px; }
+    .form-row label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 8px; }
+    .form-row input, .form-row textarea {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 13px 16px; font-family: var(--poppins); font-size: 14px;
+      font-weight: 300; color: #fff; outline: none; transition: border-color 0.2s;
+    }
+    .form-row input::placeholder, .form-row textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-row input:focus, .form-row textarea:focus { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.07); }
+    .form-row textarea { resize: none; height: 110px; }
+    .form-submit {
+      width: 100%; padding: 14px; background: #fff; color: var(--dark);
+      font-family: var(--poppins); font-size: 13px; font-weight: 600;
+      border: none; border-radius: 100px; cursor: pointer; transition: all 0.25s; margin-top: 8px;
+    }
+    .form-submit:hover { background: rgba(255,255,255,0.88); transform: translateY(-1px); }
+    .form-success { display: none; text-align: center; padding: 20px 0; font-size: 14px; color: #34D399; }
 
     /* FOOTER */
     footer { background: var(--dark-2); padding: 32px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; gap: 16px; }
@@ -235,14 +270,18 @@
       nav { padding: 18px 24px; }
       .nav-links a:not(.nav-cta) { display: none; }
       .hero { padding: 120px 24px 80px; }
+      .hero-skills { gap: 6px; }
       .hero-footer { grid-template-columns: 1fr; gap: 28px; }
+      .hero-ctas { flex-direction: row; align-items: flex-start; }
       .work, .about, .testimonials, .cta-section, .tools { padding: 72px 24px; }
       .project-card { grid-template-columns: 1fr; min-height: auto; }
       .project-card.reverse { direction: ltr; }
       .pc-visual { min-height: 220px; }
       .pc-content { padding: 32px 26px; }
-      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
       .testi-grid { grid-template-columns: 1fr; }
+      .cta-layout { grid-template-columns: 1fr; gap: 48px; }
+      .journey { grid-template-columns: 1fr; gap: 0; }
       footer { padding: 24px; flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -254,54 +293,39 @@
     <div class="nav-links">
       <a href="#work">Work</a>
       <a href="#about">About</a>
-      <a href="contact.html">Let's Talk</a>
-      <a href="#" class="nav-cta">Resume</a>
+      <a href="resume.html" id="nav-resume-link">Resume</a>
+      <a href="#contact" class="nav-cta">Let's Talk</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-head fade-up">
-      <h1 class="hero-title">
-        Lajavi<br>
-        Mohite
-        <span class="dim">Product Designer</span>
-      </h1>
-      <div class="hero-side-card">
-        <div class="hsc-avail">
-          <span class="status-dot"></span>
-          Open to new roles
-        </div>
-        <div class="hsc-divider"></div>
-        <div>
-          <div class="hsc-label">Core skills</div>
-          <div class="hsc-skills">
-            <span class="hsc-skill">AI Products</span>
-            <span class="hsc-skill">UX Systems</span>
-            <span class="hsc-skill">Research</span>
-            <span class="hsc-skill">Design Systems</span>
-            <span class="hsc-skill">Prototyping</span>
-          </div>
-        </div>
-        <div class="hsc-divider"></div>
-        <div class="hsc-stats">
-          <div>
-            <div class="hsc-stat-n">7+</div>
-            <div class="hsc-stat-l">Years exp.</div>
-          </div>
-          <div>
-            <div class="hsc-stat-n">12+</div>
-            <div class="hsc-stat-l">Products shipped</div>
-          </div>
-        </div>
-      </div>
+    <div class="hero-status fade-up">
+      <span class="status-dot"></span>
+      <span class="status-text">Open to senior roles &mdash; Hamburg &amp; Remote</span>
+    </div>
+    <h1 class="hero-title fade-up">
+      Lajavi Mohite<br>
+      <span class="dim">Product Designer</span>
+    </h1>
+    <div class="hero-skills fade-up">
+      <span class="skill-tag highlight">AI-Native UX</span>
+      <span class="skill-tag highlight">Agentic Product Design</span>
+      <span class="skill-tag">Design Systems</span>
+      <span class="skill-tag">Zero-to-One</span>
+      <span class="skill-tag">User Research</span>
+      <span class="skill-tag">LLM UX Patterns</span>
+      <span class="skill-tag">Cross-functional Leadership</span>
+      <span class="skill-tag">Interaction Design</span>
     </div>
     <div class="hero-footer fade-up">
-      <p class="hero-tagline">
-        Senior Product Designer with 7 years of experience turning complex ideas into <em>intuitive, AI-driven products</em>. Skilled in end-to-end design &mdash; from research and systems thinking to high-fidelity delivery. Currently open to new opportunities.
-      </p>
+      <div>
+        <p class="hero-tagline">
+          I find the <em>human thread</em> inside complex systems and pull it all the way through — so the technology disappears and only the experience remains.
+        </p>
+      </div>
       <div class="hero-ctas">
-        <a href="#work" class="btn-dark">View work</a>
+        <a href="#work" class="btn-dark">View work &darr;</a>
         <a href="#contact" class="btn-outline">Let's talk</a>
       </div>
     </div>
@@ -326,7 +350,10 @@
           </div>
         </div>
         <div class="pc-visual blue-bg">
-          <div class="pc-placeholder">Project Preview</div>
+          <div class="pc-mock-clip">
+            <img class="pc-layer-desktop" src="dashboard.png" alt="Business Workspace Dashboard" />
+            <img class="pc-layer-mobile" src="iphone_dashboard.png" alt="Mobile Dashboard" />
+          </div>
         </div>
       </div>
 
@@ -343,24 +370,83 @@
           </div>
         </div>
         <div class="pc-visual violet-bg">
-          <div class="pc-placeholder">Project Preview</div>
+          <div class="pc-mock-clip">
+            <img class="pc-layer-desktop" src="Smartforms_website_cover.png" alt="Smart Forms" />
+            <img class="pc-layer-secondary" src="Customer_Leads_desktop.png" alt="Customer Leads CRM" />
+          </div>
         </div>
       </div>
 
-      <div class="project-card fade-up">
+      <div class="project-card fade-up" onclick="window.location='apex-ds-portfolio.html'" style="cursor:pointer;">
         <div class="pc-content green-tint">
           <div>
             <div class="pc-tag green">Personal &middot; In Progress</div>
-            <div class="pc-title">Apex &mdash; Coming Soon</div>
-            <div class="pc-desc">A personal project exploring AI as a genuine creative partner in the design process. More details soon.</div>
+            <div class="pc-title">APEX Lift &mdash; Design System</div>
+            <div class="pc-desc">A complete design system for an AI-native fitness tracker — built before a single app screen. Colour tokens, typography, spacing, components, and the decisions behind them.</div>
           </div>
           <div class="pc-bottom">
-            <div class="pc-meta">Personal &middot; 2025<br>Speculative Design</div>
-            <div class="pc-arrow" style="background:var(--emerald);">&rarr;</div>
+            <div class="pc-meta">Personal &middot; 2025<br>Design Systems</div>
+            <div class="pc-arrow" style="background:var(--emerald);">&nearr;</div>
           </div>
         </div>
-        <div class="pc-visual green-bg">
-          <div class="pc-placeholder">Coming Soon</div>
+        <div class="pc-visual" style="background:#080A0F; overflow:hidden; position:relative; min-height:280px;">
+          <!-- Glow -->
+          <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(200,241,53,0.18) 0%,transparent 70%);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(61,255,192,0.10) 0%,transparent 70%);pointer-events:none;"></div>
+          <!-- Grid -->
+          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(200,241,53,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(200,241,53,0.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;"></div>
+
+          <!-- Content -->
+          <div style="position:relative;z-index:2;padding:24px;display:flex;flex-direction:column;gap:14px;height:100%;">
+
+            <!-- Header label -->
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,241,53,0.6);">APEX LIFT · DS v1.0</span>
+              <span style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:0.12em;color:rgba(61,255,192,0.7);background:rgba(61,255,192,0.08);border:1px solid rgba(61,255,192,0.2);border-radius:100px;padding:2px 8px;">● IN PROGRESS</span>
+            </div>
+
+            <!-- Big display number -->
+            <div style="font-size:52px;font-weight:900;line-height:0.9;letter-spacing:-0.03em;color:#C8F135;font-family:'Arial Black',sans-serif;">142<span style="font-size:22px;color:rgba(200,241,53,0.5);">g</span></div>
+
+            <!-- Colour tokens row -->
+            <div style="display:flex;gap:5px;align-items:center;">
+              <div style="width:22px;height:22px;border-radius:5px;background:#C8F135;" title="Accent"></div>
+              <div style="width:22px;height:22px;border-radius:5px;background:#3DFFC0;" title="AI"></div>
+              <div style="width:22px;height:22px;border-radius:5px;background:#FF4D4D;" title="Danger"></div>
+              <div style="width:22px;height:22px;border-radius:5px;background:#FFB547;" title="Warning"></div>
+              <div style="width:22px;height:22px;border-radius:5px;background:#0E1118;border:1px solid rgba(255,255,255,0.12);" title="Surface"></div>
+              <span style="font-family:'Courier New',monospace;font-size:8px;color:rgba(255,255,255,0.25);letter-spacing:0.12em;margin-left:4px;">42 TOKENS</span>
+            </div>
+
+            <!-- Mini set log row -->
+            <div style="background:#0E1118;border-radius:8px;border:1px solid rgba(200,241,53,0.25);padding:8px 12px;display:grid;grid-template-columns:20px 1fr 1fr 56px 24px;gap:6px;align-items:center;">
+              <span style="font-family:'Courier New',monospace;font-size:9px;color:#C8F135;text-align:center;">2</span>
+              <div><div style="font-family:'Courier New',monospace;font-size:7px;color:rgba(240,237,232,0.25);letter-spacing:0.12em;">WEIGHT</div><div style="font-family:'Courier New',monospace;font-size:13px;font-weight:700;color:#C8F135;">90kg</div></div>
+              <div><div style="font-family:'Courier New',monospace;font-size:7px;color:rgba(240,237,232,0.25);letter-spacing:0.12em;">REPS</div><div style="font-family:'Courier New',monospace;font-size:13px;font-weight:700;color:#C8F135;">—</div></div>
+              <span style="font-family:'Courier New',monospace;font-size:9px;color:#3DFFC0;text-align:right;">↑ 92.5</span>
+              <div style="width:24px;height:24px;border-radius:5px;border:1.5px solid rgba(255,255,255,0.15);"></div>
+            </div>
+
+            <!-- Badges row -->
+            <div style="display:flex;gap:5px;flex-wrap:wrap;">
+              <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:0.06em;text-transform:uppercase;background:rgba(200,241,53,0.12);color:#C8F135;border:1px solid rgba(200,241,53,0.22);border-radius:100px;padding:3px 8px;">Core Feature</span>
+              <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:0.06em;text-transform:uppercase;background:rgba(61,255,192,0.10);color:#3DFFC0;border:1px solid rgba(61,255,192,0.20);border-radius:100px;padding:3px 8px;">AI Powered</span>
+              <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,77,77,0.10);color:#FF4D4D;border:1px solid rgba(255,77,77,0.20);border-radius:100px;padding:3px 8px;">High RPE</span>
+            </div>
+
+            <!-- Bottom stat -->
+            <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;">
+              <div>
+                <div style="font-family:'Courier New',monospace;font-size:7px;color:rgba(255,255,255,0.2);letter-spacing:0.15em;margin-bottom:2px;">COMPONENTS</div>
+                <div style="font-family:'Arial Black',sans-serif;font-size:22px;font-weight:900;color:rgba(200,241,53,0.8);line-height:1;">18</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:'Courier New',monospace;font-size:7px;color:rgba(255,255,255,0.2);letter-spacing:0.15em;margin-bottom:2px;">SPACING GRID</div>
+                <div style="font-family:'Arial Black',sans-serif;font-size:22px;font-weight:900;color:rgba(200,241,53,0.8);line-height:1;">8pt</div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
@@ -370,30 +456,58 @@
   <!-- ABOUT -->
   <section class="about" id="about">
     <div class="about-inner">
-      <div class="about-photo-wrap fade-up">
-        <div class="about-photo">Your Photo</div>
-        <div class="about-badge">
-          <div class="about-badge-n">7+</div>
-          <div class="about-badge-l">Years designing</div>
+      <div class="about-left">
+        <div class="about-label fade-up">About Me</div>
+        <h2 class="about-h fade-up">I design systems that <span>reduce cognitive load</span> — not just screens</h2>
+        <p class="about-p fade-up">I'm Lajavi &mdash; a Senior Product Designer with 7 years of practice across enterprise consulting and high-growth product. I specialise in <strong>AI-native UX</strong>: designing for non-deterministic systems, multi-step agentic flows, and the kind of human-AI trust that doesn't happen by accident.</p>
+        <p class="about-p fade-up">At Jimdo I led design on zero-to-one AI features &mdash; from discovery through to shipping &mdash; owning the full design loop: <strong>research, systems thinking, interaction design, and cross-functional alignment</strong>. I hold myself accountable to outcomes, not just outputs.</p>
+        <div class="about-tags fade-up">
+          <span class="about-tag">AI-Native UX</span>
+          <span class="about-tag">Agentic Product Design</span>
+          <span class="about-tag">Zero-to-One</span>
+          <span class="about-tag">Design Systems</span>
+          <span class="about-tag">Cross-functional Leadership</span>
+          <span class="about-tag">Mixed-Methods Research</span>
+          <span class="about-tag">Interaction Design</span>
+          <span class="about-tag">Information Architecture</span>
+          <span class="about-tag">LLM UX Patterns</span>
         </div>
       </div>
-      <div>
-        <div class="about-label fade-up">About Me</div>
-        <h2 class="about-h fade-up">Designing things that <span>actually make sense</span> to people</h2>
-        <p class="about-p fade-up">Hi, I'm Lajavi &mdash; a Senior Product Designer based in Hamburg. I started in Mumbai, grew through Hong Kong, and made Germany home. Along the way I've worked on everything from visual identity to complex AI systems.</p>
-        <p class="about-p fade-up">My most recent role was at Jimdo, leading design on AI-powered features for small business owners. I took a deliberate sabbatical to reset and think about where product design is heading &mdash; and I'm ready for what's next.</p>
-        <div class="about-tags fade-up">
-          <span class="about-tag">AI &amp; LLM UX</span>
-          <span class="about-tag">System Design</span>
-          <span class="about-tag">User Research</span>
-          <span class="about-tag">Figma</span>
-          <span class="about-tag">Prototyping</span>
-          <span class="about-tag">Design Systems</span>
-        </div>
-        <div class="journey fade-up">
-          <div class="j-item"><div class="j-year">Mumbai</div><div class="j-place">Where it started</div></div>
-          <div class="j-item"><div class="j-year">Hong Kong</div><div class="j-place">Deloitte Digital</div></div>
-          <div class="j-item"><div class="j-year">Hamburg</div><div class="j-place">Jimdo &middot; Now</div></div>
+      <div class="about-right fade-up">
+        <div class="journey">
+          <div class="journey-title">Career Path</div>
+          <div class="j-item">
+            <div class="j-spine"><div class="j-dot"></div><div class="j-line"></div></div>
+            <div class="j-content">
+              <div class="j-period">2016 – 2017</div>
+              <div class="j-role">Product Designer</div>
+              <div class="j-place">Deloitte Digital &middot; Mumbai</div>
+            </div>
+          </div>
+          <div class="j-item">
+            <div class="j-spine"><div class="j-dot"></div><div class="j-line"></div></div>
+            <div class="j-content">
+              <div class="j-period">2017 – 2020</div>
+              <div class="j-role">Product Designer</div>
+              <div class="j-place">Deloitte Digital &middot; Hong Kong</div>
+            </div>
+          </div>
+          <div class="j-item">
+            <div class="j-spine"><div class="j-dot"></div><div class="j-line"></div></div>
+            <div class="j-content">
+              <div class="j-period">2020 – 2025</div>
+              <div class="j-role">Senior Product Designer</div>
+              <div class="j-place">Jimdo &middot; AI-native product</div>
+            </div>
+          </div>
+          <div class="j-item current">
+            <div class="j-spine"><div class="j-dot"></div></div>
+            <div class="j-content">
+              <div class="j-period">Now</div>
+              <div class="j-role">Open to opportunities</div>
+              <div class="j-place">Hamburg &middot; Remote-friendly</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -450,15 +564,33 @@
   <!-- CTA -->
   <section class="cta-section" id="contact">
     <div class="cta-glow"></div>
-    <div class="cta-inner">
-      <div class="cta-label fade-up">Get in Touch</div>
-      <h2 class="cta-title fade-up">Let's build<br><span>something</span> great</h2>
-      <p class="cta-sub fade-up">Open to senior product design roles in AI, personalisation, and complex systems. Based in Hamburg, open to remote and hybrid.</p>
-      <div class="cta-btns fade-up">
-        <a href="#" class="btn-white">View Resume &rarr;</a>
-        <a href="#" class="btn-ghost">LinkedIn &nearr;</a>
+    <div class="cta-layout">
+      <div class="cta-inner fade-up">
+        <div class="cta-label">Get in Touch</div>
+        <h2 class="cta-title">Let's build<br><span>something</span> great</h2>
+        <p class="cta-sub">Open to senior product design roles in AI, personalisation, and complex systems. Based in Hamburg, open to remote and hybrid.</p>
+        <div class="cta-btns">
+          <a href="resume.html" id="cta-resume-btn" class="btn-white">View Resume &rarr;</a>
+          <a href="https://www.linkedin.com/in/lajavimohite/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn &nearr;</a>
+        </div>
+        <div class="cta-email">Or reach me at lajavi1993&#64;gmail.com</div>
       </div>
-      <div class="cta-email fade-up">Or reach me at hello&#64;lajavimohite.com</div>
+      <div class="contact-form fade-up">
+        <div class="form-row">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" placeholder="Your name" autocomplete="off" />
+        </div>
+        <div class="form-row">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" placeholder="your@email.com" autocomplete="off" />
+        </div>
+        <div class="form-row">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" placeholder="Tell me what you're working on..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleFormSubmit(event)">Send message &rarr;</button>
+        <div class="form-success" id="form-success">&#10003; Message sent — I'll get back to you soon.</div>
+      </div>
     </div>
   </section>
 
@@ -474,13 +606,23 @@
   </footer>
 
   <script>
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      var name = document.getElementById('cf-name').value.trim();
+      var email = document.getElementById('cf-email').value.trim();
+      var msg = document.getElementById('cf-message').value.trim();
+      if (!name || !email || !msg) return;
+      document.querySelector('.form-submit').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    }
+
     (function(){
       var els = document.querySelectorAll('.fade-up');
       var io = new IntersectionObserver(function(entries){
         entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
       },{threshold:0.08});
       els.forEach(function(el){
-        var p = el.closest('.testi-grid,.project-cards,.about-tags,.journey,.cta-btns');
+        var p = el.closest('.testi-grid,.project-cards,.about-tags,.about-right,.cta-btns');
         if(p){ var s=p.querySelectorAll('.fade-up'); s.forEach(function(x,i){ x.style.transitionDelay=(i*0.1)+'s'; }); }
         io.observe(el);
       });

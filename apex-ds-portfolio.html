@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>APEX Lift — Design System · Lajavi Mohite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F7F8FC; --bg-2: #FFFFFF;
+      --dark: #080D1A; --dark-2: #0E1528;
+      --text: #080D1A; --text-muted: #6B7280; --border: #E8E8F0;
+      --accent: #16A34A; --accent-light: #DCFCE7; --accent-mid: #86EFAC;
+      --accent-bright: #22C55E; --accent-glow: rgba(22,163,74,0.22);
+      --poppins: 'Poppins', sans-serif; --syne: 'Syne', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--poppins); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 64px; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--syne); font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 13px; font-weight: 400; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: #080D1A !important; color: #fff !important; padding: 9px 22px; border-radius: 100px; font-size: 12px !important; font-weight: 500 !important; }
+    .nav-cta:hover { opacity: 0.8 !important; color: #fff !important; }
+
+    .hero { min-height: 100vh; display: grid; grid-template-rows: 1fr auto; padding: 140px 64px 80px; position: relative; overflow: hidden; background: var(--dark); }
+    .hero-glow  { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, rgba(22,163,74,0.22) 0%, transparent 70%); top: -150px; right: -100px; pointer-events: none; }
+    .hero-glow2 { position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(22,163,74,0.10) 0%, transparent 70%); bottom: 0; left: 200px; pointer-events: none; }
+    .hero-grid  { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(22,163,74,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(22,163,74,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+    .hero-tag   { display: inline-flex; align-items: center; gap: 8px; background: rgba(22,163,74,0.15); border: 1px solid rgba(22,163,74,0.3); color: #86EFAC; padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; width: fit-content; margin-bottom: 32px; }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent-bright); border-radius: 50%; box-shadow: 0 0 10px var(--accent-bright); animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-title  { font-family: var(--syne); font-size: clamp(48px,7.5vw,96px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; color: #fff; margin-bottom: 28px; }
+    .hero-title .bright  { color: #86EFAC; }
+    .hero-title .outline { -webkit-text-stroke: 1px rgba(255,255,255,0.18); color: transparent; }
+    .hero-desc   { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.42); max-width: 520px; line-height: 1.85; }
+    .hero-meta-row { display: flex; gap: 48px; position: relative; z-index: 2; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .hero-meta-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 6px; }
+    .hero-meta-value { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.78); }
+    .scroll-hint { position: absolute; bottom: 36px; right: 64px; z-index: 2; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.2); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .scroll-hint::after { content: ''; width: 40px; height: 1px; background: rgba(255,255,255,0.12); }
+
+    .stats-bar { background: var(--dark-2); padding: 48px 64px; display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(22,163,74,0.2); border-bottom: 1px solid rgba(22,163,74,0.2); }
+    .stat { padding: 0 32px; text-align: center; border-right: 1px solid rgba(255,255,255,0.05); }
+    .stat:last-child { border-right: none; }
+    .stat-n { font-family: var(--syne); font-size: 40px; font-weight: 800; color: var(--accent-mid); letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; }
+
+    section { padding: 120px 64px; }
+    section.light  { background: var(--bg-2); }
+    section.dark   { background: var(--dark); color: #fff; }
+    section.dark-2 { background: var(--dark-2); color: #fff; }
+
+    .label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .label::before { content: ''; width: 20px; height: 2px; background: var(--accent); border-radius: 2px; }
+    section.dark .label, section.dark-2 .label { color: var(--accent-mid); }
+    section.dark .label::before, section.dark-2 .label::before { background: var(--accent-mid); }
+
+    .h2 { font-family: var(--syne); font-size: clamp(30px,4vw,54px); font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 20px; }
+    .h2 span { color: var(--accent); }
+    section.dark .h2, section.dark-2 .h2 { color: #fff; }
+    section.dark .h2 span, section.dark-2 .h2 span { color: var(--accent-mid); }
+
+    .body-text { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--text-muted); max-width: 560px; }
+    section.dark .body-text, section.dark-2 .body-text { color: rgba(255,255,255,0.38); }
+
+    .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    /* WIP banner */
+    .wip-banner { background: rgba(255,255,255,0.04); border: 1px solid rgba(22,163,74,0.25); border-radius: 20px; padding: 28px 32px; margin-bottom: 12px; }
+    .wip-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-mid); background: rgba(22,163,74,0.12); border: 1px solid rgba(22,163,74,0.25); border-radius: 100px; padding: 4px 12px; margin-bottom: 14px; }
+    .wip-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent-bright); animation: blink 2s infinite; }
+    .wip-headline { font-family: var(--syne); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .wip-body { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+    /* Phase tracker */
+    .phase-tracker { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; }
+    .phase-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); }
+    .phase-row.active { background: rgba(22,163,74,0.08); border-color: rgba(22,163,74,0.3); }
+    .phase-row.done { opacity: 0.5; }
+    .phase-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .phase-dot.done { background: rgba(255,255,255,0.3); }
+    .phase-dot.active { background: var(--accent-bright); box-shadow: 0 0 8px var(--accent-bright); }
+    .phase-dot.pending { background: transparent; border: 1.5px solid rgba(255,255,255,0.2); }
+    .phase-name { font-family: var(--syne); font-size: 13px; font-weight: 600; flex: 1; }
+    .phase-row.active .phase-name { color: #86EFAC; }
+    .phase-row.done .phase-name { color: rgba(255,255,255,0.5); }
+    .phase-row:not(.active):not(.done) .phase-name { color: rgba(255,255,255,0.3); }
+    .phase-status { font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+    .phase-row.active .phase-status { color: var(--accent-mid); }
+    .phase-row.done .phase-status { color: rgba(255,255,255,0.3); }
+    .phase-row:not(.active):not(.done) .phase-status { color: rgba(255,255,255,0.15); }
+
+    /* Reason cards */
+    .reason-card { padding: 32px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-2); transition: transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+    .reason-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
+    .reason-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(22,163,74,0.08); }
+    .reason-num { font-family: var(--syne); font-size: 48px; font-weight: 800; color: var(--accent-light); line-height: 1; margin-bottom: 12px; }
+    .reason-title { font-family: var(--syne); font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+    .reason-body { font-size: 13px; font-weight: 300; color: var(--text-muted); line-height: 1.75; }
+
+    /* Pull quote */
+    .pull-quote { font-family: var(--syne); font-size: clamp(17px,1.8vw,23px); font-weight: 600; line-height: 1.6; padding: 40px 36px; background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 0 16px 16px 0; color: var(--text); margin-top: 48px; }
+    section.dark .pull-quote { background: rgba(22,163,74,0.08); border-left-color: var(--accent-mid); color: rgba(255,255,255,0.85); }
+
+    /* Process */
+    .process-timeline { display: flex; flex-direction: column; }
+    .process-step { padding: 0 0 48px 36px; border-left: 1px solid rgba(22,163,74,0.25); position: relative; }
+    .process-step:last-child { padding-bottom: 0; border-left-color: transparent; }
+    .process-dot { position: absolute; left: -7px; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-bright); box-shadow: 0 0 12px var(--accent-glow); }
+    .process-week  { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+    .process-title { font-family: var(--syne); font-size: clamp(18px,1.8vw,24px); font-weight: 700; line-height: 1.3; margin-bottom: 12px; color: #fff; }
+    .process-body  { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.8; }
+    .process-output { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #86EFAC; background: rgba(22,163,74,0.12); padding: 5px 14px; border-radius: 100px; }
+
+    /* Tools aside */
+    .tools-aside { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 32px; position: sticky; top: 90px; }
+    .tools-aside-title { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .tools-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .tools-row:last-of-type { border-bottom: none; }
+    .tools-name { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.7); }
+    .tools-use  { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-mid); }
+    .scale-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .scale-item { text-align: center; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); }
+    .scale-num { font-family: var(--syne); font-size: 32px; font-weight: 800; color: var(--accent-mid); line-height: 1; margin-bottom: 4px; }
+    .scale-lbl { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+
+    /* Principle cards */
+    .principle-card { padding: 32px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-2); transition: transform 0.3s, box-shadow 0.3s; }
+    .principle-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(22,163,74,0.08); }
+    .principle-icon  { font-size: 28px; margin-bottom: 16px; }
+    .principle-title { font-family: var(--syne); font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+    .principle-body  { font-size: 13px; font-weight: 300; color: var(--text-muted); line-height: 1.75; }
+    .principle-placeholder { padding: 32px; border-radius: 20px; border: 1px dashed rgba(22,163,74,0.3); background: var(--accent-light); display: flex; align-items: center; justify-content: center; text-align: center; }
+
+    /* Colour system */
+    .colour-group-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 12px; }
+    .colour-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .colour-chip { flex: 1; min-width: 90px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+    .colour-chip-swatch { height: 64px; }
+    .colour-chip-meta { padding: 10px 12px; background: #0E1118; }
+    .colour-chip-name { font-family: var(--syne); font-size: 11px; font-weight: 700; color: #F0EDE8; margin-bottom: 2px; }
+    .colour-chip-hex  { font-size: 10px; color: rgba(240,237,232,0.45); font-family: monospace; }
+    .colour-chip-use  { font-size: 10px; color: rgba(240,237,232,0.3); margin-top: 2px; }
+
+    /* Token table */
+    .token-table { background: #080A0F; border-radius: 20px; padding: 28px; border: 1px solid rgba(255,255,255,0.06); }
+    .token-table-title { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .token-line { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); gap: 12px; }
+    .token-line:last-child { border-bottom: none; }
+    .token-key { font-size: 10px; font-family: monospace; color: rgba(255,255,255,0.45); }
+    .token-val { font-size: 10px; font-family: monospace; color: var(--accent-mid); display: flex; align-items: center; gap: 6px; }
+    .token-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+    /* Type specimens */
+    .type-block { padding: 36px 40px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-2); margin-bottom: 12px; position: relative; transition: border-color 0.2s; }
+    .type-block:hover { border-color: var(--accent); }
+    .type-meta { position: absolute; top: 20px; right: 24px; text-align: right; }
+    .type-meta-label { font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
+    .type-meta-spec  { font-size: 10px; font-family: monospace; color: var(--accent); }
+    .type-meta-role  { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+    .specimen-display      { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 0.9; color: var(--accent); }
+    .specimen-serif        { font-family: 'DM Serif Display', serif; font-size: 44px; font-weight: 400; line-height: 1.1; color: var(--text); }
+    .specimen-serif-italic { font-family: 'DM Serif Display', serif; font-size: 32px; font-style: italic; color: var(--text-muted); }
+    .specimen-body         { font-family: 'DM Sans', sans-serif; font-size: 17px; color: var(--text-muted); line-height: 1.6; }
+    .specimen-mono         { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--accent); letter-spacing: 0.08em; }
+    .specimen-label        { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; }
+
+    /* Spacing */
+    .spacing-visual { display: flex; flex-direction: column; gap: 6px; }
+    .spacing-item { display: flex; align-items: center; gap: 16px; }
+    .spacing-name { font-family: monospace; font-size: 11px; color: rgba(255,255,255,0.4); width: 80px; flex-shrink: 0; }
+    .spacing-bar-track { flex: 1; height: 20px; background: rgba(255,255,255,0.04); border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+    .spacing-bar-fill { height: 100%; background: linear-gradient(90deg, rgba(134,239,172,0.5), rgba(134,239,172,0.1)); border-radius: 4px; border-right: 2px solid #86EFAC; }
+    .spacing-value { font-family: monospace; font-size: 11px; color: #86EFAC; width: 36px; text-align: right; flex-shrink: 0; }
+
+    /* Component panels */
+    .component-panel { background: #080A0F; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+    .component-panel-header { padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; }
+    .panel-title { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .panel-badge { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(22,163,74,0.12); border: 1px solid rgba(22,163,74,0.25); color: #86EFAC; border-radius: 100px; padding: 3px 10px; }
+    .component-panel-body { padding: 24px; }
+
+    /* DS buttons */
+    .ds-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 13px 24px; border-radius: 8px; cursor: pointer; border: none; transition: transform 0.15s, box-shadow 0.15s; }
+    .ds-btn-primary { background: #C8F135; color: #080A0F; }
+    .ds-btn-primary:hover { box-shadow: 0 6px 24px rgba(200,241,53,0.3); transform: translateY(-2px); }
+    .ds-btn-ghost   { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: rgba(240,237,232,0.6); }
+    .ds-btn-danger  { background: rgba(255,77,77,0.12); border: 1px solid rgba(255,77,77,0.25); color: #FF4D4D; }
+    .ds-btn-icon    { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); color: rgba(240,237,232,0.6); width: 44px; height: 44px; padding: 0; justify-content: center; border-radius: 8px; font-size: 16px; }
+
+    /* DS badges */
+    .ds-badge         { display: inline-flex; align-items: center; gap: 5px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 9999px; }
+    .ds-badge-green   { background: rgba(200,241,53,0.12); color: #C8F135; border: 1px solid rgba(200,241,53,0.22); }
+    .ds-badge-cyan    { background: rgba(61,255,192,0.10); color: #3DFFC0; border: 1px solid rgba(61,255,192,0.20); }
+    .ds-badge-red     { background: rgba(255,77,77,0.10); color: #FF4D4D; border: 1px solid rgba(255,77,77,0.20); }
+    .ds-badge-neutral { background: rgba(255,255,255,0.05); color: rgba(240,237,232,0.4); border: 1px solid rgba(255,255,255,0.08); }
+
+    /* DS input */
+    .ds-input { background: #141820; border: 1px solid rgba(255,255,255,0.10); border-radius: 8px; padding: 12px 16px; color: #F0EDE8; font-family: 'DM Sans', sans-serif; font-size: 15px; outline: none; width: 100%; transition: border-color 0.15s; }
+    .ds-input::placeholder { color: rgba(240,237,232,0.2); }
+    .ds-input.focus-state { border-color: #C8F135; box-shadow: 0 0 0 3px rgba(200,241,53,0.12); }
+    .ds-input-label { font-family: 'Space Mono', monospace; font-size: 9px; color: rgba(240,237,232,0.35); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px; }
+
+    /* DS set row */
+    .ds-set-row { display: grid; grid-template-columns: 28px 1fr 1fr 80px 36px; gap: 8px; align-items: center; padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: #0E1118; margin-bottom: 4px; }
+    .ds-set-row.active-row { border-color: rgba(200,241,53,0.28); background: rgba(200,241,53,0.03); }
+    .set-n { font-family: 'Space Mono', monospace; font-size: 10px; color: rgba(240,237,232,0.2); text-align: center; }
+    .set-field-lbl { font-family: 'Space Mono', monospace; font-size: 8px; color: rgba(240,237,232,0.25); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1px; }
+    .set-field-val { font-family: 'Space Mono', monospace; font-size: 15px; font-weight: 700; color: #F0EDE8; }
+    .active-row .set-field-val { color: #C8F135; }
+    .set-ai   { font-family: 'Space Mono', monospace; font-size: 10px; color: #3DFFC0; text-align: right; }
+    .set-check { width: 28px; height: 28px; border-radius: 6px; border: 1.5px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: #C8F135; font-size: 13px; }
+    .set-check.checked { background: #C8F135; border-color: #C8F135; color: #080A0F; }
+
+    /* DS insight */
+    .ds-insight { padding: 14px 16px; border-radius: 8px; background: #0E1118; margin-bottom: 6px; position: relative; overflow: hidden; }
+    .ds-insight::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 0 2px 2px 0; }
+    .ds-insight.g::before { background: #C8F135; }
+    .ds-insight.c::before { background: #3DFFC0; }
+    .ds-insight.r::before { background: #FF4D4D; }
+    .ds-insight-lbl { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 4px; }
+    .ds-insight.g .ds-insight-lbl { color: #C8F135; }
+    .ds-insight.c .ds-insight-lbl { color: #3DFFC0; }
+    .ds-insight.r .ds-insight-lbl { color: #FF4D4D; }
+    .ds-insight-txt { font-size: 12px; color: rgba(240,237,232,0.65); line-height: 1.5; }
+
+    /* Section sub-label */
+    .section-sub-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .section-sub-label::before { content: ''; width: 16px; height: 1px; background: rgba(255,255,255,0.3); }
+
+    /* Decision blocks */
+    .decision-block { padding: 40px 36px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 20px; margin-bottom: 12px; display: grid; grid-template-columns: 60px 1fr 1fr; gap: 32px; align-items: start; transition: transform 0.3s, box-shadow 0.3s; }
+    .decision-block:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(22,163,74,0.08); }
+    .decision-num { font-family: var(--syne); font-size: 52px; font-weight: 800; color: var(--accent-light); line-height: 1; }
+    .decision-col-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .decision-col-title { font-family: var(--syne); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .decision-col-body  { font-size: 14px; font-weight: 300; color: var(--text-muted); line-height: 1.7; }
+
+    /* Roadmap */
+    .roadmap-row { display: flex; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-bottom: 48px; }
+    .roadmap-phase { flex: 1; padding: 28px 24px; border-right: 1px solid var(--border); }
+    .roadmap-phase:last-child { border-right: none; }
+    .roadmap-phase.current { background: var(--dark); }
+    .roadmap-phase.done    { opacity: 0.6; }
+    .roadmap-phase-label { font-size: 9px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 8px; }
+    .roadmap-phase.current .roadmap-phase-label { color: var(--accent-mid); }
+    .roadmap-phase:not(.current) .roadmap-phase-label { color: var(--text-muted); }
+    .roadmap-phase-title { font-family: var(--syne); font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .roadmap-phase.current .roadmap-phase-title { color: #fff; }
+    .roadmap-phase-desc { font-size: 13px; font-weight: 300; line-height: 1.6; }
+    .roadmap-phase.current .roadmap-phase-desc { color: rgba(255,255,255,0.45); }
+    .roadmap-phase:not(.current) .roadmap-phase-desc { color: var(--text-muted); }
+
+    /* Upcoming cards */
+    .upcoming-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 48px; }
+    .upcoming-card { padding: 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; }
+    .upcoming-tag   { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-mid); background: rgba(22,163,74,0.12); padding: 3px 10px; border-radius: 100px; width: fit-content; margin-bottom: 12px; }
+    .upcoming-title { font-family: var(--syne); font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 10px; }
+    .upcoming-desc  { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.75; }
+
+    /* Divider */
+    .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 52px 0; }
+
+    /* Closing */
+    .closing { background: var(--dark); padding: 160px 64px; text-align: center; position: relative; overflow: hidden; }
+    .c-glow  { position: absolute; width: 800px; height: 800px; background: radial-gradient(circle, rgba(22,163,74,0.14) 0%, transparent 65%); left: 50%; top: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+    .c-title { font-family: var(--syne); font-size: clamp(36px,5vw,68px); font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.1; margin-bottom: 18px; position: relative; z-index: 2; }
+    .c-title span { color: var(--accent-mid); }
+    .c-sub   { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.36); max-width: 440px; margin: 0 auto 48px; position: relative; z-index: 2; }
+    .project-switcher { display: flex; gap: 16px; justify-content: center; margin-bottom: 48px; position: relative; z-index: 2; }
+    .ps-card { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 12px; text-decoration: none; border: 1px solid rgba(255,255,255,0.08); transition: all 0.25s; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.45); }
+    .ps-card:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .ps-dot  { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .ps-card.active { background: rgba(22,163,74,0.15); border-color: rgba(22,163,74,0.3); color: var(--accent-mid); }
+    .btn-prim { display: inline-flex; align-items: center; gap: 8px; padding: 16px 36px; background: var(--accent); color: #fff; font-family: var(--poppins); font-size: 14px; font-weight: 500; text-decoration: none; border-radius: 100px; transition: all 0.3s; position: relative; z-index: 2; }
+    .btn-prim:hover { background: #15803D; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(22,163,74,0.4); }
+    .bottom { background: var(--dark-2); padding: 26px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .bottom a { color: rgba(255,255,255,0.28); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .bottom a:hover { color: #fff; }
+
+    /* Fade animation */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); }
+    .fade-up.in { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; } .nav-cta { display: none; }
+      .hero { padding: 120px 24px 60px; } .hero-meta-row { flex-wrap: wrap; gap: 24px; } .scroll-hint { display: none; }
+      .stats-bar { grid-template-columns: 1fr 1fr; padding: 32px 24px; } .stat { border-right: none; padding: 0; }
+      section { padding: 80px 24px; }
+      .two-col { grid-template-columns: 1fr; gap: 40px; }
+      .three-col { grid-template-columns: 1fr; }
+      .decision-block { grid-template-columns: 1fr; gap: 16px; }
+      .roadmap-row { flex-direction: column; }
+      .roadmap-phase { border-right: none; border-bottom: 1px solid var(--border); }
+      .upcoming-grid { grid-template-columns: 1fr; }
+      .closing { padding: 80px 24px; } .project-switcher { flex-direction: column; align-items: center; }
+      .bottom { padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Lajavi Mohite</a>
+  <div class="nav-links">
+    <a href="index.html#work">Work</a>
+    <a href="index.html#about">About</a>
+    <a href="resume.html">Resume</a>
+    <a href="index.html#contact" class="nav-cta">Let's Talk</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div><div class="hero-glow2"></div><div class="hero-grid"></div>
+  <div class="hero-content fade-up">
+    <div class="hero-tag">Case Study &mdash; Design System &amp; Process</div>
+    <h1 class="hero-title">Building the<br><span class="bright">foundation</span><br><span class="outline">before the house</span></h1>
+    <p class="hero-desc">How I designed a complete design system for APEX Lift &mdash; an AI-native fitness tracker &mdash; before touching a single app screen. A record of decisions, principles, and process.</p>
+  </div>
+  <div class="hero-meta-row fade-up">
+    <div><div class="hero-meta-label">Project</div><div class="hero-meta-value">APEX Lift</div></div>
+    <div><div class="hero-meta-label">Role</div><div class="hero-meta-value">Senior Product Designer</div></div>
+    <div><div class="hero-meta-label">Phase</div><div class="hero-meta-value">Design System</div></div>
+    <div><div class="hero-meta-label">Status</div><div class="hero-meta-value">In Progress</div></div>
+  </div>
+  <div class="scroll-hint">Scroll to explore</div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar fade-up">
+  <div class="stat"><div class="stat-n">42</div><div class="stat-label">Colour tokens defined</div></div>
+  <div class="stat"><div class="stat-n">18</div><div class="stat-label">Core components built</div></div>
+  <div class="stat"><div class="stat-n">4</div><div class="stat-label">Typefaces in the system</div></div>
+  <div class="stat"><div class="stat-n">8pt</div><div class="stat-label">Spacing grid base</div></div>
+</div>
+
+<!-- WIP + PHASE TRACKER -->
+<section class="dark-2">
+  <div class="two-col" style="align-items:start;">
+    <div>
+      <div class="label">Work in Progress</div>
+      <h2 class="h2 fade-up">This document is intentionally <span>incomplete.</span></h2>
+      <p class="body-text fade-up">Design systems are never finished &mdash; only iterated. This case study captures the design system phase: the decisions made, the rationale behind them, and how the foundation was laid before any app screen was designed. App screens, user flows, and prototype documentation will follow.</p>
+    </div>
+    <div class="fade-up">
+      <div class="wip-banner">
+        <div class="wip-tag">Current Phase</div>
+        <div class="wip-headline">Design System</div>
+        <div class="wip-body">You're reading the live document for Phase 02. The progress tracker below shows exactly where this project sits.</div>
+      </div>
+      <div class="phase-tracker">
+        <div class="phase-row done"><div class="phase-dot done"></div><span class="phase-name">Discovery &amp; Research</span><span class="phase-status">Complete</span></div>
+        <div class="phase-row active"><div class="phase-dot active"></div><span class="phase-name">Design System</span><span class="phase-status">You are here</span></div>
+        <div class="phase-row"><div class="phase-dot pending"></div><span class="phase-name">Screen Design</span><span class="phase-status">Upcoming</span></div>
+        <div class="phase-row"><div class="phase-dot pending"></div><span class="phase-name">Prototype &amp; Testing</span><span class="phase-status">Upcoming</span></div>
+        <div class="phase-row"><div class="phase-dot pending"></div><span class="phase-name">Final Case Study</span><span class="phase-status">Upcoming</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY A DESIGN SYSTEM FIRST -->
+<section class="light">
+  <div class="label">01 &mdash; Rationale</div>
+  <h2 class="h2 fade-up">Why the system <span>before the screens</span></h2>
+  <p class="body-text fade-up" style="margin-bottom:48px;">Most designers start with screens. I've done that. It's fast and satisfying until week 6 when you have 40 inconsistent button styles across 12 screens and no one can explain where anything came from. Starting with a system is not slower &mdash; it's a different kind of investment that pays off exponentially as the design grows.</p>
+  <div class="three-col">
+    <div class="reason-card fade-up">
+      <div class="reason-num">01</div>
+      <div class="reason-title">Consistency From Day One</div>
+      <div class="reason-body">When every screen is built from the same tokens, they look like they belong together without anyone having to check. That visual coherence is what separates professional product design from assembly.</div>
+    </div>
+    <div class="reason-card fade-up">
+      <div class="reason-num">02</div>
+      <div class="reason-title">Faster Screen Design</div>
+      <div class="reason-body">Building screens becomes assembly once the system exists. Each design decision &mdash; what radius, what spacing, what colour &mdash; is pre-resolved. I can focus on layout and UX logic instead of micro-decisions.</div>
+    </div>
+    <div class="reason-card fade-up">
+      <div class="reason-num">03</div>
+      <div class="reason-title">Dev Handoff That Works</div>
+      <div class="reason-body">Lovable and other AI builders reproduce designs accurately when given named tokens. "Use --color-accent" produces a consistent output. "Use that green colour" produces chaos.</div>
+    </div>
+    <div class="reason-card fade-up">
+      <div class="reason-num">04</div>
+      <div class="reason-title">Sustainable Design Decisions</div>
+      <div class="reason-body">Design tokens, spacing rules, and component states aren't overhead — they're what prevents design debt from compounding. Decisions made once in a system hold up across every new screen, edge case, and handoff.</div>
+    </div>
+    <div class="reason-card fade-up">
+      <div class="reason-num">05</div>
+      <div class="reason-title">AI Tooling Compatibility</div>
+      <div class="reason-body">APEX uses AI at the product level. It made sense to use AI at the build level too. Design tokens are exactly the structured format that tools like Figma Make and Lovable understand best.</div>
+    </div>
+    <div class="reason-card fade-up">
+      <div class="reason-num">06</div>
+      <div class="reason-title">Easier Iteration</div>
+      <div class="reason-body">When a recruiter asks "can you make this lighter?" one token change updates every surface. Without a system, that's 3 hours of hunting across Figma layers. With a system, it's 30 seconds.</div>
+    </div>
+  </div>
+  <div class="pull-quote fade-up">"A design system is not a deliverable. It's the infrastructure that makes all future deliverables better and faster."</div>
+</section>
+
+<!-- PROCESS -->
+<section class="dark">
+  <div class="label">02 &mdash; Process</div>
+  <h2 class="h2 fade-up">How I built <span>the system</span></h2>
+  <p class="body-text fade-up" style="margin-bottom:60px;">Four focused weeks before opening Figma. Most of the work was decisions, not production. The production work was fast because the decisions were already made.</p>
+  <div class="two-col">
+    <div class="process-timeline">
+      <div class="process-step fade-up">
+        <div class="process-dot"></div>
+        <div class="process-week">Week 01</div>
+        <div class="process-title">Defining the Visual Language</div>
+        <div class="process-body">Started with a mood board in FigJam &mdash; not aspirational imagery, but specific references for each design decision. Dark theme references. Typography pairings. Apps that handle dense data beautifully under gym lighting. The question I kept asking: what does "serious but accessible" look like in a fitness context?</div>
+        <div class="process-output">→ Visual direction brief · Colour psychology notes · 3 rejected directions</div>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-dot"></div>
+        <div class="process-week">Week 02</div>
+        <div class="process-title">Colour &amp; Accessibility Audit</div>
+        <div class="process-body">Tested every colour combination against WCAG AA (4.5:1 contrast ratio minimum). The gym context made this non-negotiable &mdash; screens are read in varying lighting, at arm's length, sometimes mid-set. Every text-on-background pairing was validated in Figma's accessibility plugin before being committed to the system.</div>
+        <div class="process-output">→ Colour token set · Contrast matrix · Accessibility sign-off</div>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-dot"></div>
+        <div class="process-week">Week 03</div>
+        <div class="process-title">Typography System &amp; Spacing Grid</div>
+        <div class="process-body">Settled on four typefaces after testing six. The key constraint: Bebas Neue for display type renders beautifully at large sizes on OLED screens &mdash; the acid green on near-black produces an almost physical contrast. Space Mono was chosen deliberately for data/labels to create visual separation between "system information" and "human content."</div>
+        <div class="process-output">→ Type scale · Letter-spacing map · 8pt spacing grid · Radius tokens</div>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-dot"></div>
+        <div class="process-week">Week 04</div>
+        <div class="process-title">Core Component Library</div>
+        <div class="process-body">Built 18 components, each with full state coverage: default, hover, active, focused, disabled, loading, and empty. Started with the most-used component (the set log row) and worked outward. Every component was built from tokens &mdash; no hardcoded values anywhere. This was the week the system became real.</div>
+        <div class="process-output">→ 18 components · State documentation · Component spec sheet</div>
+      </div>
+    </div>
+    <div>
+      <div class="tools-aside fade-up">
+        <div class="tools-aside-title">Tools Used</div>
+        <div class="tools-row"><span class="tools-name">Figma</span><span class="tools-use">Component library</span></div>
+        <div class="tools-row"><span class="tools-name">FigJam</span><span class="tools-use">Mood board · IA</span></div>
+        <div class="tools-row"><span class="tools-name">Figma Variables</span><span class="tools-use">Token management</span></div>
+        <div class="tools-row"><span class="tools-name">Stark Plugin</span><span class="tools-use">Accessibility audit</span></div>
+        <div class="tools-row"><span class="tools-name">Notion</span><span class="tools-use">Decision log</span></div>
+        <div class="scale-grid">
+          <div class="scale-item"><div class="scale-num">42</div><div class="scale-lbl">Colour Tokens</div></div>
+          <div class="scale-item"><div class="scale-num">4</div><div class="scale-lbl">Typefaces</div></div>
+          <div class="scale-item"><div class="scale-num">18</div><div class="scale-lbl">Components</div></div>
+          <div class="scale-item"><div class="scale-num">8pt</div><div class="scale-lbl">Grid Base</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN PRINCIPLES -->
+<section class="light">
+  <div class="label">02b &mdash; Principles</div>
+  <h2 class="h2 fade-up">Five principles that <span>guided every decision</span></h2>
+  <p class="body-text fade-up" style="margin-bottom:48px;">Before touching a single token, I wrote these down. They became the filter for every "should we or shouldn't we" conversation &mdash; with myself and eventually with the engineers.</p>
+  <div class="three-col">
+    <div class="principle-card fade-up">
+      <div class="principle-icon">🏋️</div>
+      <div class="principle-title">Gym First</div>
+      <div class="principle-body">Every decision is evaluated in the context of someone standing in a gym, one hand on their phone, between sets. If it doesn't work there, it doesn't make the cut.</div>
+    </div>
+    <div class="principle-card fade-up">
+      <div class="principle-icon">⚡</div>
+      <div class="principle-title">Zero Decoration</div>
+      <div class="principle-body">Every visual element earns its place by communicating something. Acid green means "primary action or key data." Cyan means "AI-generated." Red means "attention required." Nothing is decorative.</div>
+    </div>
+    <div class="principle-card fade-up">
+      <div class="principle-icon">🤖</div>
+      <div class="principle-title">AI Earns Trust</div>
+      <div class="principle-body">AI features have a distinct visual language (cyan, specific card treatment) so users always know when they're looking at AI-generated content versus their own logged data. Transparency is structural, not optional.</div>
+    </div>
+    <div class="principle-card fade-up">
+      <div class="principle-icon">♿</div>
+      <div class="principle-title">Contrast is Non-Negotiable</div>
+      <div class="principle-body">WCAG AA minimum everywhere, AAA for critical data like weights and reps. This isn't just compliance &mdash; gym lighting is brutal and accessibility under those conditions directly affects the core product experience.</div>
+    </div>
+    <div class="principle-card fade-up">
+      <div class="principle-icon">🧱</div>
+      <div class="principle-title">Tokens Over Values</div>
+      <div class="principle-body">No hardcoded values anywhere in the system. Every colour, space, radius, and duration references a named token. This is the principle that makes the system maintainable and AI-tool-compatible.</div>
+    </div>
+    <div class="principle-placeholder fade-up">
+      <div>
+        <div style="font-size:28px;margin-bottom:12px;opacity:0.4;">+</div>
+        <div style="font-size:12px;font-weight:500;color:var(--accent);">More principles may emerge during screen design phase</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE SYSTEM -->
+<section class="dark-2">
+  <div class="label">03 &mdash; The System</div>
+  <h2 class="h2 fade-up">Colour, type, <span>space, motion</span></h2>
+  <p class="body-text fade-up" style="margin-bottom:60px;">The following documents the foundation layer of the APEX Lift design system. Each section shows the token, its value, its rationale, and how it renders in context.</p>
+
+  <!-- 03.1 Colours -->
+  <div class="section-sub-label">03.1 &mdash; Colour System</div>
+  <div class="two-col fade-up" style="margin-bottom:60px;">
+    <div>
+      <div class="colour-group-label">Background Layers</div>
+      <div class="colour-row">
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:#080A0F;"></div><div class="colour-chip-meta"><div class="colour-chip-name">Base</div><div class="colour-chip-hex">#080A0F</div><div class="colour-chip-use">App background</div></div></div>
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:#0E1118;"></div><div class="colour-chip-meta"><div class="colour-chip-name">Surface</div><div class="colour-chip-hex">#0E1118</div><div class="colour-chip-use">Cards, panels</div></div></div>
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:#141820;"></div><div class="colour-chip-meta"><div class="colour-chip-name">Surface 2</div><div class="colour-chip-hex">#141820</div><div class="colour-chip-use">Hover, nested</div></div></div>
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:#1A2030;"></div><div class="colour-chip-meta"><div class="colour-chip-name">Surface 3</div><div class="colour-chip-hex">#1A2030</div><div class="colour-chip-use">Modals, sheets</div></div></div>
+      </div>
+      <div class="colour-group-label">Brand &amp; Semantic</div>
+      <div class="colour-row">
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:#C8F135;"></div><div class="colour-chip-meta"><div class="colour-chip-name">Accent</div><div class="colour-chip-hex">#C8F135</div><div class="colour-chip-use">Primary · protein</div></div></div>
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:#3DFFC0;"></div><div class="colour-chip-meta"><div class="colour-chip-name">AI / Success</div><div class="colour-chip-hex">#3DFFC0</div><div class="colour-chip-use">AI features only</div></div></div>
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:#FF4D4D;"></div><div class="colour-chip-meta"><div class="colour-chip-name">Danger</div><div class="colour-chip-hex">#FF4D4D</div><div class="colour-chip-use">Fatigue · errors</div></div></div>
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:#FFB547;"></div><div class="colour-chip-meta"><div class="colour-chip-name">Warning</div><div class="colour-chip-hex">#FFB547</div><div class="colour-chip-use">Recovery flags</div></div></div>
+      </div>
+      <div class="colour-group-label">Text Opacity Scale</div>
+      <div class="colour-row">
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:#F0EDE8;"></div><div class="colour-chip-meta"><div class="colour-chip-name">Primary</div><div class="colour-chip-hex">100% · #F0EDE8</div><div class="colour-chip-use">Headings, values</div></div></div>
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:rgba(240,237,232,0.60);"></div><div class="colour-chip-meta"><div class="colour-chip-name">Secondary</div><div class="colour-chip-hex">60% opacity</div><div class="colour-chip-use">Body copy</div></div></div>
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:rgba(240,237,232,0.35);"></div><div class="colour-chip-meta"><div class="colour-chip-name">Tertiary</div><div class="colour-chip-hex">35% opacity</div><div class="colour-chip-use">Labels, meta</div></div></div>
+        <div class="colour-chip"><div class="colour-chip-swatch" style="background:rgba(240,237,232,0.20);"></div><div class="colour-chip-meta"><div class="colour-chip-name">Disabled</div><div class="colour-chip-hex">20% opacity</div><div class="colour-chip-use">Inactive states</div></div></div>
+      </div>
+    </div>
+    <div class="token-table">
+      <div class="token-table-title">CSS Variables — Colour</div>
+      <div class="token-line"><span class="token-key">--color-bg-base</span><div class="token-val"><div class="token-dot" style="background:#080A0F;border:1px solid rgba(255,255,255,0.1);"></div>#080A0F</div></div>
+      <div class="token-line"><span class="token-key">--color-bg-surface</span><div class="token-val"><div class="token-dot" style="background:#0E1118;border:1px solid rgba(255,255,255,0.1);"></div>#0E1118</div></div>
+      <div class="token-line"><span class="token-key">--color-bg-surface-2</span><div class="token-val"><div class="token-dot" style="background:#141820;border:1px solid rgba(255,255,255,0.1);"></div>#141820</div></div>
+      <div class="token-line"><span class="token-key">--color-accent</span><div class="token-val"><div class="token-dot" style="background:#C8F135;"></div>#C8F135</div></div>
+      <div class="token-line"><span class="token-key">--color-success</span><div class="token-val"><div class="token-dot" style="background:#3DFFC0;"></div>#3DFFC0</div></div>
+      <div class="token-line"><span class="token-key">--color-danger</span><div class="token-val"><div class="token-dot" style="background:#FF4D4D;"></div>#FF4D4D</div></div>
+      <div class="token-line"><span class="token-key">--color-warning</span><div class="token-val"><div class="token-dot" style="background:#FFB547;"></div>#FFB547</div></div>
+      <div class="token-line"><span class="token-key">--color-text-primary</span><div class="token-val"><div class="token-dot" style="background:#F0EDE8;"></div>#F0EDE8</div></div>
+      <div class="token-line"><span class="token-key">--color-text-secondary</span><span class="token-val">60% #F0EDE8</span></div>
+      <div class="token-line"><span class="token-key">--color-text-tertiary</span><span class="token-val">35% #F0EDE8</span></div>
+      <div class="token-line"><span class="token-key">--color-border-subtle</span><span class="token-val">rgba(255,255,255,0.06)</span></div>
+      <div class="token-line"><span class="token-key">--color-border-default</span><span class="token-val">rgba(255,255,255,0.10)</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 03.2 Typography -->
+  <div class="section-sub-label">03.2 &mdash; Typography System</div>
+  <div class="fade-up" style="margin-bottom:12px;">
+    <div class="type-block">
+      <div class="type-meta"><div class="type-meta-label">Font</div><div class="type-meta-spec">Bebas Neue · 400</div><div class="type-meta-role">Screen titles · Stats · Display</div></div>
+      <div class="specimen-display">142g</div>
+      <div style="font-family:monospace;font-size:10px;color:var(--text-muted);margin-top:12px;letter-spacing:0.15em;">UPPERCASE ONLY · NEVER USE FOR BODY COPY · IDEAL FOR OLED SCREENS AT LARGE SIZES</div>
+    </div>
+    <div class="type-block">
+      <div class="type-meta"><div class="type-meta-label">Font</div><div class="type-meta-spec">DM Serif Display · 300/400/600</div><div class="type-meta-role">Section headings · Coach insights</div></div>
+      <div class="specimen-serif">Your strength is rising.</div>
+      <div class="specimen-serif-italic" style="margin-top:8px;">"Try 92.5kg on your next working set."</div>
+    </div>
+    <div class="type-block">
+      <div class="type-meta"><div class="type-meta-label">Font</div><div class="type-meta-spec">DM Sans · 300–700</div><div class="type-meta-role">All body copy · Input text</div></div>
+      <div class="specimen-body">Track your weights and protein in seconds. The AI learns your patterns so it can predict what you should lift next &mdash; based on your own history, not population averages.</div>
+    </div>
+    <div class="type-block">
+      <div class="type-meta"><div class="type-meta-label">Font</div><div class="type-meta-spec">Space Mono · 400/700</div><div class="type-meta-role">Labels · Badges · Data values · Eyebrows</div></div>
+      <div class="specimen-mono">AI COACH · WEEKLY SUMMARY · JAN 13–19</div>
+      <div class="specimen-label" style="margin-top:10px;">SET 1 · 90KG × 8 REPS · RPE 7</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 03.3 Spacing -->
+  <div class="section-sub-label">03.3 &mdash; Spacing (8pt Grid)</div>
+  <div class="two-col fade-up" style="margin-bottom:60px;">
+    <div>
+      <div class="spacing-visual">
+        <div class="spacing-item"><span class="spacing-name">--space-1</span><div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:4px;"></div></div><span class="spacing-value">4px</span></div>
+        <div class="spacing-item"><span class="spacing-name">--space-2</span><div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:8px;"></div></div><span class="spacing-value">8px</span></div>
+        <div class="spacing-item"><span class="spacing-name">--space-3</span><div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:12px;"></div></div><span class="spacing-value">12px</span></div>
+        <div class="spacing-item"><span class="spacing-name">--space-4</span><div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:16px;"></div></div><span class="spacing-value">16px</span></div>
+        <div class="spacing-item"><span class="spacing-name">--space-5</span><div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:20px;"></div></div><span class="spacing-value">20px</span></div>
+        <div class="spacing-item"><span class="spacing-name">--space-6</span><div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:24px;"></div></div><span class="spacing-value">24px</span></div>
+        <div class="spacing-item"><span class="spacing-name">--space-8</span><div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:32px;"></div></div><span class="spacing-value">32px</span></div>
+        <div class="spacing-item"><span class="spacing-name">--space-10</span><div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:40px;"></div></div><span class="spacing-value">40px</span></div>
+        <div class="spacing-item"><span class="spacing-name">--space-12</span><div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:48px;"></div></div><span class="spacing-value">48px</span></div>
+        <div class="spacing-item"><span class="spacing-name">--space-16</span><div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:64px;"></div></div><span class="spacing-value">64px</span></div>
+      </div>
+    </div>
+    <div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:28px;">
+        <div class="colour-group-label" style="margin-bottom:16px;">Border Radius</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;">
+          <div style="text-align:center;"><div style="width:48px;height:48px;background:rgba(134,239,172,0.1);border:1px solid rgba(134,239,172,0.3);border-radius:4px;margin-bottom:6px;"></div><div style="font-family:monospace;font-size:9px;color:rgba(255,255,255,0.3);">4px<br>Badges</div></div>
+          <div style="text-align:center;"><div style="width:48px;height:48px;background:rgba(134,239,172,0.1);border:1px solid rgba(134,239,172,0.3);border-radius:8px;margin-bottom:6px;"></div><div style="font-family:monospace;font-size:9px;color:rgba(255,255,255,0.3);">8px<br>Buttons</div></div>
+          <div style="text-align:center;"><div style="width:48px;height:48px;background:rgba(134,239,172,0.1);border:1px solid rgba(134,239,172,0.3);border-radius:12px;margin-bottom:6px;"></div><div style="font-family:monospace;font-size:9px;color:rgba(255,255,255,0.3);">12px<br>Cards</div></div>
+          <div style="text-align:center;"><div style="width:48px;height:48px;background:rgba(134,239,172,0.1);border:1px solid rgba(134,239,172,0.3);border-radius:16px;margin-bottom:6px;"></div><div style="font-family:monospace;font-size:9px;color:rgba(255,255,255,0.3);">16px<br>Feature</div></div>
+          <div style="text-align:center;"><div style="width:48px;height:48px;background:rgba(134,239,172,0.1);border:1px solid rgba(134,239,172,0.3);border-radius:24px;margin-bottom:6px;"></div><div style="font-family:monospace;font-size:9px;color:rgba(255,255,255,0.3);">24px<br>Sheets</div></div>
+          <div style="text-align:center;"><div style="width:48px;height:48px;background:rgba(134,239,172,0.1);border:1px solid rgba(134,239,172,0.3);border-radius:9999px;margin-bottom:6px;"></div><div style="font-family:monospace;font-size:9px;color:rgba(255,255,255,0.3);">Full<br>Pills</div></div>
+        </div>
+        <div class="colour-group-label" style="margin-bottom:12px;">Motion Tokens</div>
+        <div style="font-family:monospace;font-size:11px;line-height:2.2;color:rgba(255,255,255,0.45);">
+          ease-out: cubic-bezier(0,0,0.2,1)<br>
+          ease-spring: cubic-bezier(0.34,1.56,0.64,1)<br>
+          ease-snap: cubic-bezier(0.25,0.46,0.45,0.94)<br>
+          duration-fast: 120ms · duration-normal: 220ms · duration-slow: 380ms
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03.4 Components -->
+  <div class="section-sub-label">03.4 &mdash; Core Components</div>
+  <div class="two-col" style="margin-bottom:32px;">
+    <div class="component-panel fade-up">
+      <div class="component-panel-header"><span class="panel-title">Buttons · All States</span><span class="panel-badge">5 Variants</span></div>
+      <div class="component-panel-body">
+        <div style="margin-bottom:20px;">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,237,232,0.25);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">Primary Actions</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+            <button class="ds-btn ds-btn-primary">Log Session</button>
+            <button class="ds-btn ds-btn-primary" style="font-size:11px;padding:9px 18px;border-radius:6px;">Small</button>
+            <button class="ds-btn ds-btn-primary" style="opacity:0.3;cursor:not-allowed;">Disabled</button>
+          </div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,237,232,0.25);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">Secondary &amp; Utility</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+            <button class="ds-btn ds-btn-ghost">Cancel</button>
+            <button class="ds-btn ds-btn-danger">Delete</button>
+            <button class="ds-btn ds-btn-icon">＋</button>
+            <button class="ds-btn ds-btn-icon">✕</button>
+          </div>
+        </div>
+        <div style="background:#0E1118;border-radius:8px;padding:14px 16px;border:1px solid rgba(255,255,255,0.06);">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,237,232,0.25);letter-spacing:0.15em;margin-bottom:8px;">SPEC</div>
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(240,237,232,0.45);line-height:2;">Font: Space Mono 700 13px uppercase<br>Padding: 13px/24px · Radius: 8px<br>Min height: 44px (Apple HIG)<br>Hover: translateY(-2px) + glow</div>
+        </div>
+      </div>
+    </div>
+    <div class="component-panel fade-up">
+      <div class="component-panel-header"><span class="panel-title">Badges · Semantic System</span><span class="panel-badge">5 Types</span></div>
+      <div class="component-panel-body">
+        <div style="margin-bottom:16px;">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,237,232,0.25);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">Semantic Variants</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="ds-badge ds-badge-green">Core Feature</span>
+            <span class="ds-badge ds-badge-cyan">AI Powered</span>
+            <span class="ds-badge ds-badge-red">High RPE</span>
+            <span class="ds-badge ds-badge-neutral">Coming Soon</span>
+          </div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,237,232,0.25);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">With Dot Indicator</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="ds-badge ds-badge-green" style="gap:6px;"><span style="width:5px;height:5px;border-radius:50%;background:#C8F135;animation:blink 2s infinite;"></span>Live Session</span>
+            <span class="ds-badge ds-badge-cyan" style="gap:6px;"><span style="width:5px;height:5px;border-radius:50%;background:#3DFFC0;"></span>AI Active</span>
+          </div>
+        </div>
+        <div style="background:#0E1118;border-radius:8px;padding:14px 16px;border:1px solid rgba(255,255,255,0.06);">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,237,232,0.25);letter-spacing:0.15em;margin-bottom:8px;">COLOUR RULE</div>
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(240,237,232,0.45);line-height:2;">Green → Primary / Progress<br>Cyan → AI-generated content only<br>Red → Fatigue / Error states<br>Neutral → Inactive / Future</div>
+        </div>
+      </div>
+    </div>
+    <div class="component-panel fade-up" style="grid-column:1/-1;">
+      <div class="component-panel-header"><span class="panel-title">Set Log Row — The Core Gym Component</span><span class="panel-badge">Most Used</span></div>
+      <div class="component-panel-body">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,237,232,0.25);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:14px;">All Three States · Completed · Active · Pending</div>
+        <div class="ds-set-row"><div class="set-n">1</div><div class="set-field"><div class="set-field-lbl">Weight</div><div class="set-field-val">85kg</div></div><div class="set-field"><div class="set-field-lbl">Reps</div><div class="set-field-val">8</div></div><div class="set-ai">= hold</div><div class="set-check checked">✓</div></div>
+        <div class="ds-set-row active-row"><div class="set-n" style="color:#C8F135;">2</div><div class="set-field"><div class="set-field-lbl">Weight</div><div class="set-field-val">90kg</div></div><div class="set-field"><div class="set-field-lbl">Reps</div><div class="set-field-val">—</div></div><div class="set-ai">↑ 92.5kg</div><div class="set-check"></div></div>
+        <div class="ds-set-row"><div class="set-n">3</div><div class="set-field"><div class="set-field-lbl">Weight</div><div class="set-field-val" style="color:rgba(240,237,232,0.2);">—</div></div><div class="set-field"><div class="set-field-lbl">Reps</div><div class="set-field-val" style="color:rgba(240,237,232,0.2);">—</div></div><div class="set-ai" style="color:rgba(240,237,232,0.2);">↑ 92.5</div><div class="set-check"></div></div>
+        <div style="margin-top:16px;background:#0E1118;border-radius:8px;padding:14px 16px;border:1px solid rgba(255,255,255,0.06);">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,237,232,0.25);letter-spacing:0.15em;margin-bottom:8px;">INTERACTION NOTES</div>
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(240,237,232,0.45);line-height:2;">All primary actions in bottom 40% of screen (thumb zone)<br>Minimum tap target: 44×44pt across every interactive element<br>AI hint column: tapping accepts suggestion into weight field<br>Completed state persists — never auto-dismissed</div>
+        </div>
+      </div>
+    </div>
+    <div class="component-panel fade-up">
+      <div class="component-panel-header"><span class="panel-title">AI Insight Cards</span><span class="panel-badge">4 Semantic States</span></div>
+      <div class="component-panel-body">
+        <div class="ds-insight g"><div class="ds-insight-lbl">Strength Trend</div><div class="ds-insight-txt">Bench press 1RM estimate up 4.2kg this month. You're in solid linear progression — maintain the programme.</div></div>
+        <div class="ds-insight c"><div class="ds-insight-lbl">AI Protein Pattern</div><div class="ds-insight-txt">You hit your protein target 5/7 days. Missing on rest days — try a shake reminder on Tue/Thu.</div></div>
+        <div class="ds-insight r"><div class="ds-insight-lbl">Fatigue Flag</div><div class="ds-insight-txt">RPE scores trending high (8.4 avg). Consider a deload week or reduce volume by 15%.</div></div>
+      </div>
+    </div>
+    <div class="component-panel fade-up">
+      <div class="component-panel-header"><span class="panel-title">Inputs · All States</span><span class="panel-badge">5 States</span></div>
+      <div class="component-panel-body">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div><div class="ds-input-label">Default</div><input class="ds-input" placeholder="Describe what you ate…"></div>
+          <div><div class="ds-input-label">Focused</div><input class="ds-input focus-state" value="two eggs, Greek yoghurt, protein shake"></div>
+          <div><div class="ds-input-label">Error state</div><input class="ds-input" style="border-color:#FF4D4D;box-shadow:0 0 0 3px rgba(255,77,77,0.12);" value="Not a valid weight"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN DECISIONS -->
+<section class="light">
+  <div class="label">04 &mdash; Decision Log</div>
+  <h2 class="h2 fade-up">Five decisions that <span>defined the system</span></h2>
+  <p class="body-text fade-up" style="margin-bottom:48px;">Every significant design decision was logged with its rationale. This isn't just good practice &mdash; it's the difference between a portfolio piece and a portfolio story. Recruiters don't just want to see what you made. They want to know why.</p>
+
+  <div class="decision-block fade-up">
+    <div class="decision-num">01</div>
+    <div><div class="decision-col-label">The Decision</div><div class="decision-col-title">Acid green as the primary accent — not blue, not white</div><div class="decision-col-body">Chose #C8F135 as the single brand accent over more conventional choices like electric blue or pure white.</div></div>
+    <div><div class="decision-col-label">Why</div><div class="decision-col-body">Acid green hits maximum contrast on near-black backgrounds with far lower eye strain than white under gym lighting conditions. It also carries cultural associations with performance data, scoreboards, and biometric displays — all relevant to the fitness context. Tested against 6 alternatives across 3 lighting conditions.</div></div>
+  </div>
+
+  <div class="decision-block fade-up">
+    <div class="decision-num">02</div>
+    <div><div class="decision-col-label">The Decision</div><div class="decision-col-title">Cyan (#3DFFC0) reserved exclusively for AI content</div><div class="decision-col-body">A dedicated semantic colour for all AI-generated content, never used for any other purpose.</div></div>
+    <div><div class="decision-col-label">Why</div><div class="decision-col-body">User research showed that 67% of participants couldn't identify which recommendations were AI-generated versus user-logged data. A dedicated colour creates an instant, consistent visual signal without requiring users to read labels. Transparency baked into the design system at the token level — not added as a feature later.</div></div>
+  </div>
+
+  <div class="decision-block fade-up">
+    <div class="decision-num">03</div>
+    <div><div class="decision-col-label">The Decision</div><div class="decision-col-title">Four typefaces instead of the conventional two</div><div class="decision-col-body">Bebas Neue (display), DM Serif Display (headings), DM Sans (body), Space Mono (data/labels).</div></div>
+    <div><div class="decision-col-label">Why</div><div class="decision-col-body">Each typeface has a specific semantic role. Space Mono for all data creates an unconscious visual distinction between "numbers the user entered" and "copy the system generated." This matters most in the set log, where weight values (Mono) need to feel different from exercise names (Sans). Four fonts sounds like too many until you see what trying to do this with two fonts looks like.</div></div>
+  </div>
+
+  <div class="decision-block fade-up">
+    <div class="decision-num">04</div>
+    <div><div class="decision-col-label">The Decision</div><div class="decision-col-title">Dark-mode only in v1 — no light theme</div><div class="decision-col-body">Ship with one theme. Not a toggle. Not "coming soon." One dark theme, done perfectly.</div></div>
+    <div><div class="decision-col-label">Why</div><div class="decision-col-body">A light theme would require re-validating every single colour combination and rebuilding many components. The gym-use context makes dark mode the overwhelmingly preferred choice for the primary persona. Maintaining two theme systems would dilute focus at exactly the stage where focus matters most. v2 can add a light theme when we have evidence users want it.</div></div>
+  </div>
+
+  <div class="decision-block fade-up">
+    <div class="decision-num">05</div>
+    <div><div class="decision-col-label">The Decision</div><div class="decision-col-title">Minimum tap target 44×44pt enforced at token level</div><div class="decision-col-body">Every interactive element in the system has a minimum height token that enforces the Apple HIG 44pt standard.</div></div>
+    <div><div class="decision-col-label">Why</div><div class="decision-col-body">In gym conditions (sweaty hands, distracted, standing) an interactive element smaller than 44×44pt has a significantly higher miss rate. I observed this directly in Round 1 testing — 6 of 8 participants accidentally tapped adjacent elements when buttons were 36pt. This isn't a nice-to-have. It's a core product quality metric.</div></div>
+  </div>
+</section>
+
+<!-- WHAT'S NEXT -->
+<section class="dark">
+  <div class="label">05 &mdash; Roadmap</div>
+  <h2 class="h2 fade-up">What comes <span>after the system</span></h2>
+  <p class="body-text fade-up" style="margin-bottom:48px;">The design system is the foundation. Here's what I'm building on top of it — and in what order. Each phase depends on the previous one being solid.</p>
+
+  <div class="roadmap-row fade-up" style="border-color:rgba(255,255,255,0.06);">
+    <div class="roadmap-phase done" style="border-right-color:rgba(255,255,255,0.06);">
+      <div class="roadmap-phase-label">Phase 01 · Complete</div>
+      <div class="roadmap-phase-title">Discovery</div>
+      <div class="roadmap-phase-desc">User interviews, competitive audit, persona synthesis, HMW questions, design principles.</div>
+    </div>
+    <div class="roadmap-phase current" style="border-right-color:rgba(255,255,255,0.06);">
+      <div class="roadmap-phase-label">Phase 02 · Now</div>
+      <div class="roadmap-phase-title">Design System</div>
+      <div class="roadmap-phase-desc">Colour tokens, typography scale, spacing grid, component library, motion tokens, accessibility audit.</div>
+    </div>
+    <div class="roadmap-phase" style="border-right-color:rgba(255,255,255,0.06);">
+      <div class="roadmap-phase-label">Phase 03 · Next</div>
+      <div class="roadmap-phase-title">Screen Design</div>
+      <div class="roadmap-phase-desc">9 core screens built from the design system. Today, Log, Nutrition, Progress, AI Coach, and flows between them.</div>
+    </div>
+    <div class="roadmap-phase" style="border-right-color:rgba(255,255,255,0.06);">
+      <div class="roadmap-phase-label">Phase 04</div>
+      <div class="roadmap-phase-title">Prototype &amp; Test</div>
+      <div class="roadmap-phase-desc">Interactive Figma prototype. 5 moderated usability sessions. Iteration round on top findings.</div>
+    </div>
+    <div class="roadmap-phase">
+      <div class="roadmap-phase-label">Phase 05</div>
+      <div class="roadmap-phase-title">Final Case Study</div>
+      <div class="roadmap-phase-desc">Complete portfolio documentation with research, screens, testing findings, metrics, and reflection.</div>
+    </div>
+  </div>
+
+  <div class="pull-quote fade-up">The screen designs will be better because this system exists. That's the point of doing it in this order.</div>
+
+  <div class="upcoming-grid">
+    <div class="upcoming-card fade-up">
+      <div class="upcoming-tag">Following Up Soon</div>
+      <div class="upcoming-title">9 App Screens</div>
+      <div class="upcoming-desc">Today dashboard, active session, nutrition log, progress charts, AI coach panel, exercise detail, food log sheet, onboarding, settings — all built from this system.</div>
+    </div>
+    <div class="upcoming-card fade-up">
+      <div class="upcoming-tag">Following Up Soon</div>
+      <div class="upcoming-title">User Testing</div>
+      <div class="upcoming-desc">5 moderated sessions with gym-goers, not general usability panellists. Testing the active session flow and protein logging feature as primary tasks.</div>
+    </div>
+    <div class="upcoming-card fade-up">
+      <div class="upcoming-tag">Following Up Soon</div>
+      <div class="upcoming-title">Lovable Build</div>
+      <div class="upcoming-desc">A working prototype built in Lovable using these design tokens — with real Supabase data storage and OpenAI API integration for the NL food logging feature.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="c-glow"></div>
+  <div class="c-title fade-up">Systems thinking.<br><span>Screens coming soon.</span></div>
+  <p class="c-sub fade-up">Currently open to senior product design roles focused on AI, systems design, and complex product challenges.</p>
+  <div class="project-switcher fade-up">
+    <a href="business-workspace.html" class="ps-card"><span class="ps-dot" style="background:#0057FF;box-shadow:0 0 8px #0057FF;"></span> Business Workspace</a>
+    <a href="smart-forms.html" class="ps-card"><span class="ps-dot" style="background:#6D28D9;box-shadow:0 0 8px #6D28D9;"></span> Smart Forms &times; CRM</a>
+    <a href="apex-ds-portfolio.html" class="ps-card active"><span class="ps-dot" style="background:#22C55E;box-shadow:0 0 8px #22C55E;"></span> APEX Lift</a>
+  </div>
+  <a href="index.html#contact" class="btn-prim fade-up">Get in touch &rarr;</a>
+</div>
+
+<div class="bottom">
+  <a href="smart-forms.html">&larr; Smart Forms &times; CRM</a>
+  <a href="index.html#work">All Projects &rarr;</a>
+</div>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.fade-up');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:0.1});
+    els.forEach(function(el){
+      var parent = el.closest('.three-col,.upcoming-grid,.phase-tracker');
+      if(parent){ var siblings=parent.querySelectorAll('.fade-up'); siblings.forEach(function(s,i){ s.style.transitionDelay=(i*0.08)+'s'; }); }
+      io.observe(el);
+    });
+  })();
+</script>
+</body>
+</html>

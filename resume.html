@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Résumé — Lajavi Mohite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#F7F8FC; --bg-2:#FFFFFF; --dark:#080D1A; --dark-2:#0E1528;
+      --text:#080D1A; --text-muted:#6B7280; --border:#E5E7EB;
+      --blue:#0057FF; --violet:#6D28D9; --emerald:#10B981;
+      --poppins:'Poppins',sans-serif; --syne:'Syne',sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--poppins); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 64px;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--syne); font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 13px; font-weight: 400; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 9px 22px; border-radius: 100px; font-size: 12px !important; font-weight: 500 !important; }
+    .nav-cta:hover { opacity: 0.8 !important; color: #fff !important; }
+
+    /* PAGE SHELL */
+    .page-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 140px 64px 120px;
+    }
+
+    /* PAGE HEADER */
+    .resume-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: end;
+      padding-bottom: 40px;
+      border-bottom: 2px solid var(--dark);
+      margin-bottom: 56px;
+    }
+    .resume-name {
+      font-family: var(--syne);
+      font-size: clamp(38px, 6vw, 64px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      color: var(--dark);
+    }
+    .resume-title {
+      font-family: var(--poppins);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 12px;
+      letter-spacing: 0.01em;
+    }
+    .resume-contact {
+      text-align: right;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+    .resume-contact a { color: var(--blue); text-decoration: none; }
+    .resume-contact a:hover { text-decoration: underline; }
+
+    /* PRINT BUTTON */
+    .print-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 48px;
+    }
+    .btn-print {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; background: var(--bg-2); color: var(--text-muted);
+      font-family: var(--poppins); font-size: 12px; font-weight: 500;
+      border: 1px solid var(--border); border-radius: 100px;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+    }
+    .btn-print:hover { border-color: var(--dark); color: var(--dark); }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; background: var(--dark); color: #fff;
+      font-family: var(--poppins); font-size: 12px; font-weight: 500;
+      border-radius: 100px; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-back:hover { opacity: 0.85; }
+
+    /* SECTIONS */
+    .resume-section {
+      margin-bottom: 52px;
+    }
+    .section-heading {
+      font-family: var(--syne);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* EXPERIENCE ITEM */
+    .exp-item {
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .exp-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .exp-role {
+      font-family: var(--syne);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--dark);
+    }
+    .exp-period {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      font-weight: 400;
+    }
+    .exp-company {
+      font-size: 13px;
+      color: var(--violet);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .exp-bullets li {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.75;
+      padding-left: 18px;
+      position: relative;
+    }
+    .exp-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+    .exp-bullets li strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* COMPACT EXP (older roles) */
+    .exp-compact {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: baseline;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-compact:last-child { border-bottom: none; }
+    .exp-compact-role {
+      font-family: var(--syne);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--dark);
+    }
+    .exp-compact-co {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    .exp-compact-period {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* SKILLS GRID */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px 32px;
+    }
+    .skill-group-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .skill-list {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.85;
+    }
+
+    /* EDUCATION */
+    .edu-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: baseline;
+    }
+    .edu-degree {
+      font-family: var(--syne);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--dark);
+    }
+    .edu-school {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+    .edu-period {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* FOOTER */
+    footer { background: var(--dark-2); padding: 32px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-family: var(--syne); font-weight: 700; font-size: 14px; color: rgba(255,255,255,0.3); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.5); }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.12); }
+
+    /* PRINT */
+    @media print {
+      @page { margin: 18mm 20mm; size: A4; }
+      nav, footer, .print-row { display: none !important; }
+      body { background: #fff; }
+      .page-wrap { padding: 0; max-width: 100%; }
+      .resume-header { margin-bottom: 32px; padding-bottom: 28px; }
+      .exp-item { break-inside: avoid; }
+      .resume-section { margin-bottom: 36px; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .page-wrap { padding: 100px 24px 80px; }
+      .resume-header { grid-template-columns: 1fr; gap: 20px; }
+      .resume-contact { text-align: left; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 24px; flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 560px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .exp-header { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Lajavi Mohite</a>
+    <div class="nav-links">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="resume.html" style="color:var(--text); font-weight:500;">Resume</a>
+      <a href="index.html#contact" class="nav-cta">Let's Talk</a>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- PRINT / BACK ROW -->
+    <div class="print-row" style="gap:10px; display:flex;">
+      <a href="index.html" class="btn-back">&larr; Back to Portfolio</a>
+      <button class="btn-print" onclick="window.print()">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="3" y="1" width="10" height="9" rx="1.5"/>
+          <rect x="1" y="6" width="14" height="7" rx="1.5"/>
+          <rect x="4" y="11" width="8" height="4" rx="1"/>
+          <circle cx="12.5" cy="9.5" r="0.8" fill="currentColor" stroke="none"/>
+        </svg>
+        Print / Save PDF
+      </button>
+    </div>
+
+    <!-- HEADER -->
+    <div class="resume-header">
+      <div>
+        <div class="resume-name">Lajavi<br>Mohite</div>
+        <div class="resume-title">Senior Product Designer &mdash; AI-Native UX &amp; Zero-to-One</div>
+      </div>
+      <div class="resume-contact">
+        lajavi1993@gmail.com<br>
+        +49 177 928 7776<br>
+        Hamburg, Germany<br>
+        <a href="https://www.lajavimohite.com" target="_blank">lajavimohite.com</a><br>
+        <a href="https://www.linkedin.com/in/lajavimohite/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="resume-section">
+      <div class="section-heading">Experience</div>
+
+      <!-- Jimdo -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <div class="exp-role">Senior Product Designer</div>
+          <div class="exp-period">Dec 2020 &ndash; May 2025</div>
+        </div>
+        <div class="exp-company">Jimdo &mdash; Hamburg, Germany</div>
+        <ul class="exp-bullets">
+          <li>
+            <strong>Led 0&rarr;1 design and delivery of Smart Forms</strong> — an end-to-end lead-capture system enabling SMB website owners to convert visitors into high-quality prospects. Validated product-market fit early: 15 businesses adopted the feature within the first week of a 5% staged rollout, exceeding north-star adoption targets ahead of full release.
+          </li>
+          <li>
+            <strong>Owned the full design loop</strong> across discovery, definition, and delivery — running double-diamond sprints alongside PMs, engineers, and marketing to maintain design-feasibility alignment, reduce rework cycles, and compress time-to-ship without compromising UX quality.
+          </li>
+          <li>
+            <strong>Built and executed a mixed-methods research programme</strong> combining moderated usability testing, heuristic evaluation, and quantitative funnel analysis (Fullstory, Maze) to surface friction points and inform iterative improvements grounded in real user behaviour rather than assumptions.
+          </li>
+          <li>
+            <strong>Instrumental in Jimdo's strategic pivot from website builder to comprehensive business platform</strong> — contributed to north-star metric definition, JTBD-framed persona refinement, and design system evolution to support a fundamentally new product direction for the SMB segment.
+          </li>
+          <li>
+            <strong>Mentored a junior designer</strong> through structured design critique, portfolio development, and career pathing, growing design quality and team capability in parallel.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Deloitte Digital HK -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <div class="exp-role">UI/UX Design Consultant</div>
+          <div class="exp-period">May 2018 &ndash; Oct 2020</div>
+        </div>
+        <div class="exp-company">Deloitte Digital &mdash; Hong Kong</div>
+        <ul class="exp-bullets">
+          <li>
+            <strong>Assumed a principal design consultancy role</strong> delivering user-centred digital products for enterprise insurance clients — owning the full design lifecycle from stakeholder discovery, information architecture, and service blueprinting through to high-fidelity prototyping, design specifications, and developer handoff.
+          </li>
+          <li>
+            <strong>Drove design and innovation across all phases of the double-diamond</strong> — concept sketching, lo-fi and hi-fi prototyping, storyboarding, interaction design, and moderated usability testing — ensuring validated, accessible UX across complex multi-step financial flows with high-stakes user decisions.
+          </li>
+          <li>
+            <strong>Applied agile UX methodology within delivery sprint cadences</strong> to reduce onboarding friction in insurance sign-up flows, enabling customers in the finance sector to navigate complex product decisions with minimal cognitive load and measurably lower drop-off.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Older roles compact -->
+      <div class="section-heading" style="margin-top:16px;">Earlier Roles</div>
+      <div class="exp-compact">
+        <div>
+          <div class="exp-compact-role">Visual Designer</div>
+          <div class="exp-compact-co">WECREATE &mdash; Hong Kong</div>
+        </div>
+        <div class="exp-compact-period">Oct 2017 &ndash; Apr 2018</div>
+      </div>
+      <div class="exp-compact">
+        <div>
+          <div class="exp-compact-role">Visual Designer</div>
+          <div class="exp-compact-co">Deloitte Digital USI &mdash; Mumbai</div>
+        </div>
+        <div class="exp-compact-period">Oct 2016 &ndash; Sep 2017</div>
+      </div>
+      <div class="exp-compact">
+        <div>
+          <div class="exp-compact-role">Design Intern</div>
+          <div class="exp-compact-co">ColourCraft Studio &mdash; Mumbai</div>
+        </div>
+        <div class="exp-compact-period">Nov 2015 &ndash; Feb 2016</div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="resume-section">
+      <div class="section-heading">Skills &amp; Specialisms</div>
+      <div class="skills-grid">
+        <div>
+          <div class="skill-group-label">Design Practice</div>
+          <div class="skill-list">
+            AI-Native UX<br>
+            Agentic Product Design<br>
+            Zero-to-One Product Design<br>
+            Interaction Design<br>
+            Information Architecture<br>
+            Service Design
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-label">Research &amp; Validation</div>
+          <div class="skill-list">
+            Mixed-Methods Research<br>
+            Moderated Usability Testing<br>
+            Jobs-to-be-Done Frameworks<br>
+            Heuristic Evaluation<br>
+            Quantitative Funnel Analysis<br>
+            Rapid Prototyping
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-label">Tools &amp; Platforms</div>
+          <div class="skill-list">
+            Figma &amp; Design Systems<br>
+            Maze / Fullstory<br>
+            Adobe XD / Sketch<br>
+            Miro / InVision<br>
+            LLM UX Patterns<br>
+            Agile &amp; Sprint Delivery
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="resume-section">
+      <div class="section-heading">Education</div>
+      <div class="edu-item">
+        <div>
+          <div class="edu-degree">Bachelor of Design</div>
+          <div class="edu-school">Symbiosis Institute of Design &mdash; Pune, India</div>
+        </div>
+        <div class="edu-period">June 2012 &ndash; Apr 2016</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-logo">Lajavi Mohite</div>
+    <div class="footer-links">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 Lajavi Mohite</div>
+  </footer>
+
+</body>
+</html>
