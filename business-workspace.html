@@ -141,9 +141,14 @@
     .persona::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--blue); }
     .p-num { font-family: var(--syne); font-size: 60px; font-weight: 800; color: var(--blue-mid); line-height: 1; margin-bottom: 20px; }
     .p-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); background: var(--blue-light); padding: 4px 10px; border-radius: 100px; width: fit-content; margin-bottom: 10px; }
+    .p-firstname { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
     .p-name { font-family: var(--syne); font-size: 20px; font-weight: 700; margin-bottom: 14px; }
     .p-quote { font-size: 15px; font-style: italic; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; padding-left: 14px; border-left: 2px solid var(--blue-mid); }
     .p-need { font-size: 13px; color: var(--text-muted); background: var(--bg); padding: 12px 14px; border-radius: 8px; }
+    .p-header { display: none; }
+    .p-avatar { width: 120px; height: 150px; border-radius: 12px; flex-shrink: 0; object-fit: cover; object-position: top; }
+    .persona { display: flex; flex-direction: row; gap: 28px; align-items: flex-start; }
+    .p-content { flex: 1; }
 
     .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 52px; border-radius: 16px; overflow: hidden; }
     .value { padding: 44px 32px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.05); transition: background 0.3s; }
@@ -301,18 +306,26 @@
     <h2 class="h2 fade-up">Two founders.<br><span>Different needs.</span></h2>
     <div class="personas">
       <div class="persona fade-up">
-        <div class="p-num">01</div>
-        <div class="p-tag">The Side Hustler</div>
-        <div class="p-name">She's just getting started</div>
-        <p class="p-quote">"I sell jewellery to friends already. I just need someone or something to tell me what to do next."</p>
-        <div class="p-need">Needs AI guidance to replace the mentor she can't afford.</div>
+        <img class="p-avatar" src="Jane.jpg" alt="Jane">
+        <div class="p-content">
+          <div class="p-num">01</div>
+          <div class="p-tag">The Side Hustler</div>
+          <div class="p-firstname">Jane</div>
+          <div class="p-name">She's just getting started</div>
+          <p class="p-quote">"I sell jewellery to friends already. I just need someone or something to tell me what to do next."</p>
+          <div class="p-need">Needs AI guidance to replace the mentor she can't afford.</div>
+        </div>
       </div>
       <div class="persona fade-up">
-        <div class="p-num">02</div>
-        <div class="p-tag">The Solopreneur</div>
-        <div class="p-name">She's gone all in</div>
-        <p class="p-quote">"I've quit my job to chase this. I know what I want to build, but I'm paralysed by the sheer number of decisions."</p>
-        <div class="p-need">Needs an AI co-pilot that cuts through noise and adapts as her business evolves.</div>
+        <img class="p-avatar" src="Maria.jpg" alt="Maria">
+        <div class="p-content">
+          <div class="p-num">02</div>
+          <div class="p-tag">The Solopreneur</div>
+          <div class="p-firstname">Maria</div>
+          <div class="p-name">She took the leap</div>
+          <p class="p-quote">"I've quit my job to chase this. I know what I want to build, but I'm paralysed by the sheer number of decisions."</p>
+          <div class="p-need">Needs an AI co-pilot that cuts through noise and adapts as her business evolves.</div>
+        </div>
       </div>
     </div>
   </section>
