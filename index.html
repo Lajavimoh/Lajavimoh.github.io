@@ -80,6 +80,32 @@
     }
     .hero-tagline em { color: var(--text); font-style: normal; font-weight: 400; }
     .hero-ctas { display: flex; gap: 12px; flex-direction: column; align-items: flex-end; }
+
+    /* HERO SKILLS ROW */
+    .hero-skills {
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      margin-bottom: 44px;
+    }
+    .hero-skill-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.13em;
+      text-transform: uppercase; color: var(--text-muted); white-space: nowrap;
+    }
+    .hero-skill-group { display: flex; gap: 7px; flex-wrap: wrap; }
+    .hero-skill-divider { width: 1px; height: 18px; background: var(--border); flex-shrink: 0; }
+    .hero-chip {
+      font-size: 11.5px; font-weight: 400; color: var(--text-muted);
+      border: 1px solid var(--border); border-radius: 100px;
+      padding: 4px 13px; display: inline-flex; align-items: center; gap: 5px;
+      cursor: default; pointer-events: none;
+    }
+    .hero-chip.ai {
+      border-color: rgba(252,211,77,0.45); color: var(--text);
+      background: rgba(252,211,77,0.055);
+    }
+    .hero-chip .chip-dot {
+      width: 5px; height: 5px; border-radius: 50%; background: var(--emerald); flex-shrink: 0;
+    }
+
     .btn-dark    { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; background: var(--dark); color: #fff; font-family: var(--poppins); font-size: 13px; font-weight: 500; text-decoration: none; border-radius: 100px; transition: all 0.25s; }
     .btn-dark:hover { opacity: 0.85; transform: translateY(-1px); }
     .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; color: var(--text-muted); font-family: var(--poppins); font-size: 13px; font-weight: 400; text-decoration: none; border: 1px solid var(--border); border-radius: 100px; transition: all 0.25s; }
@@ -321,6 +347,32 @@
       Lajavi Mohite<br>
       <span class="dim">Product Designer</span>
     </h1>
+    <div class="hero-skills fade-up">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span class="hero-skill-label">AI Stack</span>
+        <div class="hero-skill-group">
+          <span class="hero-chip ai"><span class="chip-dot"></span>Figma Make</span>
+          <span class="hero-chip ai"><span class="chip-dot"></span>Claude</span>
+          <span class="hero-chip ai"><span class="chip-dot"></span>Cursor</span>
+          <span class="hero-chip ai"><span class="chip-dot"></span>ChatGPT</span>
+          <span class="hero-chip ai"><span class="chip-dot"></span>Midjourney</span>
+        </div>
+      </div>
+      <div class="hero-skill-divider"></div>
+      <div style="display:flex;align-items:flex-start;gap:10px;">
+        <span class="hero-skill-label" style="padding-top:5px;white-space:nowrap;">Specialisations</span>
+        <div class="hero-skill-group">
+          <span class="hero-chip">UI-to-Dev Handover</span>
+          <span class="hero-chip">0→1 Product Design</span>
+          <span class="hero-chip">Design Systems</span>
+          <span class="hero-chip">User Research & Discovery</span>
+          <span class="hero-chip">Interaction Design</span>
+          <span class="hero-chip">Journey Mapping</span>
+          <span class="hero-chip">Cross-functional Alignment</span>
+        </div>
+      </div>
+    </div>
+
     <div class="hero-footer fade-up">
       <div>
         <p class="hero-tagline">
@@ -462,8 +514,8 @@
       <div class="about-left">
         <div class="about-label fade-up">About Me</div>
         <h2 class="about-h fade-up">I design systems that <span>reduce cognitive load</span>, not just screens</h2>
-        <p class="about-p fade-up">I'm Lajavi, a Senior Product Designer with 7 years of practice across enterprise consulting and high-growth product. I specialise in <strong>AI-native UX</strong>: designing for non-deterministic systems, multi-step agentic flows, and the kind of human-AI trust that doesn't happen by accident.</p>
-        <p class="about-p fade-up">At Jimdo I led design on zero-to-one AI features, from discovery through to shipping, owning the full design loop: <strong>research, systems thinking, interaction design, and cross-functional alignment</strong>. I hold myself accountable to outcomes, not just outputs.</p>
+        <p class="about-p fade-up">I'm Lajavi, a Senior Product Designer with 7+ years of practice across enterprise consulting and high-growth product in Europe and Asia. I specialise in <strong>zero-to-one AI-native UX</strong>: designing for non-deterministic systems, multi-step agentic flows, and the kind of human-AI trust that doesn't happen by accident.</p>
+        <p class="about-p fade-up">At Jimdo I led design on zero-to-one AI features end-to-end — owning the full loop from discovery through to shipping: <strong>research, systems thinking, interaction design, and cross-functional alignment</strong>. I work in AI-augmented workflows using <strong>Figma Make</strong> and <strong>Claude</strong> to compress iteration cycles and surface insight faster. I hold myself accountable to outcomes, not just outputs.</p>
         <div class="about-tags fade-up">
           <span class="about-tag">AI-Native UX</span>
           <span class="about-tag">Agentic Product Design</span>
