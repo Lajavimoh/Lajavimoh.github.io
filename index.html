@@ -83,15 +83,16 @@
 
     /* HERO SKILLS ROW */
     .hero-skills {
-      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      display: flex; flex-direction: column; gap: 16px;
       margin-bottom: 44px;
     }
+    .hero-skill-row { display: flex; align-items: flex-start; gap: 10px; flex-wrap: nowrap; width: 100%; }
+    .hero-skill-row .hero-skill-label { padding-top: 4px; }
     .hero-skill-label {
       font-size: 10px; font-weight: 600; letter-spacing: 0.13em;
       text-transform: uppercase; color: var(--text-muted); white-space: nowrap;
     }
-    .hero-skill-group { display: flex; gap: 7px; flex-wrap: wrap; }
-    .hero-skill-divider { width: 1px; height: 18px; background: var(--border); flex-shrink: 0; }
+    .hero-skill-group { display: flex; gap: 7px; flex-wrap: wrap; min-width: 0; }
     .hero-chip {
       font-size: 11.5px; font-weight: 400; color: var(--text-muted);
       border: 1px solid var(--border); border-radius: 100px;
@@ -237,8 +238,11 @@
 
     /* TOOLS */
     .tools { padding: 64px; background: var(--bg); border-top: 1px solid var(--border); }
-    .tools-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); text-align: center; margin-bottom: 28px; }
-    .tools-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .tools-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); text-align: left; margin-bottom: 28px; }
+    .tools-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-start; min-width: 0; }
+    .tools-group { display: flex; align-items: flex-start; gap: 14px; flex-wrap: nowrap; margin-bottom: 16px; min-width: 0; }
+    .tools-group:last-child { margin-bottom: 0; }
+    .tools-cat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); text-align: left; opacity: 0.6; white-space: nowrap; flex-shrink: 0; padding-top: 6px; }
     .tool-pill { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 100px; border: 1px solid var(--border); font-size: 12px; font-weight: 400; color: var(--text-muted); background: var(--bg-2); cursor: default; }
     .t-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 
@@ -348,7 +352,7 @@
       <span class="dim">Product Designer</span>
     </h1>
     <div class="hero-skills fade-up">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <div class="hero-skill-row">
         <span class="hero-skill-label">AI Stack</span>
         <div class="hero-skill-group">
           <span class="hero-chip ai"><span class="chip-dot"></span>Figma Make</span>
@@ -358,22 +362,13 @@
           <span class="hero-chip ai"><span class="chip-dot"></span>Midjourney</span>
         </div>
       </div>
-      <div class="hero-skill-divider"></div>
-      <div style="display:flex;align-items:flex-start;gap:10px;">
-        <span class="hero-skill-label" style="padding-top:5px;white-space:nowrap;">Specialisations</span>
+      <div class="hero-skill-row">
+        <span class="hero-skill-label">Specialisations</span>
         <div class="hero-skill-group">
-          <span class="hero-chip">UI-to-Dev Handover</span>
-          <span class="hero-chip">0→1 Product Design</span>
+          <span class="hero-chip">Product Discovery</span>
+          <span class="hero-chip">Product Strategy</span>
           <span class="hero-chip">Design Systems</span>
-          <span class="hero-chip">User Research & Discovery</span>
-          <span class="hero-chip">Interaction Design</span>
-          <span class="hero-chip">Journey Mapping</span>
-          <span class="hero-chip">Cross-functional Alignment</span>
-          <span class="hero-chip">Moderated Usability Testing</span>
-          <span class="hero-chip">Heuristic Reviews</span>
-          <span class="hero-chip">User Journey Mapping</span>
-          <span class="hero-chip">Mixed-Methods Research</span>
-          <span class="hero-chip">Accessibility (WCAG)</span>
+          <span class="hero-chip">AI-assisted Prototyping</span>
         </div>
       </div>
     </div>
@@ -584,23 +579,51 @@
   <!-- TOOLS -->
   <section class="tools">
     <div class="tools-label">Tools &amp; Technologies</div>
-    <div class="tools-row">
-      <span class="tool-pill"><span class="t-dot" style="background:#818CF8"></span>Figma</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#818CF8"></span>Sketch</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#818CF8"></span>Adobe XD</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#818CF8"></span>Framer</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#60A5FA"></span>Maze</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#60A5FA"></span>FullStory</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#60A5FA"></span>Hotjar</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#60A5FA"></span>Optimal Workshop</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Lovable</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Claude</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Midjourney</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Google AI Studio</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Miro</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Notion</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Jira</span>
-      <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Linear</span>
+
+    <div class="tools-group">
+      <div class="tools-cat-label">Design</div>
+      <div class="tools-row">
+        <span class="tool-pill"><span class="t-dot" style="background:#818CF8"></span>Figma</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#818CF8"></span>FigJam</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#818CF8"></span>Framer</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#818CF8"></span>Adobe Creative Suite</span>
+      </div>
+    </div>
+
+    <div class="tools-group">
+      <div class="tools-cat-label">AI</div>
+      <div class="tools-row">
+        <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Claude</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Cursor</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>ChatGPT</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Lovable</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Figma Make</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#FCD34D"></span>Google AI Studio</span>
+      </div>
+    </div>
+
+    <div class="tools-group">
+      <div class="tools-cat-label">Build</div>
+      <div class="tools-row">
+        <span class="tool-pill"><span class="t-dot" style="background:#3DFFC0"></span>HTML</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#3DFFC0"></span>CSS</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#3DFFC0"></span>Shopify</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#3DFFC0"></span>GitHub</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#3DFFC0"></span>Storybook</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#3DFFC0"></span>Zeroheight</span>
+      </div>
+    </div>
+
+    <div class="tools-group">
+      <div class="tools-cat-label">Research</div>
+      <div class="tools-row">
+        <span class="tool-pill"><span class="t-dot" style="background:#60A5FA"></span>User Interviews</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#60A5FA"></span>Jobs To Be Done</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#60A5FA"></span>Usability Testing</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#60A5FA"></span>Dovetail</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#60A5FA"></span>FullStory</span>
+        <span class="tool-pill"><span class="t-dot" style="background:#60A5FA"></span>A/B Testing</span>
+      </div>
     </div>
   </section>
 
