@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Management — Lajavi Mohite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F8F7FF;
+      --bg-2: #FFFFFF;
+      --dark: #1E1B4B;
+      --dark-2: #2D2962;
+      --teal: #5EEAD4;
+      --teal-light: #EAFBF7;
+      --teal-mid: #99F6E4;
+      --text: #1E1B4B;
+      --text-muted: #6B7280;
+      --border: #E8E4F8;
+      --poppins: 'Poppins', sans-serif;
+      --syne: 'Playfair Display', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--poppins);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 4px;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 64px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--syne); font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 13px; font-weight: 400; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 9px 22px; border-radius: 100px; font-size: 12px !important; font-weight: 500 !important; }
+    .nav-cta:hover { opacity: 0.8 !important; color: #fff !important; }
+
+    /* STICKY SECTION NAV */
+    .section-nav {
+      position: fixed; left: 32px; top: 50%; transform: translateY(-50%); z-index: 60;
+      display: flex; flex-direction: column; gap: 16px; width: max-content;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid var(--border); border-radius: 18px;
+      padding: 20px 18px; box-shadow: 0 12px 32px rgba(30,27,75,0.1);
+    }
+    .section-nav a { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .sn-line { width: 14px; height: 1.5px; background: var(--text-muted); opacity: 0.5; transition: all 0.3s ease; flex-shrink: 0; }
+    .section-nav a.active .sn-line { width: 24px; background: var(--dark); opacity: 1; }
+    .sn-label { font-family: var(--poppins); font-size: 11px; font-weight: 500; color: var(--text-muted); opacity: 0; transform: translateX(-4px); transition: opacity 0.25s, transform 0.25s, color 0.25s; white-space: nowrap; }
+    .section-nav a:hover .sn-label, .section-nav a.active .sn-label { opacity: 1; transform: translateX(0); }
+    .section-nav a.active .sn-label { color: var(--dark); font-weight: 600; }
+    @media (max-width: 1320px) { .section-nav { display: none; } }
+
+    .hero {
+      min-height: 88vh; display: grid; grid-template-rows: 1fr auto;
+      padding: 140px 64px 64px; position: relative; overflow: hidden; background: var(--dark);
+    }
+    .hero-glow { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(94,234,212,0.10) 0%, transparent 70%); top: -150px; right: -100px; pointer-events: none; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(94,234,212,0.12); border: 1px solid rgba(94,234,212,0.28); color: var(--teal-mid);
+      padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; width: fit-content; margin-bottom: 28px;
+    }
+    .hero-tag::before { content:''; width:6px; height:6px; background:var(--teal); border-radius:50%; }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-title {
+      font-family: var(--syne); font-size: clamp(30px, 3.6vw, 50px); max-width: 780px;
+      font-weight: 700; line-height: 1.25; letter-spacing: -0.02em; color: #fff; margin-bottom: 22px;
+    }
+    .hero-title span { color: var(--teal-mid); }
+    .hero-desc { font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.62); max-width: 480px; line-height: 1.8; }
+    .hero-meta-row {
+      display: flex; gap: 48px; flex-wrap: wrap; position: relative; z-index: 2;
+      padding-top: 36px; border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-meta-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 6px; }
+    .hero-meta-value { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); }
+
+    /* CROSS-PLATFORM SHOWCASE — full, uncropped desktop + mobile, mobile stretched to the same height, centered */
+    .cps { padding: 56px 64px 72px; background: var(--dark-2); }
+    .cps-row { display: flex; align-items: stretch; justify-content: center; gap: 32px; max-width: 1080px; margin: 0 auto; }
+    .cps-desktop { flex: 0 1 640px; max-width: 74%; align-self: center; }
+    .cps-desktop img { width: 100%; height: auto; display: block; border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,0.32); }
+    .cps-mobile { flex: 0 0 auto; display: flex; align-items: stretch; max-height: 460px; }
+    .cps-mobile img { height: 100%; width: auto; max-width: 220px; object-fit: contain; display: block; border-radius: 14px; box-shadow: 0 14px 34px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); }
+    .cps-caption { text-align: center; margin-top: 22px; font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.05em; }
+    @media (max-width: 1100px) {
+      .cps-row { flex-direction: column; align-items: center; gap: 24px; }
+      .cps-desktop { max-width: 100%; width: 100%; }
+      .cps-mobile img { height: auto; width: 200px; }
+    }
+    @media (max-width: 640px) {
+      .cps { padding: 40px 24px 52px; }
+      .cps-mobile img { width: 160px; }
+    }
+
+    /* MOBILE SECTION — content + full mobile screens side by side */
+    .mobile-cols { display: flex; gap: 64px; align-items: flex-start; margin-top: 48px; flex-wrap: wrap; }
+    .mobile-cols-content { flex: 1 1 360px; max-width: 420px; }
+    .mobile-visuals { display: flex; gap: 20px; align-items: flex-start; flex: 1 1 320px; flex-wrap: wrap; }
+    .mobile-visuals img { width: 170px; height: auto; border-radius: 14px; box-shadow: 0 16px 36px rgba(30,27,75,0.16); border: 1px solid var(--border); display: block; }
+    @media (max-width: 640px) {
+      .mobile-visuals img { width: 140px; }
+    }
+
+    section { padding: 130px 64px; }
+    section.light { background: var(--bg-2); }
+    section.dark { background: var(--dark); color: #fff; }
+    section.dark-2 { background: var(--dark-2); color: #fff; }
+
+    .label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #0F766E; margin-bottom: 20px;
+    }
+    .label::before { content:''; width:20px; height:2px; background:currentColor; border-radius:2px; }
+    section.dark .label, section.dark-2 .label { color: var(--teal-mid); }
+
+    .h2 {
+      font-family: var(--syne); font-size: clamp(28px, 3.6vw, 48px);
+      font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 20px;
+    }
+    .h2 span { color: #0D9488; }
+    section.dark .h2, section.dark-2 .h2 { color: #fff; }
+    section.dark .h2 span, section.dark-2 .h2 span { color: var(--teal-mid); }
+
+    .body-text { font-size: 16px; font-weight: 400; line-height: 1.85; color: var(--text-muted); max-width: 560px; }
+    section.dark .body-text, section.dark-2 .body-text { color: rgba(255,255,255,0.68); }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .big-q {
+      font-family: var(--syne); font-size: clamp(17px, 1.9vw, 24px); font-weight: 600; line-height: 1.55;
+      padding: 40px 36px; background: var(--teal-light); border-left: 3px solid var(--teal);
+      border-radius: 0 16px 16px 0; color: var(--text);
+    }
+
+    /* WHO WE DESIGNED FOR */
+    .who-list { margin-top: 40px; display: flex; flex-direction: column; max-width: 560px; }
+    .who-item { display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 15.5px; color: var(--text); }
+    .who-item:last-child { border-bottom: none; }
+    .who-item.on-dark { color: rgba(255,255,255,0.82); border-bottom-color: rgba(255,255,255,0.12); }
+    .who-dash { width: 16px; height: 2px; background: var(--teal); border-radius: 2px; margin-top: 11px; flex-shrink: 0; }
+    .who-focus { margin-top: 28px; font-size: 14px; color: var(--text-muted); line-height: 1.85; max-width: 560px; }
+
+    /* INSIGHTS (dark grid) */
+    .insights-dark-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 52px; }
+    .insight-dark-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); border-radius: 16px; padding: 32px 30px; }
+    .idc-num { font-family: var(--syne); font-size: 12px; font-weight: 700; color: var(--teal-mid); letter-spacing: 0.08em; margin-bottom: 14px; }
+    .idc-title { font-family: var(--syne); font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.3; }
+    .idc-desc { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.66); line-height: 1.8; }
+
+    /* IA COMPARISON */
+    .ia-compare { display: flex; align-items: center; gap: 32px; margin-top: 56px; }
+    .ia-panel { flex: 1; background: var(--bg-2); border: 1px solid var(--border); border-radius: 16px; padding: 30px 32px; }
+    .ia-panel-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+    .ia-nav-item { font-size: 13.5px; padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--text); }
+    .ia-nav-item:last-child { border-bottom: none; }
+    .ia-nav-item.muted { color: #B4AFC7; text-decoration: line-through; font-size: 12px; padding-left: 16px; }
+    .ia-nav-item.highlight { color: var(--dark); font-weight: 600; background: var(--teal-light); margin: 2px -14px; padding: 10px 14px; border-radius: 8px; border-bottom: none; }
+    .ia-arrow { font-family: var(--syne); font-size: 22px; color: #0D9488; flex-shrink: 0; }
+
+    /* PRINCIPLES */
+    .principles { margin-top: 48px; }
+    .principle { display: grid; grid-template-columns: 60px 260px 1fr; gap: 32px; align-items: start; padding: 30px 0; border-bottom: 1px solid var(--border); }
+    .principle:first-child { padding-top: 0; }
+    .pr-n { font-family: var(--syne); font-size: 12px; font-weight: 700; color: #0D9488; padding-top: 3px; letter-spacing: 0.08em; }
+    .pr-title { font-family: var(--syne); font-size: 16px; font-weight: 600; line-height: 1.4; }
+    .pr-desc { font-size: 14px; font-weight: 400; color: var(--text-muted); line-height: 1.8; }
+
+    /* VALIDATION */
+    .validation-note { margin-top: 28px; font-size: 13px; color: var(--text-muted); border-left: 2px solid var(--border); padding-left: 16px; line-height: 1.85; max-width: 520px; }
+    .testing-evidence { margin-top: 40px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 40px rgba(30,27,75,0.1); }
+    .testing-evidence img { width: 100%; display: block; }
+    .testing-evidence-caption { margin-top: 14px; font-size: 12.5px; color: var(--text-muted); }
+    section.dark .testing-evidence-caption, section.dark-2 .testing-evidence-caption { color: rgba(255,255,255,0.5); }
+    section.dark .testing-evidence, section.dark-2 .testing-evidence { border-color: rgba(255,255,255,0.1); }
+
+    /* DUAL SHOTS — two same-width images side by side */
+    .dual-shots { display: flex; gap: 24px; align-items: flex-start; margin-top: 40px; }
+    .dual-shots > div { flex: 1 1 0; min-width: 0; }
+    .dual-shots img { width: 100%; height: auto; display: block; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 40px rgba(30,27,75,0.1); }
+    .dual-shots .testing-evidence-caption { margin-top: 12px; }
+    section.dark .dual-shots img, section.dark-2 .dual-shots img { border-color: rgba(255,255,255,0.1); }
+    @media (max-width: 900px) { .dual-shots { flex-direction: column; } }
+
+    /* REFLECTION */
+    .learnings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 52px; }
+    .learning { background: var(--bg-2); border: 1px solid var(--border); border-radius: 20px; padding: 36px 30px; transition: transform 0.3s, box-shadow 0.3s; }
+    .learning:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(30,27,75,0.08); }
+    .l-num { font-family: var(--syne); font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 18px; opacity: 0.55; }
+    .l-text { font-size: 14.5px; font-weight: 400; color: var(--text-muted); line-height: 1.85; }
+
+    /* CLOSING (shared pattern) */
+    .closing { background: var(--dark); padding: 160px 64px; text-align: center; position: relative; overflow: hidden; }
+    .c-glow { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, rgba(94,234,212,0.08) 0%, transparent 65%); left: 50%; top: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+    .c-title { font-family: var(--syne); font-size: clamp(32px, 4.2vw, 54px); font-weight: 700; letter-spacing: -0.02em; color: #fff; line-height: 1.2; margin-bottom: 18px; position: relative; z-index: 2; }
+    .c-title span { color: var(--teal-mid); }
+    .c-sub { font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.6); max-width: 460px; margin: 0 auto 48px; position: relative; z-index: 2; }
+    .btn-prim {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 36px; background: var(--teal); color: var(--dark);
+      font-family: var(--poppins); font-size: 14px; font-weight: 600;
+      text-decoration: none; border-radius: 100px; transition: all 0.3s; position: relative; z-index: 2;
+    }
+    .btn-prim:hover { background: var(--teal-mid); transform: translateY(-2px); box-shadow: 0 12px 34px rgba(94,234,212,0.28); }
+    .project-switcher { display:flex; gap:16px; justify-content:center; margin-bottom:48px; position:relative; z-index:2; flex-wrap: wrap; }
+    .ps-card { display:flex; align-items:center; gap:10px; padding:12px 20px; border-radius:12px; text-decoration:none; border:1px solid rgba(255,255,255,0.08); transition:all 0.25s; font-size:13px; font-weight:500; color:rgba(255,255,255,0.5); }
+    .ps-card:hover { background:rgba(255,255,255,0.05); color:#fff; }
+    .ps-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .ps-card.active { background:rgba(94,234,212,0.14); border-color:rgba(94,234,212,0.3); color:var(--teal-mid); }
+
+    .bottom { background: var(--dark-2); padding: 26px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .bottom a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .bottom a:hover { color: #fff; }
+
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .fade-up.in { opacity: 1; transform: none; }
+    .fade-up.reveal-img { transform: scale(1.045); }
+    .fade-up.reveal-img.in { transform: scale(1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade-up, .fade-up.reveal-img { transition: none !important; opacity: 1 !important; transform: none !important; }
+    }
+
+    @media (min-width: 1321px) {
+      .hero, .cps, section { padding-left: 240px; }
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-cta { display: none; }
+      .hero { padding: 120px 24px 48px; }
+      .hero-meta-row { flex-wrap: wrap; gap: 24px; }
+      section { padding: 84px 24px; }
+      .two-col, .insights-dark-grid, .learnings { grid-template-columns: 1fr; }
+      .principle { grid-template-columns: 40px 1fr; }
+      .pr-desc { display: none; }
+      .ia-compare { flex-direction: column; }
+      .ia-arrow { transform: rotate(90deg); }
+      .mobile-cols { flex-direction: column; gap: 32px; }
+      .mobile-visuals { flex: none; }
+      .closing { padding: 80px 24px; }
+      .project-switcher { flex-direction: column; align-items: center; }
+      .bottom { padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Lajavi Mohite</a>
+    <div class="nav-links">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="index.html#contact" class="nav-cta">Let's Talk</a>
+    </div>
+  </nav>
+
+  <nav class="section-nav" id="sectionNav">
+    <a href="#problem"><span class="sn-line"></span><span class="sn-label">Problem</span></a>
+    <a href="#research"><span class="sn-line"></span><span class="sn-label">Research</span></a>
+    <a href="#insights"><span class="sn-line"></span><span class="sn-label">Insights</span></a>
+    <a href="#strategy"><span class="sn-line"></span><span class="sn-label">Strategy</span></a>
+    <a href="#process"><span class="sn-line"></span><span class="sn-label">Process</span></a>
+    <a href="#decisions"><span class="sn-line"></span><span class="sn-label">Decisions</span></a>
+    <a href="#mobile"><span class="sn-line"></span><span class="sn-label">Mobile</span></a>
+    <a href="#validation"><span class="sn-line"></span><span class="sn-label">Validation</span></a>
+    <a href="#reflection"><span class="sn-line"></span><span class="sn-label">Reflection</span></a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content fade-up">
+      <div class="hero-tag">Case Study — Jimdo</div>
+      <h1 class="hero-title">Helping small businesses manage <span>products and inventory</span></h1>
+      <p class="hero-desc">I redesigned how store owners manage products, categories and stock, so it works properly on both desktop and mobile.</p>
+    </div>
+    <div class="hero-meta-row fade-up">
+      <div><div class="hero-meta-label">Role</div><div class="hero-meta-value">Senior Product Designer</div></div>
+      <div><div class="hero-meta-label">Company</div><div class="hero-meta-value">Jimdo</div></div>
+      <div><div class="hero-meta-label">Team</div><div class="hero-meta-value">PM, EM, 1 frontend engineer, 1 backend engineer</div></div>
+      <div><div class="hero-meta-label">Status</div><div class="hero-meta-value">Shipped</div></div>
+    </div>
+  </div>
+
+  <!-- Desktop + mobile shown together, up front, instead of as a separate "mobile" section later -->
+  <div class="cps">
+    <div class="cps-row">
+      <div class="cps-desktop">
+        <img class="fade-up reveal-img" src="Product%20managent/Product%20and%20Inventory%20-%20table.png" alt="The product list on desktop, showing status, inventory and stock for each product" />
+      </div>
+      <div class="cps-mobile">
+        <img class="fade-up reveal-img" src="Product%20managent/iPhone%2013%20mini%20-%2010.png" alt="The same product list on mobile" />
+      </div>
+    </div>
+    <p class="cps-caption fade-up">The product list on desktop, and on mobile</p>
+  </div>
+
+  <section class="light" id="problem">
+    <div class="label">01 — The problem</div>
+    <div class="two-col">
+      <div>
+        <h2 class="h2 fade-up">The existing product list did not work as stores grew</h2>
+        <p class="body-text fade-up">Product management lived inside a single panel in the website editor. It worked for a few products, but not for a real catalogue. As sellers added more, the panel got harder to use, especially on mobile. The problem was not the visual design. Product management needed its own structure outside the website editor.</p>
+      </div>
+      <div class="big-q fade-up">
+        How could we give store owners a proper way to manage their products, instead of a panel that only worked for a handful of items?
+      </div>
+    </div>
+    <div class="testing-evidence fade-up reveal-img" style="margin-top:56px;">
+      <img src="Product%20managent/Exisitng%20cms%20flow.png" alt="The existing CMS flow: from the buried 'Products and categories' link in Edit Store, into the cramped side panel, to editing a single product" />
+    </div>
+    <p class="testing-evidence-caption fade-up">The existing CMS flow — from the buried "Products and categories" link, into the side panel, to editing a single product.</p>
+  </section>
+
+  <section id="research">
+    <div class="label">02 — Research</div>
+    <h2 class="h2 fade-up">What we learned from store owners</h2>
+    <!-- CONFIRM WITH LAJAVI: interviews.png shows real participant notes (e.g. a candle-making business, a music store already on a second platform). Kept general here since the specificity wasn't explicitly cleared for public use — restore detail if you're comfortable with it. -->
+    <p class="body-text fade-up">We spoke with people running real stores online, at different stages of their business, but with the same problem: managing products got harder as their catalogue grew.</p>
+    <div class="who-list fade-up">
+      <div class="who-item"><span class="who-dash"></span>Owners managing a growing product catalogue</div>
+      <div class="who-item"><span class="who-dash"></span>People updating stock while away from their desk</div>
+      <div class="who-item"><span class="who-dash"></span>Sellers who want clearer product and category organisation</div>
+    </div>
+    <p class="who-focus fade-up">We focused on the first group: people who already had several products online and were starting to feel the limits of a simple list.</p>
+  </section>
+
+  <section class="dark" id="insights">
+    <div class="label">03 — What stood out</div>
+    <h2 class="h2 fade-up">A few things stood out</h2>
+    <div class="insights-dark-grid">
+      <div class="insight-dark-card fade-up">
+        <div class="idc-num">01</div>
+        <div class="idc-title">Two different jobs</div>
+        <p class="idc-desc">Editing a website and managing a product catalogue are different tasks. The old layout treated them as one.</p>
+      </div>
+      <div class="insight-dark-card fade-up">
+        <div class="idc-num">02</div>
+        <div class="idc-title">Lists break down at scale</div>
+        <p class="idc-desc">A short list works fine. A real catalogue needs categories, not just scrolling.</p>
+      </div>
+      <div class="insight-dark-card fade-up">
+        <div class="idc-num">03</div>
+        <div class="idc-title">Mobile matters more than we assumed</div>
+        <p class="idc-desc">Store owners often check stock or update products away from their desk, not just from a computer.</p>
+      </div>
+      <div class="insight-dark-card fade-up">
+        <div class="idc-num">04</div>
+        <div class="idc-title">People expect familiar patterns</div>
+        <p class="idc-desc">Store owners already use tools like Shopify. The system needed to feel familiar, not clever.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="light" id="strategy">
+    <div class="label">04 — A clearer structure</div>
+    <h2 class="h2 fade-up">Giving product management its own place</h2>
+    <p class="body-text fade-up">Instead of expanding the existing panel, we moved product management out of the website editor completely. It became its own section in the main navigation, with its own list and detail pages. This was a structural change, not just a visual one: it affects how the product can grow.</p>
+    <div class="ia-compare fade-up">
+      <div class="ia-panel">
+        <div class="ia-panel-label">Before</div>
+        <div class="ia-nav-item">Store Overview</div>
+        <div class="ia-nav-item">Edit Store</div>
+        <div class="ia-nav-item muted">↳ Products and categories</div>
+        <div class="ia-nav-item muted">↳ Add new product</div>
+        <div class="ia-nav-item">Orders</div>
+        <div class="ia-nav-item">Business Profile</div>
+      </div>
+      <div class="ia-arrow">→</div>
+      <div class="ia-panel">
+        <div class="ia-panel-label">After</div>
+        <div class="ia-nav-item">Store Overview</div>
+        <div class="ia-nav-item">Edit Store</div>
+        <div class="ia-nav-item">Orders</div>
+        <div class="ia-nav-item highlight">Products</div>
+        <div class="ia-nav-item">Business Profile</div>
+      </div>
+    </div>
+    <div class="testing-evidence fade-up" style="margin-top:56px;">
+      <img src="Product%20managent/Frame%2042%203.png" alt="The real flow we mapped for Peter, a store owner with 100 products, from Jimdo.com through to the new product list and detail pages" />
+    </div>
+    <p class="testing-evidence-caption fade-up">The actual flow we mapped out for Peter — 100 products — from login through to the new Products section.</p>
+  </section>
+
+  <section class="dark-2" id="process">
+    <div class="label">05 — How we got there</div>
+    <h2 class="h2 fade-up">Early brainstorming and discovery</h2>
+    <p class="body-text fade-up">I held an early brainstorming and discovery workshop with the PM, EM and both engineers, mapping out every action Peter needed to take and his end-to-end journey, before sketching a single screen. Grouping those ideas together, and walking through his journey step by step, is what shaped the new IA.</p>
+    <div class="dual-shots fade-up">
+      <div>
+        <img src="Product%20managent/Screenshot%202023-06-15%20at%2012.15%203.png" alt="Group Ideas — affinity-mapping board from the team workshop, grouping ideas for product guidance, product management, left navigation, WYSIWYG editing and importing products" />
+        <p class="testing-evidence-caption">Group Ideas — clustering everything the team raised, from product guidance to importing products in bulk.</p>
+      </div>
+      <div>
+        <img src="Product%20managent/image%2021.png" alt="Journey map from the workshop, covering how Peter adds his first products and later manages a catalogue of a hundred" />
+        <p class="testing-evidence-caption">Peter's journey, mapped step by step — from adding his first products to managing a hundred of them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="decisions">
+    <div class="label">06 — Decisions</div>
+    <h2 class="h2 fade-up">Key design decisions</h2>
+    <p class="body-text fade-up">A few decisions shaped the design, shown here in the real interface.</p>
+    <div class="principles">
+      <div class="principle fade-up">
+        <div class="pr-n">01</div>
+        <div class="pr-title">Separate list and detail pages</div>
+        <div class="pr-desc">The product list and the product detail view became their own pages, not a pop-up. This gives the system room to grow, for variants, categories and stock.</div>
+      </div>
+      <div class="principle fade-up">
+        <div class="pr-n">02</div>
+        <div class="pr-title">Status shows what's actually happening</div>
+        <div class="pr-desc">Draft, Published, In Stock, Out of Stock. These aren't just labels. They show the real state of a product that a store owner needs to act on.</div>
+      </div>
+      <div class="principle fade-up">
+        <div class="pr-n">03</div>
+        <div class="pr-title">Categories are part of the data, not just the display</div>
+        <div class="pr-desc">Grouping products isn't just a visual grouping. It's part of how each product record is structured.</div>
+      </div>
+      <div class="principle fade-up">
+        <div class="pr-n">04</div>
+        <div class="pr-title">Every row has clear actions</div>
+        <div class="pr-desc">Each row in the list shows what you can do with that product: edit it, publish it, or view it live, without opening a separate page.</div>
+      </div>
+    </div>
+    <div class="dual-shots fade-up reveal-img">
+      <div>
+        <img src="Product%20managent/Product%20and%20Inventory%20-%20table.png" alt="The product list: status, category management and row actions for every product" />
+        <p class="testing-evidence-caption">The list — status, category management and row actions, all at a glance.</p>
+      </div>
+      <div>
+        <img src="Product%20managent/Screen%20%5BCHANGE%20ME%5D.png" alt="The product detail page, its own screen with product fields, status and pricing, not a pop-up over the list" />
+        <p class="testing-evidence-caption">The detail page — its own screen, not a pop-up over the list.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-2" id="mobile">
+    <div class="label">07 — Mobile</div>
+    <h2 class="h2 fade-up">Managing products from a phone</h2>
+    <div class="mobile-cols">
+      <div class="mobile-cols-content">
+        <p class="body-text fade-up">Store owners often check stock or update a listing away from their desk. The mobile version needed to do the same job as desktop, not a smaller version of it.</p>
+        <div class="who-list fade-up" style="margin-top:32px;">
+          <div class="who-item on-dark"><span class="who-dash"></span>The product list looks the same: status, stock and price at a glance</div>
+          <div class="who-item on-dark"><span class="who-dash"></span>Every field on the product page can be edited from the phone, not just viewed</div>
+          <div class="who-item on-dark" style="border-bottom:none;"><span class="who-dash"></span>Adding a new product works the same way it does on desktop</div>
+        </div>
+      </div>
+      <div class="mobile-visuals fade-up">
+        <img src="Product%20managent/iPhone%2013%20mini%20-%2010.png" alt="The full product list screen on mobile" />
+        <img src="Product%20managent/iPhone%2013%20mini%20-%2011.png" alt="The full product detail and edit screen on mobile" />
+        <img src="Product%20managent/iPhone%2013%20mini%20-%2012.png" alt="Pricing and inventory fields on the product detail screen, mobile" />
+      </div>
+    </div>
+  </section>
+
+  <section class="light" id="validation">
+    <div class="label">08 — Testing</div>
+    <h2 class="h2 fade-up">Testing the workflow with store owners</h2>
+    <!-- CONFIRM WITH LAJAVI: original draft said feedback changed navigation specifically, and that this happened "before it shipped" — softened below to what's directly supported by the source material. -->
+    <p class="body-text fade-up">We tested the flow and the copy with real store owners, rather than only internal reviewers. Their feedback shaped some of the details in the design.</p>
+    <div class="testing-evidence fade-up">
+      <img src="Product%20managent/testing-evidence.png" alt="Notes from one of the usability testing sessions: participant background and a screen-by-screen walkthrough" />
+    </div>
+    <p class="testing-evidence-caption fade-up">Notes from one of the usability testing sessions — participant background on the left, the screen-by-screen walkthrough on the right.</p>
+    <p class="validation-note fade-up">No usage metrics are available for this project.</p>
+  </section>
+
+  <section id="reflection">
+    <div class="label">09 — Reflection</div>
+    <h2 class="h2 fade-up">What I learned</h2>
+    <div class="learnings">
+      <div class="learning fade-up">
+        <div class="l-num">01</div>
+        <p class="l-text">Moving something into the main navigation is a real decision. It changes what the team has to support and maintain, not just how a screen looks.</p>
+      </div>
+      <div class="learning fade-up">
+        <div class="l-num">02</div>
+        <p class="l-text">Good tools for running a business shouldn't draw attention to themselves. They should just work, even as the number of products grows.</p>
+      </div>
+      <div class="learning fade-up">
+        <!-- CONFIRM WITH LAJAVI: source material supports one workshop with PM/engineers, not necessarily continuous involvement "from day one" — softened to "early on". -->
+        <div class="l-num">03</div>
+        <p class="l-text">Decisions like this work better when engineers are involved early, not just at review. This one worked because the PM, EM and both engineers helped shape it early on.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <div class="c-glow"></div>
+    <div class="c-title fade-up">Designing for how small businesses <span>actually work</span></div>
+    <p class="c-sub fade-up">Currently open to senior product design roles focused on practical, complex products.</p>
+    <div class="project-switcher fade-up">
+      <a href="business-workspace.html" class="ps-card"><span class="ps-dot" style="background:#818CF8;box-shadow:0 0 8px #818CF8;"></span> Business Workspace</a>
+      <a href="smart-forms.html" class="ps-card"><span class="ps-dot" style="background:#FDA4AF;box-shadow:0 0 8px #FDA4AF;"></span> Smart Forms &times; CRM</a>
+      <a href="product-management.html" class="ps-card active"><span class="ps-dot" style="background:#5EEAD4;box-shadow:0 0 8px #5EEAD4;"></span> Product Management</a>
+      <a href="apex-ds-portfolio.html" class="ps-card"><span class="ps-dot" style="background:#FCD34D;box-shadow:0 0 8px #FCD34D;"></span> APEX Lift</a>
+    </div>
+    <a href="index.html#contact" class="btn-prim fade-up">Get in touch &#8594;</a>
+  </div>
+
+  <div class="bottom">
+    <a href="smart-forms.html">&larr; Smart Forms &times; CRM</a>
+    <a href="apex-ds-portfolio.html">APEX Lift &rarr;</a>
+  </div>
+
+  <script>
+    (function() {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      document.querySelectorAll('.fade-up').forEach(function(el) {
+        var parent = el.closest('.insights-dark-grid, .learnings, .principles, .who-list');
+        if (parent) {
+          var siblings = Array.prototype.slice.call(parent.querySelectorAll('.fade-up'));
+          var idx = siblings.indexOf(el);
+          el.style.transitionDelay = (idx * 90) + 'ms';
+        }
+        io.observe(el);
+      });
+
+      var navLinks = document.querySelectorAll('.section-nav a');
+      var navIO = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          var link = document.querySelector('.section-nav a[href="#' + entry.target.id + '"]');
+          if (!link) return;
+          if (entry.isIntersecting) {
+            navLinks.forEach(function(l) { l.classList.remove('active'); });
+            link.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+      document.querySelectorAll('section[id]').forEach(function(s) { navIO.observe(s); });
+    })();
+  </script>
+
+</body>
+</html>

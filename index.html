@@ -134,11 +134,13 @@
     .pc-content { padding: 48px 44px; display: flex; flex-direction: column; justify-content: space-between; }
     .pc-content.blue-tint   { background: #EDE9FE; }
     .pc-content.violet-tint { background: #FFF1F2; }
+    .pc-content.teal-tint   { background: #F0FDFA; }
     .pc-content.green-tint  { background: #FEFCE8; }
     .pc-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 18px; width: fit-content; }
     .pc-tag::before { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; }
     .pc-tag.blue   { color: var(--blue);    background: rgba(129,140,248,0.12); }
     .pc-tag.violet { color: #FDA4AF;  background: rgba(253,164,175,0.15); }
+    .pc-tag.teal   { color: #0D9488; background: rgba(20,184,166,0.13); }
     .pc-tag.green  { color: var(--emerald); background: rgba(252,211,77,0.15); }
     .pc-title { font-family: var(--syne); font-size: clamp(20px, 2vw, 30px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; color: var(--text); }
     .pc-desc  { font-size: 14px; font-weight: 300; color: var(--text-muted); line-height: 1.8; max-width: 300px; }
@@ -149,14 +151,13 @@
     .pc-visual { position: relative; overflow: hidden; min-height: 280px; }
     .pc-visual.blue-bg   { background: linear-gradient(145deg,#EDE9FE,#C7D2FE); }
     .pc-visual.violet-bg { background: linear-gradient(145deg,#FFF1F2,#FECDD3); }
+    .pc-visual.teal-bg   { background: linear-gradient(145deg,#CCFBF1,#99F6E4); }
     .pc-visual.green-bg  { background: linear-gradient(145deg,#FEFCE8,#FEF08A); }
     .pc-placeholder { position: absolute; inset: 28px; border-radius: 12px; border: 1.5px dashed rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(0,0,0,0.18); }
     .pc-mock-clip { position: absolute; inset: 0; overflow: hidden; }
-    .pc-layer-desktop { position: absolute; width: 82%; border-radius: 10px; box-shadow: 0 20px 56px rgba(0,0,0,0.20); object-fit: cover; }
-    .pc-visual.blue-bg   .pc-layer-desktop { top: 20px; left: 14px; height: 75%; object-position: top; }
-    .pc-visual.violet-bg .pc-layer-desktop { top: 24px; left: 10px; height: 70%; object-position: 0 50%; }
-    .pc-layer-mobile { position: absolute; width: 26%; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.28); object-fit: cover; object-position: top; border: 2px solid rgba(255,255,255,0.5); bottom: 16px; right: 18px; height: 68%; }
+    .pc-layer-tile { position: absolute; inset: 14px; width: calc(100% - 28px); height: calc(100% - 28px); object-fit: contain; }
     .pc-layer-secondary { position: absolute; width: 68%; border-radius: 10px; box-shadow: 0 12px 32px rgba(0,0,0,0.15); object-fit: cover; object-position: top; bottom: 14px; right: 10px; height: 48%; border: 2px solid rgba(255,255,255,0.4); }
+    /* Pre-framed device mockups already have their own bezel + shadow baked in — don't add a second frame on top */
 
     /* ABOUT */
     .about { padding: 100px var(--gutter); background: var(--bg-2); }
@@ -407,8 +408,7 @@
         </div>
         <div class="pc-visual blue-bg">
           <div class="pc-mock-clip">
-            <img class="pc-layer-desktop" src="dashboard.png" alt="Business Workspace Dashboard" />
-            <img class="pc-layer-mobile" src="iphone_dashboard.png" alt="Mobile Dashboard" />
+            <img class="pc-layer-tile" src="Business%20workspace%20new/Index_businessworkspace.png" alt="Business Workspace dashboard on desktop and mobile" />
           </div>
         </div>
       </a>
@@ -416,9 +416,9 @@
       <a class="project-card reverse fade-up" href="smart-forms.html">
         <div class="pc-content violet-tint">
           <div>
-            <div class="pc-tag violet">Lead Gen &middot; CRM</div>
-            <div class="pc-title">Smart Forms &times; Vision CRM</div>
-            <div class="pc-desc">80% of Jimdo's paying users run service businesses — they had websites but no real way to capture or act on enquiries. I led the design of Smart Forms and Vision CRM: an AI that generates the right form from one sentence, and a co-pilot that scores every lead and tells the owner what to do next. The users who adopted it most were the ones most at risk of churning — which told us we'd found something real.</div>
+            <div class="pc-tag violet">SaaS &middot; Lead Intelligence</div>
+            <div class="pc-title">Smart Forms &times; Lead Management</div>
+            <div class="pc-desc">80% of Jimdo's paying users run service businesses, with websites but no real way to capture or act on enquiries. I led the design of Smart Forms and Lead Management: an AI that generates the right form from one sentence, and a co-pilot that scores every lead and tells the owner what to do next. The users who adopted it most were the ones most at risk of churning, which told us we'd found something real.</div>
           </div>
           <div class="pc-bottom">
             <div class="pc-meta">Jimdo &middot; 2023&ndash;2024<br>Lead Designer</div>
@@ -427,8 +427,26 @@
         </div>
         <div class="pc-visual violet-bg">
           <div class="pc-mock-clip">
-            <img class="pc-layer-desktop" src="Smartforms_website_cover.png" alt="Smart Forms" />
-            <img class="pc-layer-secondary" src="Customer Leads_desktop.png" alt="Customer Leads CRM" />
+            <img class="pc-layer-tile" src="Smart%20forms%20new/index_smartforms%20image.png" alt="Lead Management dashboard on desktop and mobile" />
+          </div>
+        </div>
+      </a>
+
+      <a class="project-card fade-up" href="product-management.html">
+        <div class="pc-content teal-tint">
+          <div>
+            <div class="pc-tag teal">SaaS &middot; Operational Tooling</div>
+            <div class="pc-title">Product &amp; Inventory Management</div>
+            <div class="pc-desc">A CRUD-driven admin system that gives small business owners a scalable way to manage products, categories, and inventory — promoted from a buried side-panel into a first-class part of the product, shipped to production.</div>
+          </div>
+          <div class="pc-bottom">
+            <div class="pc-meta">Jimdo &middot; Shipped<br>Senior Product Designer</div>
+            <div class="pc-arrow" style="background:#14B8A6;">&nearr;</div>
+          </div>
+        </div>
+        <div class="pc-visual teal-bg">
+          <div class="pc-mock-clip">
+            <img class="pc-layer-tile" src="Product%20managent/Index_productmanagement.png" alt="Product and Inventory Management on desktop and mobile" />
           </div>
         </div>
       </a>
@@ -699,6 +717,7 @@
       <a href="#about">About</a>
       <a href="business-workspace.html">Business Workspace</a>
       <a href="smart-forms.html">Smart Forms</a>
+      <a href="product-management.html">Product Management</a>
     </div>
     <div class="footer-copy">&copy; 2025 Lajavi Mohite</div>
   </footer>
