@@ -38,18 +38,6 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-    .hero-status {
-      display: inline-flex; align-items: center; gap: 9px;
-      margin-bottom: 44px;
-    }
-    .status-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: #FCD34D; box-shadow: 0 0 8px rgba(252,211,77,0.5);
-      animation: blink 2.5s ease-in-out infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    .status-text { font-size: 13px; color: var(--text-muted); }
-
     .hero-title {
       font-family: var(--syne);
       font-size: clamp(48px, 7vw, 96px);
@@ -57,7 +45,7 @@
       line-height: 0.95;
       letter-spacing: -0.04em;
       color: var(--text);
-      margin-bottom: 44px;
+      margin-bottom: 20px;
     }
     .hero-title .dim { color: rgba(0,0,0,0.18); }
 
@@ -66,9 +54,7 @@
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 64px;
-      align-items: end;
-      padding-top: 48px;
-      border-top: 1px solid var(--border);
+      align-items: start;
     }
     .hero-tagline {
       font-size: clamp(14px, 1.3vw, 16px);
@@ -343,10 +329,6 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-status fade-up">
-      <span class="status-dot"></span>
-      <span class="status-text">Open to senior roles, Hamburg, Hybrid &amp; Remote</span>
-    </div>
     <h1 class="hero-title fade-up">
       Lajavi Mohite<br>
       <span class="dim">Product Designer</span>
