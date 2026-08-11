@@ -151,25 +151,26 @@ body { font-weight: 400; }
 .hero:has(.hero-tagline) .hero-tagline,
 .hero:has(.hero-tagline) .hero-tagline em { color: #fff; }
 
-/* mask-image on the video (and on its wrapper) came back completely crisp
-   on desktop — no fade at all — which means this browser isn't applying
-   CSS masks to the video's content, most likely because it's decoded
-   through a hardware-accelerated overlay path that sits outside the
-   browser's normal compositing/masking pipeline. A mask can't touch pixels
-   it doesn't own, so instead: a plain, ordinary pseudo-element painted on
-   top of the video with a matching-colour gradient — opaque DOM paint, not
-   a mask or filter on the video itself, so it doesn't depend on the video's
-   own compositing behaviour at all. */
+/* Desktop/laptop (>900px) now loads video_desktop.mp4 (plain white
+   background, via a <source media="(min-width:901px)"> in the markup) —
+   video_herorow.mp4's blue background couldn't be reliably colour-matched
+   or masked/feathered on desktop (multiple approaches all came back with a
+   crisp, unfaded edge — see git history), so desktop just shows the white
+   background as-is rather than fighting it. Mobile keeps the original
+   colour-matched video and its blend treatment below, scoped so it doesn't
+   apply to desktop's white video. */
 .hero:has(.hero-tagline) .hero-visual {
   position: relative;
 }
-.hero:has(.hero-tagline) .hero-visual::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse 92% 92% at 50% 50%,
-    transparent 74%, var(--hero-video-bg) 100%);
+@media (max-width: 900px) {
+  .hero:has(.hero-tagline) .hero-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 92% 92% at 50% 50%,
+      transparent 74%, var(--hero-video-bg) 100%);
+  }
 }
 
 /* ==========================================================================

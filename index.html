@@ -379,7 +379,6 @@
       <div class="hero-visual fade-up">
         <video
           class="hero-avatar"
-          src="video_herorow.mp4"
           muted
           loop
           playsinline
@@ -387,7 +386,10 @@
           aria-label="Lajavi's avatar working at her desk, then looking up to wave hello"
           width="1080"
           height="1920"
-        ></video>
+        >
+          <source src="video_desktop.mp4" media="(min-width: 901px)">
+          <source src="video_herorow.mp4">
+        </video>
       </div>
       <div class="hero-footer fade-up">
         <p class="hero-tagline">
