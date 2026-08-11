@@ -151,16 +151,16 @@ body { font-weight: 400; }
 .hero:has(.hero-tagline) .hero-tagline,
 .hero:has(.hero-tagline) .hero-tagline em { color: #fff; }
 
-/* feather the video's own edge to true transparency instead of trying to
-   paint a matching colour on top of it — a colour overlay (the previous
-   attempt) still let a mismatched edge show through where the blur was too
-   soft, and different desktop browsers decode the video's colour more
-   differently than mobile did. Fading the video itself to 0% opacity at the
-   boundary means only the guaranteed-correct section background shows
-   there, regardless of what colour the video decoded to. */
+/* feather the video's own edge into the section background — confirmed
+   working on mobile. mask-image (tried next) turned out to silently no-op
+   on <video> in some browsers' hardware-accelerated compositor path (crisp
+   unfaded rectangle, no transition at all), which is why desktop still
+   showed a hard edge after that change. Back to the inset shadow, widened
+   further since desktop screenshots show a noticeably bigger colour gap
+   than mobile (Safari/Chrome apparently apply more colour management to
+   video content on wide-gamut displays than to flat sRGB CSS colours). */
 .hero:has(.hero-tagline) .hero-avatar {
-  -webkit-mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, #000 74%, transparent 100%);
-  mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, #000 74%, transparent 100%);
+  box-shadow: inset 0 0 60px 26px var(--hero-video-bg);
 }
 
 /* ==========================================================================
