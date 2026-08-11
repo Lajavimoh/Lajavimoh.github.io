@@ -6,7 +6,7 @@
   <title>Product Management | Lajavi Mohite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,9 +15,9 @@
       --bg-2: #FFFFFF;
       --dark: #1E1B4B;
       --dark-2: #2D2962;
-      --teal: #5EEAD4;
-      --teal-light: #EAFBF7;
-      --teal-mid: #99F6E4;
+      --teal: var(--court);
+      --teal-light: color-mix(in oklch, var(--court) 12%, white);
+      --teal-mid: var(--court-glow);
       --text: #1E1B4B;
       --text-muted: #6B7280;
       --border: #E8E4F8;
@@ -72,10 +72,10 @@
       min-height: 88vh; display: grid; grid-template-rows: 1fr auto;
       padding: 140px 64px 64px; position: relative; overflow: hidden; background: var(--dark);
     }
-    .hero-glow { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(94,234,212,0.10) 0%, transparent 70%); top: -150px; right: -100px; pointer-events: none; }
+    .hero-glow { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgb(from var(--court) r g b / 0.10) 0%, transparent 70%); top: -150px; right: -100px; pointer-events: none; }
     .hero-tag {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(94,234,212,0.12); border: 1px solid rgba(94,234,212,0.28); color: var(--teal-mid);
+      background: rgb(from var(--court) r g b / 0.12); border: 1px solid rgb(from var(--court) r g b / 0.28); color: var(--teal-mid);
       padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 500;
       letter-spacing: 0.1em; text-transform: uppercase; width: fit-content; margin-bottom: 28px;
     }
@@ -129,7 +129,7 @@
     .label {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-      color: #0F766E; margin-bottom: 20px;
+      color: var(--court-deep); margin-bottom: 20px;
     }
     .label::before { content:''; width:20px; height:2px; background:currentColor; border-radius:2px; }
     section.dark .label, section.dark-2 .label { color: var(--teal-mid); }
@@ -138,7 +138,7 @@
       font-family: var(--syne); font-size: clamp(28px, 3.6vw, 48px);
       font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 20px;
     }
-    .h2 span { color: #0D9488; }
+    .h2 span { color: var(--court-deep); }
     section.dark .h2, section.dark-2 .h2 { color: #fff; }
     section.dark .h2 span, section.dark-2 .h2 span { color: var(--teal-mid); }
 
@@ -175,13 +175,13 @@
     .ia-nav-item:last-child { border-bottom: none; }
     .ia-nav-item.muted { color: #B4AFC7; text-decoration: line-through; font-size: 12px; padding-left: 16px; }
     .ia-nav-item.highlight { color: var(--dark); font-weight: 600; background: var(--teal-light); margin: 2px -14px; padding: 10px 14px; border-radius: 8px; border-bottom: none; }
-    .ia-arrow { font-family: var(--syne); font-size: 22px; color: #0D9488; flex-shrink: 0; }
+    .ia-arrow { font-family: var(--syne); font-size: 22px; color: var(--court-deep); flex-shrink: 0; }
 
     /* PRINCIPLES */
     .principles { margin-top: 48px; }
     .principle { display: grid; grid-template-columns: 60px 260px 1fr; gap: 32px; align-items: start; padding: 30px 0; border-bottom: 1px solid var(--border); }
     .principle:first-child { padding-top: 0; }
-    .pr-n { font-family: var(--syne); font-size: 12px; font-weight: 700; color: #0D9488; padding-top: 3px; letter-spacing: 0.08em; }
+    .pr-n { font-family: var(--syne); font-size: 12px; font-weight: 700; color: var(--court-deep); padding-top: 3px; letter-spacing: 0.08em; }
     .pr-title { font-family: var(--syne); font-size: 16px; font-weight: 600; line-height: 1.4; }
     .pr-desc { font-size: 14px; font-weight: 400; color: var(--text-muted); line-height: 1.8; }
 
@@ -210,7 +210,7 @@
 
     /* CLOSING (shared pattern) */
     .closing { background: var(--dark); padding: 160px 64px; text-align: center; position: relative; overflow: hidden; }
-    .c-glow { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, rgba(94,234,212,0.08) 0%, transparent 65%); left: 50%; top: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+    .c-glow { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, rgb(from var(--court) r g b / 0.08) 0%, transparent 65%); left: 50%; top: 50%; transform: translate(-50%,-50%); pointer-events: none; }
     .c-title { font-family: var(--syne); font-size: clamp(32px, 4.2vw, 54px); font-weight: 700; letter-spacing: -0.02em; color: #fff; line-height: 1.2; margin-bottom: 18px; position: relative; z-index: 2; }
     .c-title span { color: var(--teal-mid); }
     .c-sub { font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.6); max-width: 460px; margin: 0 auto 48px; position: relative; z-index: 2; }
@@ -220,12 +220,12 @@
       font-family: var(--poppins); font-size: 14px; font-weight: 600;
       text-decoration: none; border-radius: 100px; transition: all 0.3s; position: relative; z-index: 2;
     }
-    .btn-prim:hover { background: var(--teal-mid); transform: translateY(-2px); box-shadow: 0 12px 34px rgba(94,234,212,0.28); }
+    .btn-prim:hover { background: var(--teal-mid); transform: translateY(-2px); box-shadow: 0 12px 34px rgb(from var(--court) r g b / 0.28); }
     .project-switcher { display:flex; gap:16px; justify-content:center; margin-bottom:48px; position:relative; z-index:2; flex-wrap: wrap; }
     .ps-card { display:flex; align-items:center; gap:10px; padding:12px 20px; border-radius:12px; text-decoration:none; border:1px solid rgba(255,255,255,0.08); transition:all 0.25s; font-size:13px; font-weight:500; color:rgba(255,255,255,0.5); }
     .ps-card:hover { background:rgba(255,255,255,0.05); color:#fff; }
     .ps-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-    .ps-card.active { background:rgba(94,234,212,0.14); border-color:rgba(94,234,212,0.3); color:var(--teal-mid); }
+    .ps-card.active { background:rgb(from var(--court) r g b / 0.14); border-color:rgb(from var(--court) r g b / 0.3); color:var(--teal-mid); }
 
     .bottom { background: var(--dark-2); padding: 26px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
     .bottom a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
@@ -263,6 +263,8 @@
       .bottom { padding: 20px 24px; }
     }
   </style>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="case-study.css">
 </head>
 <body>
 
@@ -272,8 +274,13 @@
       <a href="index.html#work">Work</a>
       <a href="index.html#about">About</a>
       <a href="resume.html">Resume</a>
-      <a href="index.html#contact" class="nav-cta">Let's Talk</a>
     </div>
+    <div class="nav-right">
+      <a href="index.html#contact" class="nav-cta">Say Hi 👋</a>
+    </div>
+    <button class="nav-hamburger" type="button" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <nav class="section-nav" id="sectionNav">
@@ -514,10 +521,10 @@
     <div class="c-title fade-up">Designing for how small businesses <span>actually work</span></div>
     <p class="c-sub fade-up">Currently open to senior product design roles focused on practical, complex products.</p>
     <div class="project-switcher fade-up">
-      <a href="business-workspace.html" class="ps-card"><span class="ps-dot" style="background:#818CF8;box-shadow:0 0 8px #818CF8;"></span> Business Workspace</a>
-      <a href="smart-forms.html" class="ps-card"><span class="ps-dot" style="background:#FDA4AF;box-shadow:0 0 8px #FDA4AF;"></span> Smart Forms &times; CRM</a>
-      <a href="product-management.html" class="ps-card active"><span class="ps-dot" style="background:#5EEAD4;box-shadow:0 0 8px #5EEAD4;"></span> Product Management</a>
-      <a href="apex-ds-portfolio.html" class="ps-card"><span class="ps-dot" style="background:#FCD34D;box-shadow:0 0 8px #FCD34D;"></span> APEX Lift</a>
+      <a href="business-workspace.html" class="ps-card"><span class="ps-dot" style="background:var(--court);box-shadow:0 0 8px var(--court);"></span> Business Workspace</a>
+      <a href="smart-forms.html" class="ps-card"><span class="ps-dot" style="background:var(--court);box-shadow:0 0 8px var(--court);"></span> Smart Forms &times; CRM</a>
+      <a href="product-management.html" class="ps-card active"><span class="ps-dot" style="background:var(--court);box-shadow:0 0 8px var(--court);"></span> Product Management</a>
+      <a href="apex-ds-portfolio.html" class="ps-card"><span class="ps-dot" style="background:var(--court);box-shadow:0 0 8px var(--court);"></span> APEX Lift</a>
     </div>
     <a href="index.html#contact" class="btn-prim fade-up">Get in touch &#8594;</a>
   </div>
@@ -563,5 +570,6 @@
     })();
   </script>
 
+  <script src="nav-scroll.js" defer></script>
 </body>
 </html>

@@ -6,7 +6,7 @@
   <title>Contact | Lajavi Mohite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -147,6 +147,7 @@
       footer { padding: 24px; flex-direction: column; align-items: flex-start; }
     }
   </style>
+  <link rel="stylesheet" href="theme.css">
 </head>
 <body>
 
@@ -155,9 +156,14 @@
     <div class="nav-links">
       <a href="index.html#work">Work</a>
       <a href="index.html#about">About</a>
-      <a href="contact.html" class="active">Let's Talk</a>
-      <a href="resume.html" class="nav-cta">Resume</a>
+      <a href="resume.html">Resume</a>
     </div>
+    <div class="nav-right">
+      <a href="contact.html" class="nav-cta active">Say Hi 👋</a>
+    </div>
+    <button class="nav-hamburger" type="button" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- PAGE HEADER -->
@@ -259,5 +265,6 @@
       els.forEach(function(el){ io.observe(el); });
     })();
   </script>
+  <script src="nav-scroll.js" defer></script>
 </body>
 </html>

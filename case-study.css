@@ -1,0 +1,303 @@
+/* ==========================================================================
+   Case-study theme layer — light/airy OKLCH system for the three project
+   detail pages (business-workspace.html, smart-forms.html,
+   product-management.html) ONLY. Loaded after theme.css so it wins the
+   cascade on shared selectors without touching page markup/DOM. Scoped to
+   these three pages by simply not being linked anywhere else — homepage,
+   resume, contact and apex-ds-portfolio keep the existing court-blue /
+   Bricolage Grotesque system untouched.
+
+   Design intent: the hero stays one bold "feature panel" gradient moment
+   (per spec); everything else — stat blocks, persona cards, reflection
+   cards, the closing CTA, the footer project switcher — moves to a light,
+   airy, predominantly-white surface with a single restrained blue accent.
+   ========================================================================== */
+
+:root {
+  /* ---- fallback hex layer (used only if the browser can't parse oklch()
+     — the oklch declarations below simply overwrite these where supported,
+     since an invalid value in a custom property leaves the prior one in
+     place) ---- */
+  --court: #3E82E8;
+  --court-deep: #2A4E8C;
+  --court-glow: #8FC0F2;
+  --ink: #17151F;
+  --muted: #6B6E7A;
+  --bg: #FFFFFF;
+  --border: #D8D9E0;
+  --case-surface: #FBFBFC;
+  --soft-surface: #EEF0F7;
+  --case-border: #DCDFEC;
+
+  /* ---- oklch layer (source of truth) ---- */
+  --court: oklch(62% 0.18 245);
+  --court-deep: oklch(42% 0.14 248);
+  --court-glow: oklch(78% 0.14 235);
+  --ink: oklch(14% 0.02 250);
+  --muted: oklch(45% 0.02 250);
+  --bg: oklch(100% 0 0);
+  --border: oklch(88% 0.01 250);
+  --case-surface: oklch(98.5% 0.004 250);
+  --soft-surface: oklch(95.5% 0.014 245);
+  --case-border: oklch(89% 0.018 245);
+  --focus-ring: oklch(62% 0.18 245);
+
+  --radius: 0.625rem;
+  --radius-lg: 1.5rem;
+
+  /* ---- gradients ---- */
+  --gradient-hero: linear-gradient(to right bottom,
+    oklch(0.58 0.16 240) 0%, oklch(0.42 0.16 245) 50%, oklch(0.24 0.1 252) 100%);
+  --gradient-page-wash:
+    radial-gradient(circle at 50% 0%, oklch(0.93 0.038 244 / 0.95), transparent 42%),
+    linear-gradient(oklch(0.992 0.002 250) 0%, oklch(0.985 0.004 250) 48%, oklch(0.965 0.01 245) 100%);
+  --gradient-glow: radial-gradient(60% 55% at 50% 45%, oklch(0.62 0.19 245 / 0.55), transparent 70%);
+  --gradient-section-wash:
+    radial-gradient(circle at 18% 0%, oklch(0.88 0.06 244 / 0.68), transparent 34%),
+    radial-gradient(circle at 82% 18%, oklch(0.96 0.026 225 / 0.8), transparent 36%),
+    linear-gradient(oklch(0.955 0.014 245) 0%, oklch(0.985 0.004 250) 100%);
+
+  --shadow-card: 0 1px 3px rgba(20,20,30,0.05), 0 8px 24px rgba(20,20,30,0.04);
+  --shadow-card-hover: 0 4px 10px rgba(20,20,30,0.06), 0 16px 36px rgba(20,20,30,0.07);
+
+  /* legacy aliases used throughout each page's own CSS */
+  --text: var(--ink);
+  --text-muted: var(--muted);
+}
+
+/* ==========================================================================
+   Fonts — Inter for headings/body (overrides the sitewide Bricolage
+   Grotesque alias for these 3 pages only), Geist Mono for eyebrows/labels
+   ========================================================================== */
+
+:root {
+  /* headings stay on Bricolage Grotesque (theme.css's sitewide --syne alias,
+     left un-overridden here) to match apex-ds-portfolio.html and the rest
+     of the site — these 3 pages previously forced Inter on headings too,
+     which is what made them inconsistent with apex */
+  --mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+}
+
+body { background: var(--gradient-page-wash); background-attachment: fixed; }
+
+.hero-title, .h2, .c-title, .stat-n, .impact-n, .p-num, .j-role,
+.pc-title, .about-h, .testi-name, .beta-title {
+  font-family: var(--syne);
+  letter-spacing: -0.025em;
+}
+
+.label, .hero-tag, .hero-meta-label, .sn-label, .stat-label,
+.gallery-label, .pc-tag, .p-tag, .screen-step,
+.impact-card-label, .pr-n {
+  font-family: var(--mono);
+  letter-spacing: 0.1em;
+}
+
+/* small uppercase eyebrow/label text needs the darker accent for AA contrast
+   at this size — --court alone (oklch 62%) only clears ~3.5:1 on white,
+   short of the 4.5:1 small-text threshold */
+.label, .p-tag, .pr-n, .screen-step {
+  color: var(--court-deep) !important;
+}
+.label::before { background: var(--court-deep) !important; }
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Hero — plain flat blue, no gradient, no glow (matches product-management
+   / apex-ds-portfolio.html). A single flat colour also means contrast is
+   guaranteed everywhere without needing a scrim, unlike the earlier
+   gradient version.
+   ========================================================================== */
+
+.hero {
+  background: var(--court-deep) !important;
+  position: relative;
+}
+/* .hero-glow/.hero-glow-2/.hero-glow2 (each page's own radial accent blobs)
+   are hidden sitewide in theme.css.
+   .scroll-hint is already position:absolute in each page's own CSS, so it
+   already stacks above the scrim without needing position:relative here —
+   adding it would silently override its absolute corner placement */
+.hero-content, .hero-meta-row, .hero-visual-row {
+  position: relative;
+  z-index: 2;
+}
+.scroll-hint { z-index: 2; }
+
+.hero-tag {
+  background: oklch(100% 0 0 / 0.12) !important;
+  border: 1px solid oklch(100% 0 0 / 0.25) !important;
+  color: oklch(100% 0 0 / 0.95) !important;
+}
+.hero-tag::before { background: var(--court-glow) !important; box-shadow: 0 0 10px var(--court-glow); }
+
+.hero-title { color: #fff; }
+/* plain flat accent colour, matching product-management/apex — no glow */
+.hero-title .blue, .hero-title .bright {
+  color: var(--court-glow);
+}
+.hero-desc { color: oklch(100% 0 0 / 0.9) !important; }
+
+.hero-meta-row { border-top-color: oklch(100% 0 0 / 0.25) !important; }
+.hero-meta-label { color: oklch(100% 0 0 / 0.88) !important; }
+.hero-meta-value { color: oklch(100% 0 0 / 0.98) !important; }
+
+/* ==========================================================================
+   Everything below the hero — light, airy surfaces
+   ========================================================================== */
+
+section.dark, section.dark-2, .stats-bar, .mobile-strip, .video-section,
+.cps, .bottom, .gallery-section {
+  background: var(--gradient-section-wash) !important;
+  color: var(--ink) !important;
+}
+.closing {
+  background: var(--gradient-page-wash) !important;
+  position: relative;
+  color: var(--ink) !important;
+}
+.closing::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--gradient-glow);
+  opacity: 0.22;
+  pointer-events: none;
+}
+.closing > * { position: relative; z-index: 2; }
+
+section.dark .h2, section.dark-2 .h2, .closing .c-title { color: var(--ink) !important; }
+section.dark .h2 span, section.dark-2 .h2 span, .closing .c-title span { color: var(--court) !important; }
+section.dark .body-text, section.dark-2 .body-text, .closing .c-sub { color: var(--muted) !important; }
+section.dark .label, section.dark-2 .label { color: var(--court-deep) !important; }
+section.dark .label::before, section.dark-2 .label::before { background: var(--court-deep) !important; }
+
+.stat-n, .impact-n { color: var(--court-deep); }
+.stat-label { color: var(--muted) !important; }
+.stat { border-right-color: var(--case-border) !important; }
+.stats-bar { border-top: 1px solid var(--case-border) !important; border-bottom: 1px solid var(--case-border) !important; }
+
+.scroll-hint { color: var(--muted) !important; }
+.scroll-hint::after { background: var(--case-border) !important; }
+
+.mobile-strip-desc, .video-caption, .g2-cap, .screen-desc, .cps-caption,
+.evidence-caption, .testing-evidence-caption, .gallery-label,
+.mobile-strip-cap, .beta-text, .idc-desc, .l-text, .pair-title {
+  color: var(--muted) !important;
+}
+.compare-tag { color: var(--court-deep) !important; background: var(--soft-surface) !important; border-color: var(--case-border) !important; }
+.compare-cap { color: var(--muted) !important; }
+.beta-title, .screen-title { color: var(--ink) !important; }
+.l-text strong { color: var(--ink) !important; }
+.testing-evidence, .dual-shots img, .cps-mobile img { border-color: var(--case-border) !important; }
+.on-dark { color: var(--ink) !important; border-bottom-color: var(--case-border) !important; }
+
+/* frosted "card on dark" surfaces become proper light cards */
+.pair-card, .learning, .insight-dark-card {
+  background: var(--case-surface) !important;
+  border: 1px solid var(--case-border) !important;
+  box-shadow: var(--shadow-card);
+}
+
+/* ==========================================================================
+   Pill / chip badges — light tinted fill + accent dot
+   ========================================================================== */
+
+.p-tag, .compare-tag, .pc-tag {
+  background: var(--soft-surface);
+  border: 1px solid var(--case-border);
+  color: var(--court-deep);
+}
+
+/* ==========================================================================
+   Stat / impact blocks — white cards, soft shadow, accent numbers
+   ========================================================================== */
+
+.impact-card {
+  background: var(--case-surface) !important;
+  border: 1px solid var(--case-border) !important;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+.impact-card::before { background: linear-gradient(90deg, var(--court), var(--court-glow)) !important; }
+.impact-card-label { color: var(--court-deep) !important; }
+
+/* ==========================================================================
+   Persona cards — light surface, accent numbering
+   ========================================================================== */
+
+.persona {
+  background: var(--case-surface) !important;
+  border: 1px solid var(--case-border) !important;
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-lg);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.persona:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-3px); }
+.persona::before { background: var(--court) !important; }
+.p-num { color: var(--soft-surface); -webkit-text-stroke: 1px var(--case-border); }
+.p-quote { border-left-color: var(--court-glow) !important; color: var(--muted) !important; }
+
+/* ==========================================================================
+   Reflection / learning cards (with emoji) — light surface, subtle shadow
+   ========================================================================== */
+
+.learning {
+  border-radius: var(--radius-lg) !important;
+}
+.learning:hover, .persona:hover, .reason-card:hover, .principle-card:hover,
+.decision-block:hover {
+  box-shadow: var(--shadow-card-hover) !important;
+}
+
+/* ==========================================================================
+   Footer project-switcher nav — light styling, accent hover
+   ========================================================================== */
+
+.bottom { border-top: 1px solid var(--case-border) !important; }
+.bottom a { color: var(--muted) !important; }
+.bottom a:hover { color: var(--court-deep) !important; }
+.ps-card {
+  border: 1px solid var(--case-border) !important;
+  color: var(--muted) !important;
+  background: var(--case-surface);
+}
+.ps-card:hover { background: var(--soft-surface) !important; color: var(--ink) !important; border-color: var(--court-glow) !important; }
+.ps-card.active {
+  background: var(--soft-surface) !important;
+  border-color: var(--court) !important;
+  color: var(--court-deep) !important;
+}
+
+/* ==========================================================================
+   Buttons — recolor to the case-study accent, keep pill shape
+   ========================================================================== */
+
+.btn-prim { background: var(--court) !important; }
+.btn-prim:hover { background: var(--court-deep) !important; box-shadow: 0 12px 32px oklch(62% 0.18 245 / 0.28) !important; }
+.btn-sec {
+  color: var(--ink) !important;
+  border-color: var(--case-border) !important;
+}
+.btn-sec:hover { border-color: var(--court) !important; color: var(--court-deep) !important; }
+.btn-white { background: var(--ink) !important; color: #fff !important; }
+.btn-white:hover { background: var(--court-deep) !important; }
+.btn-ghost { color: var(--muted) !important; border-color: var(--case-border) !important; }
+.btn-ghost:hover { color: var(--ink) !important; border-color: var(--court) !important; }
+
+/* ==========================================================================
+   Section-nav scrollspy sidebar — light, unchanged position/structure
+   ========================================================================== */
+
+.section-nav { background: oklch(100% 0 0 / 0.9) !important; border-color: var(--case-border) !important; }
+.section-nav a.active .sn-line { background: var(--court) !important; }
+.section-nav a.active .sn-label { color: var(--court-deep) !important; }
+
+/* nav pill (from theme.css) sits on a light page throughout — no change needed */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before, .closing::before { display: none; }
+}

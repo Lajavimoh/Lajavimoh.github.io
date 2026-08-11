@@ -6,7 +6,7 @@
   <title>Lajavi Mohite | Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -52,8 +52,8 @@
 
     .hero-title {
       font-family: var(--syne);
-      font-size: clamp(48px, 7vw, 96px);
-      font-weight: 800;
+      font-size: clamp(56px, 7vw, 100px);
+      font-weight: 500;
       line-height: 0.95;
       letter-spacing: -0.04em;
       color: var(--text);
@@ -61,22 +61,30 @@
     }
     .hero-title .dim { color: rgba(0,0,0,0.18); }
 
-
-    .hero-footer {
+    .hero-grid {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 64px;
-      align-items: start;
+      grid-template-areas:
+        "status visual"
+        "title  visual"
+        "footer visual";
+      column-gap: 24px;
+      align-items: center;
     }
+    .hero-status { grid-area: status; }
+    .hero-title { grid-area: title; }
+    .hero-visual { grid-area: visual; align-self: center; justify-self: end; }
+    .hero-avatar { display: block; width: 100%; height: auto; aspect-ratio: 1080/720; object-fit: cover; object-position: center 52%; max-width: 460px; }
+
+    .hero-footer { grid-area: footer; }
     .hero-tagline {
       font-size: clamp(16px, 1.6vw, 19px);
-      font-weight: 700;
+      font-weight: 400;
       color: var(--text);
       line-height: 1.6;
       max-width: 480px;
     }
     .hero-tagline em { color: var(--text); font-style: normal; }
-    .hero-ctas { display: flex; gap: 12px; flex-direction: column; align-items: flex-end; }
 
     /* HERO SKILLS ROW */
     .hero-skills {
@@ -311,8 +319,16 @@
       .nav-links a:not(.nav-cta) { display: none; }
       .hero { padding: 120px 24px 80px; }
       .hero-skills { gap: 6px; }
-      .hero-footer { grid-template-columns: 1fr; gap: 28px; }
-      .hero-ctas { flex-direction: row; align-items: flex-start; }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "visual"
+          "status"
+          "title"
+          "footer";
+      }
+      .hero-visual { margin: 0 0 24px; justify-self: start; }
+      .hero-avatar { max-width: 320px; }
       .work, .about, .testimonials, .cta-section, .tools { padding: 72px 24px; }
       .project-card { grid-template-columns: 1fr; min-height: auto; }
       .project-card.reverse { direction: ltr; }
@@ -326,6 +342,7 @@
       footer { padding: 24px; flex-direction: column; align-items: flex-start; }
     }
   </style>
+  <link rel="stylesheet" href="theme.css">
 </head>
 <body>
 
@@ -335,29 +352,43 @@
       <a href="#work">Work</a>
       <a href="#about">About</a>
       <a href="resume.html" id="nav-resume-link">Resume</a>
-      <a href="#contact" class="nav-cta">Let's Talk</a>
     </div>
+    <div class="nav-right">
+      <a href="#contact" class="nav-cta">Say Hi 👋</a>
+    </div>
+    <button class="nav-hamburger" type="button" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-status fade-up">
-      <span class="status-dot"></span>
-      <span class="status-text">Germany-based, open to remote &amp; hybrid roles across Europe.</span>
-    </div>
-    <h1 class="hero-title fade-up">
-      Lajavi Mohite<br>
-      <span class="dim">Product Designer</span>
-    </h1>
-    <div class="hero-footer fade-up">
-      <div>
+    <div class="hero-grid">
+      <div class="hero-status fade-up">
+        <span class="status-dot"></span>
+        <span class="status-text">Germany-based, open to remote &amp; hybrid roles across Europe.</span>
+      </div>
+      <h1 class="hero-title fade-up">
+        Lajavi Mohite<br>
+        <span class="dim">Product Designer</span>
+      </h1>
+      <div class="hero-visual fade-up">
+        <video
+          class="hero-avatar"
+          src="video_herorow.mp4"
+          muted
+          loop
+          playsinline
+          preload="auto"
+          aria-label="Lajavi's avatar working at her desk, then looking up to wave hello"
+          width="1080"
+          height="1920"
+        ></video>
+      </div>
+      <div class="hero-footer fade-up">
         <p class="hero-tagline">
           I love making complex products <em>feel simple</em>, so people can focus on what really matters.
         </p>
-      </div>
-      <div class="hero-ctas">
-        <a href="#work" class="btn-dark">View work &darr;</a>
-        <a href="#contact" class="btn-outline">Let's talk</a>
       </div>
     </div>
   </section>
@@ -415,7 +446,7 @@
           </div>
           <div class="pc-bottom">
             <div class="pc-meta">Jimdo &middot; Shipped<br>Senior Product Designer</div>
-            <div class="pc-arrow" style="background:#14B8A6;">&nearr;</div>
+            <div class="pc-arrow">&nearr;</div>
           </div>
         </div>
         <div class="pc-visual teal-bg">
@@ -434,7 +465,7 @@
           </div>
           <div class="pc-bottom">
             <div class="pc-meta">Personal &middot; 2025<br>Design Systems</div>
-            <div class="pc-arrow" style="background:var(--emerald);">&nearr;</div>
+            <div class="pc-arrow">&nearr;</div>
           </div>
         </div>
         <div class="pc-visual" style="background:#080A0F; overflow:hidden; position:relative; min-height:280px;">
@@ -707,6 +738,16 @@
         if(p){ var s=p.querySelectorAll('.fade-up'); s.forEach(function(x,i){ x.style.transitionDelay=(i*0.1)+'s'; }); }
         io.observe(el);
       });
+    })();
+  </script>
+  <script src="nav-scroll.js" defer></script>
+  <script>
+(function(){
+      var avatar = document.querySelector('.hero-avatar');
+      if (!avatar) return;
+      if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+        avatar.play();
+      }
     })();
   </script>
 </body>
