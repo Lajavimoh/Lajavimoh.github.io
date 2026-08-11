@@ -151,17 +151,25 @@ body { font-weight: 400; }
 .hero:has(.hero-tagline) .hero-tagline,
 .hero:has(.hero-tagline) .hero-tagline em { color: #fff; }
 
-/* feather the video's edge to true transparency. Applied to .hero-visual
-   (the plain-div wrapper) rather than the <video> element itself — masking
-   a <video> directly no-ops in some browsers because video gets its own
-   hardware-composited layer that doesn't reliably honour a mask on itself,
-   but the video still has to be composited inside its parent's masked
-   shape, so masking the wrapper sidesteps that. Same rule for mobile and
-   desktop (not split by any @media query); percentage-based radial-gradient
-   stops so the fade zone scales with box size. */
+/* mask-image on the video (and on its wrapper) came back completely crisp
+   on desktop — no fade at all — which means this browser isn't applying
+   CSS masks to the video's content, most likely because it's decoded
+   through a hardware-accelerated overlay path that sits outside the
+   browser's normal compositing/masking pipeline. A mask can't touch pixels
+   it doesn't own, so instead: a plain, ordinary pseudo-element painted on
+   top of the video with a matching-colour gradient — opaque DOM paint, not
+   a mask or filter on the video itself, so it doesn't depend on the video's
+   own compositing behaviour at all. */
 .hero:has(.hero-tagline) .hero-visual {
-  -webkit-mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, #000 78%, transparent 100%);
-  mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, #000 78%, transparent 100%);
+  position: relative;
+}
+.hero:has(.hero-tagline) .hero-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 92% 92% at 50% 50%,
+    transparent 74%, var(--hero-video-bg) 100%);
 }
 
 /* ==========================================================================
