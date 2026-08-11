@@ -125,10 +125,11 @@ body { font-weight: 400; }
 
 .hero:has(.hero-tagline) {
   /* matched to the hero video's own baked-in background (not --court-deep)
-     so the video's edge disappears instead of showing as a seam — sampled
-     directly from the live video with the browser DevTools eyedropper,
-     since headless/software video decode renders slightly differently */
-  background: #02589f;
+     so the video's edge disappears instead of showing as a seam. Re-sampled
+     from the actual video file via macOS's native AVFoundation decoder
+     (same decode family as iOS/Safari) — the previous #02589f was visibly
+     lighter than the real frame colour, showing as a seam on mobile. */
+  background: #004e94;
   position: relative;
   max-width: none;
   width: 100%;
