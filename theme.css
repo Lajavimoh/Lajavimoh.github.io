@@ -40,6 +40,11 @@
   --dark: oklch(16% 0.03 265);
   --dark-2: oklch(22% 0.03 265);
 
+  /* very light neutral panel — homepage sections (tools, kind-words cards,
+     work-section backdrop) that need to sit a shade off the page background
+     without reading as the heavier --muted grey used for form fields etc */
+  --panel: oklch(97.5% 0.004 250);
+
   /* ---- legacy variable aliases: every page already references these
      names throughout its CSS, so redefining them here reskins the whole
      site without editing each page's rules individually ---- */
@@ -91,6 +96,8 @@
     --teal-mid: color-mix(in srgb, var(--court) 48%, var(--cream));
     --accent-light: color-mix(in srgb, var(--court) 22%, var(--cream));
     --accent-mid: color-mix(in srgb, var(--court) 48%, var(--cream));
+
+    --panel: oklch(23% 0.015 260);
   }
 
   body { background: var(--cream); }
@@ -350,6 +357,22 @@ nav:not(.section-nav).menu-open .nav-hamburger span:nth-child(3) { transform: tr
 .btn-dark { background: #fff; color: var(--ink); }
 
 /* ==========================================================================
+   Footer — was a flat, desaturated navy (--dark-2) that read as off-brand
+   next to the vivid court-blue hero/CTA elsewhere on the page. Same fixed
+   dark family, but graded toward --court-deep so it ties back into the
+   site's actual blue accent instead of sitting apart from it.
+   ========================================================================== */
+
+footer { background: linear-gradient(135deg, var(--court-deep) 0%, var(--dark) 100%); }
+
+/* contact.html's "Send Message" button had the same flat, off-brand navy
+   (--dark) as the footer used to — same gradient fix so it reads as the
+   site's blue rather than an unrelated near-black. */
+.btn-submit, .form-submit {
+  background: linear-gradient(135deg, var(--court-deep) 0%, var(--dark) 100%);
+}
+
+/* ==========================================================================
    Project cards — unified single-accent (court blue) media + tag treatment
    ========================================================================== */
 
@@ -357,7 +380,16 @@ nav:not(.section-nav).menu-open .nav-hamburger span:nth-child(3) { transform: tr
 .pc-content.violet-tint,
 .pc-content.teal-tint,
 .pc-content.green-tint {
-  background: color-mix(in srgb, var(--court) 6%, var(--cream));
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--court) 16%, var(--cream)) 0%,
+    color-mix(in srgb, var(--court) 4%, var(--cream)) 100%);
+}
+
+/* homepage-only: "Projects I'm proud of" backdrop, tools/technologies strip,
+   and testimonial cards all sit a shade off the page background — unified
+   on one very light grey instead of the heavier --muted tone */
+.work, .tools, .testi-card {
+  background: var(--panel);
 }
 .pc-tag.blue, .pc-tag.violet, .pc-tag.teal, .pc-tag.green {
   color: var(--court-deep);

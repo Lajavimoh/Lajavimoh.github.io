@@ -190,7 +190,7 @@ section.dark .label::before, section.dark-2 .label::before { background: var(--c
 }
 .compare-tag { color: var(--court-deep) !important; background: var(--soft-surface) !important; border-color: var(--case-border) !important; }
 .compare-cap { color: var(--muted) !important; }
-.beta-title, .screen-title { color: var(--ink) !important; }
+.beta-title, .screen-title, .idc-title { color: var(--ink) !important; }
 .l-text strong { color: var(--ink) !important; }
 .testing-evidence, .dual-shots img, .cps-mobile img { border-color: var(--case-border) !important; }
 .on-dark { color: var(--ink) !important; border-bottom-color: var(--case-border) !important; }
