@@ -124,12 +124,14 @@ body { font-weight: 400; }
    ========================================================================== */
 
 .hero:has(.hero-tagline) {
-  /* matched to the hero video's own baked-in background (not --court-deep)
-     so the video's edge disappears instead of showing as a seam. Re-sampled
-     from the actual video file via macOS's native AVFoundation decoder
-     (same decode family as iOS/Safari) — the previous #02589f was visibly
-     lighter than the real frame colour, showing as a seam on mobile. */
-  background: #004e94;
+  /* close to the hero video's own baked-in background (not --court-deep),
+     but video decode colour isn't reliably consistent across browsers/OSes
+     (each applies its own colour management to the compressed frame), so no
+     single hex can guarantee a pixel-perfect match everywhere — see the
+     feathered .hero-avatar shadow below, which is what actually hides the
+     seam regardless of device. */
+  --hero-video-bg: #004e94;
+  background: var(--hero-video-bg);
   position: relative;
   max-width: none;
   width: 100%;
@@ -148,6 +150,15 @@ body { font-weight: 400; }
 .hero:has(.hero-tagline) .hero-title .dim { color: oklch(100% 0 0 / 0.6); }
 .hero:has(.hero-tagline) .hero-tagline,
 .hero:has(.hero-tagline) .hero-tagline em { color: #fff; }
+
+/* feather the video's own edge into the section background instead of
+   relying on an exact colour match — an inward blurred shadow in the same
+   colour as the section guarantees the outermost pixels always agree with
+   the page, so any residual video-decode colour drift fades out gradually
+   instead of showing as a hard seam */
+.hero:has(.hero-tagline) .hero-avatar {
+  box-shadow: inset 0 0 34px 14px var(--hero-video-bg);
+}
 
 /* ==========================================================================
    Nav — three zones (logo / centered links / right-aligned CTA), full-width
