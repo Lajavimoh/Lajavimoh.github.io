@@ -151,11 +151,15 @@ body { font-weight: 400; }
 .hero:has(.hero-tagline) .hero-tagline,
 .hero:has(.hero-tagline) .hero-tagline em { color: #fff; }
 
-/* feather the video's own edge to true transparency, same rule for mobile
-   and desktop (not split by any @media query) so both breakpoints get the
-   identical fade. Percentage-based radial-gradient stops so the fade zone
-   scales with the box instead of eating a fixed px band. */
-.hero:has(.hero-tagline) .hero-avatar {
+/* feather the video's edge to true transparency. Applied to .hero-visual
+   (the plain-div wrapper) rather than the <video> element itself — masking
+   a <video> directly no-ops in some browsers because video gets its own
+   hardware-composited layer that doesn't reliably honour a mask on itself,
+   but the video still has to be composited inside its parent's masked
+   shape, so masking the wrapper sidesteps that. Same rule for mobile and
+   desktop (not split by any @media query); percentage-based radial-gradient
+   stops so the fade zone scales with box size. */
+.hero:has(.hero-tagline) .hero-visual {
   -webkit-mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, #000 78%, transparent 100%);
   mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, #000 78%, transparent 100%);
 }
