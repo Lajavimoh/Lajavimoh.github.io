@@ -37,6 +37,10 @@
       padding: 180px 64px 120px;
       max-width: 1200px;
       margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .hero-status {
       display: inline-flex; align-items: center; gap: 9px;
@@ -317,7 +321,7 @@
     @media (max-width: 900px) {
       nav { padding: 18px 24px; }
       .nav-links a:not(.nav-cta) { display: none; }
-      .hero { padding: 120px 24px 80px; }
+      .hero { padding: 120px 24px 80px; min-height: auto; display: block; }
       .hero-skills { gap: 6px; }
       .hero-grid {
         grid-template-columns: 1fr;
