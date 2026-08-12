@@ -124,14 +124,7 @@ body { font-weight: 400; }
    ========================================================================== */
 
 .hero:has(.hero-tagline) {
-  /* close to the hero video's own baked-in background (not --court-deep),
-     but video decode colour isn't reliably consistent across browsers/OSes
-     (each applies its own colour management to the compressed frame), so no
-     single hex can guarantee a pixel-perfect match everywhere — see the
-     feathered .hero-avatar shadow below, which is what actually hides the
-     seam regardless of device. */
-  --hero-video-bg: #004e94;
-  background: var(--hero-video-bg);
+  background: var(--court-deep);
   position: relative;
   max-width: none;
   width: 100%;
@@ -150,28 +143,6 @@ body { font-weight: 400; }
 .hero:has(.hero-tagline) .hero-title .dim { color: oklch(100% 0 0 / 0.6); }
 .hero:has(.hero-tagline) .hero-tagline,
 .hero:has(.hero-tagline) .hero-tagline em { color: #fff; }
-
-/* Desktop/laptop (>900px) now loads video_desktop.mp4 (plain white
-   background, via a <source media="(min-width:901px)"> in the markup) —
-   video_herorow.mp4's blue background couldn't be reliably colour-matched
-   or masked/feathered on desktop (multiple approaches all came back with a
-   crisp, unfaded edge — see git history), so desktop just shows the white
-   background as-is rather than fighting it. Mobile keeps the original
-   colour-matched video and its blend treatment below, scoped so it doesn't
-   apply to desktop's white video. */
-.hero:has(.hero-tagline) .hero-visual {
-  position: relative;
-}
-@media (max-width: 900px) {
-  .hero:has(.hero-tagline) .hero-visual::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(ellipse 92% 92% at 50% 50%,
-      transparent 74%, var(--hero-video-bg) 100%);
-  }
-}
 
 /* ==========================================================================
    Nav — three zones (logo / centered links / right-aligned CTA), full-width

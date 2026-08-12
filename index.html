@@ -78,7 +78,7 @@
     .hero-status { grid-area: status; }
     .hero-title { grid-area: title; }
     .hero-visual { grid-area: visual; align-self: center; justify-self: end; }
-    .hero-avatar { display: block; width: 100%; height: auto; aspect-ratio: 1080/720; object-fit: cover; object-position: center 52%; max-width: 460px; }
+    .hero-avatar { display: block; width: 100%; height: auto; aspect-ratio: 1080/720; object-fit: contain; object-position: center 52%; max-width: 460px; }
 
     .hero-footer { grid-area: footer; }
     .hero-tagline {
@@ -318,8 +318,7 @@
     .fade-up.in { opacity:1; transform:none; }
 
     /* DESKTOP/LAPTOP — rounded frame + slightly smaller, to match the
-       rounded-card language used elsewhere (project cards, about photo) now
-       that this shows the plain white-background video_desktop.mp4 */
+       rounded-card language used elsewhere (project cards, about photo) */
     @media (min-width: 901px) {
       .hero-avatar { max-width: 400px; border-radius: 20px; }
     }
@@ -386,17 +385,15 @@
       <div class="hero-visual fade-up">
         <video
           class="hero-avatar"
+          src="videos/lajavi-hero-bluekey-transparent.webm"
           muted
           loop
           playsinline
           preload="auto"
           aria-label="Lajavi's avatar working at her desk, then looking up to wave hello"
-          width="1080"
-          height="1920"
-        >
-          <source src="video_desktop.mp4" media="(min-width: 901px)">
-          <source src="video_herorow.mp4">
-        </video>
+          width="1620"
+          height="1080"
+        ></video>
       </div>
       <div class="hero-footer fade-up">
         <p class="hero-tagline">
